@@ -1,0 +1,94 @@
+The observation in Proposition \ref{entropy} motivates us to look more closely into what type of
+properties do we expect from a population diversity measure in the
+case where an organism is assigned a probability distribution
+over species. In the measure we propose above, if a distribution is
+identical with the observer's prior distribution, then it gets zero
+weight, and so has no impact on the diversity. This makes sense for
+text, because we evaluate only the information it conveys. Think of
+words, that play a mainly syntactic role (instead of semantic) in a
+sentence. Our estimation of sentence diversity intuitively should not
+depend on whether a given language has more syntactic words than
+other. However, in
+the case of a population of organisms, for example, we can think of
+the distributions not as probabilities, but as proportions. In this
+case, let us imagine a diverse population of 10 organisms, measured
+against a uniform prior over species. If we were to add 90 organisms
+with uniform distribution assigned to each, how should this change the
+perceived diversity of the population? One way of looking at this is
+that now 90\% of the organisms have identical characteristics, which
+ought to indicate low diversity. We will now present an alteration of
+our diversity measure that accomodates this intuition. For
+consistency, let us keep the notation from the previous definitions,
+although the word analogy may be less appropriate here. We will once
+again try to encode the set $S=\{P_{w_1},...,P_{w_k}\}$, with respect
+to a prior $P$. For simplicity, suppose that $\{w_1,...,w_k\}$ is a
+binary code. Once again, we refer to the observation that encoding the
+information in $P_{w_i}$ requires $D_{w_i}$, which means the
+hypothetical corresponding code would contain $2^{D_{w_i}}$ words 
+(ignoring the non-integrality of $D_{w_i}$). Denote the set of those
+words as $V_{ij}=\{v_{i1},...,v_{il_i}\}$. As the complete code, then,
+we will use $C=\{w_iv_{ij}|\ 1\leq i\leq k,\ 1\leq j\leq l_i\}$. Like
+before, we can now describe an instantiation of the information source
+model for the general Jensen-Shannon divergence. It will simply draw a
+random word $u$ from $C$ uniformly, and then draw a topic from the
+distribution $P_{w_i}$, where $w_i$ is a prefix of $u$. This
+corresponds to using diversity as in Definition \ref{diversity}, but
+with the weights  defined as
+\[d'_{w_i}=\frac{2^{D_{w_i}}}{\sum_{j=1}^k2^{D_{w_j}}}.\]
+We will call this the Jensen-Shannon Population Diversity. Notice,
+that in this case all of the elements in the population will have
+non-zero weights, no matter what their distribution is. This
+definition also has some other nice properties when applied to
+standard fixed-assignment populations. 
+
+To present them, we will first
+discuss a generative population model that incorporates the concept of
+a prior species distribution. Suppose we want to measure the diversity
+of a population $S$ within a larger universe $U$ of organisms assigned
+species from the set $T$. We will assume that $S$ was generated from
+$U$ as follows: We draw an element $u$ uniformly from $U$. Let $t\in
+T$ be the species assignment for $u$. Next, we choose to add $u$ to
+$S$ with probability $p_{S,t}$ (depending only on the species
+assignment of $u$). For the diversity analysis, we will assume that
+size of the population is large enough that it's species
+distribution is has converged to the limit, and that the universe is
+large enough (compared to the population) that sampling does not
+noticeably affect its species distribution. We will now postulate
+the following general properties that a diversity measure
+should have in this model:
+\begin{enumerate}
+\item Given a fixed set of probabilities $p_{S,t}$ for the generative
+  process, the population diversity does not depend on the species
+  distribution of the universe.
+\item If the species distribution of the universe is uniform, then we can
+  revert to a standard model of population diversity. In our case, we
+  will use Shannon entropy.
+\end{enumerate}
+
+\ber
+A population that is uniformly sampled from the universe has
+  highest diversity. 
+\eer
+This is a simple consequence of the two properties. In fact, we can
+say something much more precise.
+
+\bep
+Let $S$ be a population sampled within universe $U$, where $P_S$ and
+$P_U$ are the species distributions of $S$ and $U$,
+respectively. Denote $T$ as the set of species. Let $Q$ be a species
+distribution such that
+\[Q(t)=\frac{P_S(t)(P_U(t))^{-1}}{\sum_{v\in T} P_S(v)(P_U(v))^{-1}}.\]
+Then, the diversity of $S$ within $U$ is equal to $H(Q)$.
+\eep
+
+We can now come back to how this relates to the Jensen-Shannon
+Population Diversity. Interestingly, it turns out that it is a direct
+generalization of the generative population diversity model.
+
+\bep
+Let $S=\{P_{w_1},...,P_{w_k}\}$ be a set of distributions over species,
+such that each has a singleton support. Let $P$ be the prior
+species distribution corresponding to $S$. Then, the Jensen-Shannon
+Population Diversity is equal to the diversity of $S$ as a population
+within a universe with species distribution $P$.
+\eep
