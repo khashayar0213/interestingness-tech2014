@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.2.19)  2 SEP 2014 16:04
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.2.19)  12 SEP 2014 14:23
 entering extended mode
 **interestingness-tech2014.tex
-(D:\projects\interesting\interestingness\interestingness-tech2014.tex
+(D:\publicatios\interestingness-tech2014\interestingness-tech2014.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -275,7 +275,7 @@ Package: subfigure 2002/07/30 v2.1.4 subfigure package
 e.cfg)
 \subfig@top=\skip53
 \subfig@bottom=\skip54
-) (D:\projects\interesting\interestingness\defs.tex
+) (D:\publicatios\interestingness-tech2014\defs.tex
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\latexsym.sty"
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup6
@@ -349,7 +349,7 @@ Package color Info: Redefining color blue on input line 415.
 )
 \c@theoreme=\count125
 \c@conjecture=\count126
- (D:\projects\interesting\interestingness\interestingness-tech2014.aux)
+ (D:\publicatios\interestingness-tech2014\interestingness-tech2014.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
 LaTeX Font Info:    ... okay on input line 39.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
@@ -394,8 +394,8 @@ LaTeX Info: Redefining \ref on input line 39.
 LaTeX Info: Redefining \pageref on input line 39.
 LaTeX Info: Redefining \nameref on input line 39.
 
-(D:\projects\interesting\interestingness\interestingness-tech2014.out)
-(D:\projects\interesting\interestingness\interestingness-tech2014.out)
+(D:\publicatios\interestingness-tech2014\interestingness-tech2014.out)
+(D:\publicatios\interestingness-tech2014\interestingness-tech2014.out)
 \@outlinefile=\write3
 LaTeX Font Info:    Try loading font information for U+msa on input line 43.
 
@@ -417,8 +417,17 @@ LaTeX Font Info:    Font shape `U/lasy/b/n' in size <8> not available
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
 (Font)              Font shape `U/lasy/m/n' tried instead on input line 43.
 
-(D:\projects\interesting\interestingness\introduction.tex)
-(D:\projects\interesting\interestingness\information-diversity.tex
+(D:\publicatios\interestingness-tech2014\introduction.tex)
+(D:\publicatios\interestingness-tech2014\related-work.tex
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 5.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 5.
+)
+(D:\publicatios\interestingness-tech2014\information-diversity.tex
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <7> not available
 (Font)              Font shape `U/lasy/m/n' tried instead on input line 6.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <5> not available
@@ -426,30 +435,30 @@ LaTeX Font Info:    Font shape `U/lasy/b/n' in size <5> not available
  [1
 
 {C:/Users/krohanimanesh/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-)
-(D:\projects\interesting\interestingness\population-diversity.tex [3] [4])
-(D:\projects\interesting\interestingness\experiments.tex) [5]
-(D:\projects\interesting\interestingness\conclusions.tex) [6]
+ [3])
+(D:\publicatios\interestingness-tech2014\population-diversity.tex [4])
+(D:\publicatios\interestingness-tech2014\experiments.tex) [5]
+(D:\publicatios\interestingness-tech2014\conclusions.tex) [6]
 No file interestingness-tech2014.bbl.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 113.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 120.
 [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 113.
- (D:\projects\interesting\interestingness\interestingness-tech2014.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 113.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 113.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 120.
+ (D:\publicatios\interestingness-tech2014\interestingness-tech2014.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 120.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 120.
 Package rerunfilecheck Info: File `interestingness-tech2014.out' has not change
 d.
-(rerunfilecheck)             Checksum: E18D2053AD1F20E44405009BD5F08968;262.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 113.
+(rerunfilecheck)             Checksum: 5F7CA9E700FAEBCBCA6BB95B14D035E4;310.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 120.
  ) 
 Here is how much of TeX's memory you used:
- 7300 strings out of 493921
- 97376 string characters out of 3144852
- 187334 words of memory out of 3000000
- 10458 multiletter control sequences out of 15000+200000
+ 7323 strings out of 493921
+ 97838 string characters out of 3144852
+ 185369 words of memory out of 3000000
+ 10474 multiletter control sequences out of 15000+200000
  18215 words of font info for 72 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 29i,6n,28p,256b,346s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,6n,28p,256b,400s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C
 :/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/P
@@ -467,9 +476,9 @@ KTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files (x86)/MiKTeX
 .9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files (x86)/MiKTeX 2.9/
 fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fo
 nts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on interestingness-tech2014.pdf (7 pages, 213914 bytes).
+Output written on interestingness-tech2014.pdf (7 pages, 214317 bytes).
 PDF statistics:
- 146 PDF objects out of 1000 (max. 8388607)
- 25 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 150 PDF objects out of 1000 (max. 8388607)
+ 26 named destinations out of 1000 (max. 500000)
+ 49 words of extra memory for PDF output out of 10000 (max. 10000000)
 
