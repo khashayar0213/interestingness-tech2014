@@ -1,9 +1,25 @@
 \documentclass{article} % For LaTeX2e
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{nips14submit_e,times}
 \usepackage{hyperref}
 \usepackage{url}
 %\usepackage{natbib}
 %\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
+
+\input{../defs}
+
+\newtheorem{theoreme}{Theorem} %[section]
+\newtheorem{proposition}[theoreme]{Proposition}
+\newtheorem{lemma}[theoreme]{Lemma}
+\newtheorem{definition}[theoreme]{Definition}
+\newtheorem{corollary}[theoreme]{Corollary}
+\newtheorem{remark}[theoreme]{Remark}
+\newtheorem{example}[theoreme]{Example}
+\newtheorem{examples}[theoreme]{Examples}
+%\newtheorem{conjecture}[theoreme]{Conjecture}
+\newtheorem{conjecture}{Conjecture}
 
 
 \title{An Information Theoretic Approach to Measuring Text Interestingness}
@@ -48,8 +64,8 @@ Address \\
 % puts 3 of 4 authors names on the first line, and the last on the second
 % line, try using \AND instead of \And before the third author name.
 
-\newcommand{\fix}{\marginpar{FIX}}
-\newcommand{\new}{\marginpar{NEW}}
+%\newcommand{\fix}{\marginpar{FIX}}
+%\newcommand{\new}{\marginpar{NEW}}
 
 %\nipsfinalcopy % Uncomment for camera-ready version
 
@@ -80,6 +96,7 @@ paragraph.
 
 \section{Our Approach}
 \label{sec:our-approach}
+\input{diversity-short}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

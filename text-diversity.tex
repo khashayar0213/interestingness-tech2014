@@ -1,0 +1,18 @@
+As a starting point of our model, we assume that we can describe any
+word with a probability distribution over a fixed set of topics -
+e.g. using a word-topic matrix of some topic model. Now, given a small
+set of words, we in effect have a set of topic distributions. Let us
+denote the set of words by $S=\{w_1,...,w_k\}$, and the distribution
+of a word $w$ by $P_w$.  We now ask
+what is the diversity of the set of probability
+distributions $\cP_S=\{P_{w_1},...,P_{w_k}\}$? To make this task
+somewhat more concrete, we make some 
+assumptions of what we expect from the measure. First, if the set
+$\cP_S$ only contains one element, then it is not diverse. Moreover,
+we have a certain fixed {\em prior} distribution $P$, which we
+can think of as the overall distribution of topics. If a distribution
+$P_{w_i}$ is equal to $P$, then it does not carry any information, so
+it should not have any impact on the diversity of $\cP_S$. In
+accordance with those assumptions, we will will introduce some basic
+notation. Let $D_{KL}(\centerdot\|\centerdot)$ denote the
+Kullback-Leibler Divergence.
