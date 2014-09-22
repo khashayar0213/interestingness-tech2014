@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  17 SEP 2014 23:07
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  21 SEP 2014 22:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -449,7 +449,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (./diversity-short.tex [1{/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/up
 dmap/pdftex.map}
 
-])
+] [2])
 LaTeX Font Info:    Try loading font information for OMS+ptm on input line 112.
 
 
@@ -460,40 +460,35 @@ LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 112.
 
 
-LaTeX Warning: Citation `ganguly:2014' on page 2 undefined on input line 122.
+LaTeX Warning: Citation `ganguly:2014' on page 3 undefined on input line 122.
 
 
-LaTeX Warning: Citation `bache:2013' on page 2 undefined on input line 122.
+LaTeX Warning: Citation `bache:2013' on page 3 undefined on input line 122.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
+[3]
 No file nips2014.bbl.
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 182.
-[2] [3]
+[4]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 182.
  (./nips2014.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 182.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 182.
 Package rerunfilecheck Info: File `nips2014.out' has not changed.
-(rerunfilecheck)             Checksum: 96DB6355C4FE2B766F9839E79ABCABB8;358.
+(rerunfilecheck)             Checksum: D56209546373D1E265EF52E5A0402817;557.
 
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 182.
  ) 
 Here is how much of TeX's memory you used:
- 7403 strings out of 493488
- 97954 string characters out of 3141326
- 197844 words of memory out of 3000000
- 10580 multiletter control sequences out of 15000+200000
+ 7412 strings out of 493488
+ 98062 string characters out of 3141326
+ 199868 words of memory out of 3000000
+ 10584 multiletter control sequences out of 15000+200000
  19844 words of font info for 51 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 37i,11n,39p,240b,380s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 37i,12n,39p,240b,386s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/texlive/2012/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2012/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/local
@@ -510,10 +505,10 @@ f-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2012/texmf-dist/
 fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2012/texmf-dist/fonts/type
 1/urw/times/utmr8a.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/urw/time
 s/utmri8a.pfb>
-Output written on nips2014.pdf (3 pages, 142621 bytes).
+Output written on nips2014.pdf (4 pages, 152008 bytes).
 PDF statistics:
- 119 PDF objects out of 1000 (max. 8388607)
- 98 compressed objects within 1 object stream
- 16 named destinations out of 1000 (max. 500000)
- 57 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 139 PDF objects out of 1000 (max. 8388607)
+ 116 compressed objects within 2 object streams
+ 21 named destinations out of 1000 (max. 500000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 
