@@ -24,7 +24,7 @@
 \newtheorem{conjecture}{Conjecture}
 
 
-\title{An Information Theoretic Approach to Measuring Text Interestingness}
+\title{An Information Theoretic Approach to Quantifying Text Interestingness}
 
 
 \author{
@@ -97,7 +97,7 @@ Figure~\ref{fig:ebay-products} shows examples of {\sl eBay} products selected fr
         \centering
         \begin{subfigure}[b]{0.3\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{figures/standard-iphone-case.jpg}
+                \includegraphics[width=25mm]{figures/standard-iphone-case.jpg}
                 \caption{Black Qi Standard Wireless Charging Charger Receiver Case For iPhone 5 5G}
                 \label{fig:standard-iphone-case}
         \end{subfigure}%
@@ -105,7 +105,7 @@ Figure~\ref{fig:ebay-products} shows examples of {\sl eBay} products selected fr
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.3\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{figures/standard-iphone-speaker.jpg}
+                \includegraphics[width=25mm]{figures/standard-iphone-speaker.jpg}
                 \caption{Bluetooth Wireless Speaker Mini Portable Super Bass For iPhone}
                 \label{fig:standard-speaker}
         \end{subfigure}%
@@ -113,34 +113,38 @@ Figure~\ref{fig:ebay-products} shows examples of {\sl eBay} products selected fr
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.3\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{figures/standard-clock.jpg}
-                \caption{The Standard Round Wall Clock (C9207)}
+                \includegraphics[width=25mm]{figures/standard-clock.jpg}
+                \caption{Modern DIY Your Wall Clock Sticker Decoration Home Roman Numerals Silver SCY07}
                 \label{fig:standard-speaker}
         \end{subfigure}\\
         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
           %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
+        \begin{subfigure}[b]{0.25\textwidth}
         	        \centering
-                \includegraphics[width=\textwidth]{figures/eyeshadow-iphone-case.jpg}
+                \includegraphics[width=25mm]{figures/eyeshadow-iphone-case.jpg}
                 \caption{\textcolor{red}{{\bf Eyeshadow}} Palettes for \textcolor{red}{{\bf iPhone}} 6 case}
                 \label{fig:eyeshadow-iphone-case}
         \end{subfigure}
               ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.3\textwidth}
-                \includegraphics[width=\textwidth]{figures/horn-iphone-speaker.jpg}
+                \includegraphics[width=25mm]{figures/horn-iphone-speaker.jpg}
                 \caption{White Silicone \textcolor{red}{{\bf Horn}} Stand Speaker for Apple \textcolor{red}{{\bf iPhone}} 4/ 4S}
                 \label{fig:zeppelin-speaker}
         \end{subfigure}
        ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
           %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.35\textwidth}
-                \includegraphics[width=\textwidth]{figures/geeky-clock}
+        \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=25mm]{figures/geeky-clock}
                 \caption{\textcolor{red}{{\bf Equation}} Wall \textcolor{red}{{\bf Clock}} Gifts for Math Gurus or Best Geek Friends}
                 \label{fig:geeky-clock}
         \end{subfigure}
        \caption{}\label{fig:ebay-products}
 \end{figure}
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -148,7 +152,180 @@ Figure~\ref{fig:ebay-products} shows examples of {\sl eBay} products selected fr
 
 \section{Our Approach}
 \label{sec:our-approach}
-\input{diversity-short}
+
+\subsection{Word Representation}
+\label{sec:word-representation}
+
+We assume a distributional representation for the words in the vocabulary (for a brief review see~\cite{Turian10wordrepresentations}). A distributional representation over a vocabulary $W$ can be expressed in terms of a co-occurrence  matrix $A_{|W|\times|C|}$ where each row represents a co-occurrence of a word with a set of contexts deonted by $C$. For example if we chose $C=W$ we get the familiar {\sl  word-to-word} co-occurrence representation which counts the number of times two words co-occurred in a document corpus. Another choice would be to use the set of topics learned over a document corpus by LDA~\cite{Blei:2003:LDA:944919.944937} as the context. In our model rows of $A$ are then normalized in order to obtain a probability distribution over the context. We will use the notation $P_w$ to represent the probability distribution of a word $w$ over the context. We also use the notation $T=\{w_1,...,w_k\}$ for a text snippet\footnote{by text snippet we refer to a moderately short block of tex. For example in e-commerce data it could be the title of a product, or in Twitter it could be the tweets.} where $\{w_1,...,w_k\}$ are the words in th eorder they appear in the text. Given a word distributional, the notaion $T_{\cP}=\{P_{w_1},...,P_{w_k}\}$ gives the set of probability distributions over the words in the text. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Information Diversity}
+\label{sec:information-diversity}
+
+Given a distributional representation over a vocabulary $W$ and context $C$ with $P_w$ giving a probability distribution of a word $w$ over the context $C$, we can measure information diversity for a given text snippet $T=\{w_1,...,w_k\}$ and its distributional representation $T_{\cP}=\{P_{w_1},...,P_{w_k}\}$ as follows:
+
+\bed
+Given a distribution $P_w$, its {\sl importance} with respect to a
+prior distribution $P$ is defined as 
+\[D_w = D_{KL}(P_w\|P),\]
+where $D_{KL}(\centerdot\|\centerdot)$ denotes the
+{\sl Kullback-Leibler} Divergence.
+\eed
+
+\bed\label{mixture}
+Given a set of distributions $T_{\cP}=\{P_{w_1},...,P_{w_k}\}$ and a
+prior $P$, we
+define a mixture distribution $P_T$ as
+\[P_T=\sum_{i=1}^k d_{w_i} P_{w_i},\]
+where $d_{w_i}=\frac{D_{w_i}}{\sum D_{w_j}}$ are the normalized
+importances.
+\eed
+
+Essentially, $P_T$ is the weighted average of the set $T_{\cP}$, where
+the weights are chosen according to the importances. Next we
+define the diversity measure:
+
+\bed\label{diversity}
+We define the Jensen-Shannon Information Diversity of a set of
+distributions $\cP_T$ with respect to 
+prior $P$ as
+\[D_S=\sum_{i=1}^k d_{w_i}D_{KL}(P_{w_i}\|P_T), \]
+where $d_{w_i}$ and $P_T$ are as in the previous definition.
+\eed
+This definition is closely related to the 
+{\em general Jensen-Shannon Divergence}, defined in~\cite{FugledeTopsoe}. Another
+interesting theoretical property of Jensen-Shannon Information
+Diversity is that it can be interpreted as a generalization of Shannon
+entropy as a population diversity measure, however we will not go
+into this here any further. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Text Diversity}
+\label{sec:text-diversity}
+
+ Applying this general model to the natural language requires some
+ additional considerations. First, how do we obtain a topic
+ ditribution for a given word, and what is the prior topic
+ distribution. As the terminology suggests, we want to rely on a topic
+ model. Specifically, suppose we have a set $\cT$ of documents, sentences or
+ paragraphs of any length, in which we want to find the most diverse
+ examples. Additionally, we have a large set $\cD$ of documents which
+ has content {\em similar} to $\cT$. We will train a Latent Dirichlet
+ Allocation (LDA) topic model on $\cD$, 
+ and use it to analyze $\cT$. Of course, both sets could be identical,
+ but $\cT$ may, for example, be a set of sentences or short messages,
+which not suitable for training a good topic model on. In those cases,
+as we will see, the fact that $\cT$ and $\cD$ do not 
+ need to be identical will give our method a distinct advantage over
+ competing approaches. The key component we will need from the topic
+ model is the word-topic matrix $M$, where $M_{ij}$ is the number of
+ times $i$-th word was assigned the $j$-th topics. So, if we
+ probabilistically normalize
+ the $i$-th row of $M$, it will be the topic assignment distribution
+ for the $i$-th word in our dictionary. This is a good candidate for a
+ topic distribution to use in our model. Similarly, we obtain a prior
+ topic distribution by computing the proportions of overall topic
+ assignments. This corresponds to summing up matrix $M$ along its
+ columns, and then normalizing the resulting vector.
+
+The proposed choice of topic distributions for words has some
+shortcomings. First, consider a word $w$ which occurs only once (or very
+few times in the entire set $\cD$. Then, its topic distribution will be
+very concentrated. Assuming that the prior distribution is close to
+uniform, that will give a very high importance to $w$, just because
+there is not enough datapoints in our set to determine its {\em true}
+topic distribution. 
+
+Furthermore, if we interpret a topic distribution as representing the
+{\em meaning} of a word, then having a fixed distribution for each
+word would not be able to reflect the fact that words often have
+different meanings in different contexts. In effect, all of the
+meanings would be combined together, and likely the most frequent one
+would dominate, distorting the results.
+
+Finally, there is a fundamental problem with describing the meaning of
+words by their topic distributions. It forces us to make an implicit
+assumption that the topics form a basis that is, in certain sense,
+orthogonal. Consider, for example, a word that has a narrow usage, so
+that it is always assigned the same topic in our model. Then, its
+distribution will show no relation with any other topics, even those
+that may be closely related to it. This intuitively seems like a
+misrepresentation of the meaning of that word. This issue was also
+raised in [topsoe]. The solution proposed there incorporated topic
+similarities into a new diversity measure. We will present a different
+approach that also uses topic similarities.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Observer's Model}
+\label{sec:observer-model}
+
+We will now present a model of a human Observer $A$ that is being presented with
+the set $\cT$ and is supposed to judge the {\em interestingness} of
+each piece of text from it. Additionally, we assume that $A$ has
+gained their linguistic knowledge by observing samples from the set
+$\cD$. What is, then, the general meaning (topic distribution) of a word $w$,
+from the Observer's viewpoint? A statistically adequate approach is to
+take a Bayesian model with a Dirichlet prior. We observe occurrences
+in set $\cD$ of topic assignments for $w$ to learn the posterior
+distribution. However, instead of using the fixed assignments produced
+by the topic model, we let the Observer choose their own assignment as
+follows: given a pair $(w,t)$, where $t$ is the topic assignment given
+by the model for a specific occurrence of $w$, the observer selects a
+topic from some topic-similarity distribution $S_t$, conditional on
+$t$. An appropriate Dirichlet prior can be derived from this by
+looking at the overall topic assignments (not for a specific
+word). What would we get if we fed those to the Observer, letting $A$
+generate their own topic for each?  Denoting by $S$ the matrix with
+rows of topic-similarity distributions and by $P$ the (row vector) topic
+distribution coming from the word-topic matrix, we find that the
+observer's prior will concentrate around the distribution described by
+the product $\widehat{P}=PS^T$. Using Bayes's rule to calculate the Observer's
+posterior probability, we get
+\[\widehat{P}_w=\frac{\alpha PS^T + \mu_w P_wS^T}{\alpha+\mu_w},\]
+where $\mu_w$ is the frequency of word $w$ in D, and $P_w$ is the
+topic assignment distribution obtained from the word-topic matrix,
+while $\alpha$ is the parameter that specifies the strength of the
+prior.
+
+Next, let us analyze the Observer's behavior when reading a text
+segment from $\cT$. We treat each piece of text as a bag of words,
+disregarding the order. Suppose, the set of words is $T=\{w_1,...,w_k\}$. We
+have already established how the Observer understands each word
+separately. However, given a set of words, each one exists in the
+context of the others. We can describe that context using the mixture
+distribution from Definition \ref{mixture}. Denote
+$T_1=\{w_2,...,w_k\}$ as the set of all words in $T$ except
+$w_1$. What is the appropriate topic distribution for $w_1$, given a
+context mixture distribution $P_{T_1}$? For this, we can look more
+closely at the LDA model we used to obtain the word-topic matrix. We
+can think of it as being generated by the following process: first
+drawing a topic form the prior topic distribution, then drawing a word
+from that topic's word distribution. It is natural to ask what would
+the matrix look like if we used $P_{T_1}$ as the topic distribution
+instead of the prior, and what would be the corresponding topic
+distribution for word $w_1$. 
+
+\bep
+Let $\widehat{P},\widehat{P}_{w_1},P_{T_1}$ be the topic prior, general
+topic distribution for $w_1$, and the context distribution,
+respectively. Then, the context dependent distribution defined as
+above, will be
+\[P^{T_1}_{w_1}(t)\propto \frac{\widehat{P}_{w_1}\!(t)P_{T_1}\!(t)}{\widehat{P}(t)}.\]
+\eep
+
+The danger with relying on $P^{T_1}_{w_1}$
+is that if the distributions $\widehat{P}_{w_1}$ and $P_{T_1}$ are
+mostly disjoint, than their product will be very small. In other
+words, we would need a long sampling process in generating the
+hypothetical word-topic count matrix to obtain a statistically
+significant estimation of the $P^{T_1}_{w_1}$. Once again,
+we turn to bayesian analysis: we let the Observer use
+$\widehat{P}_{w_1}$ as their maximum likelihood estimator in a
+Dirichlet prior, obtaining the following posterior solution:
+\[\widehat{P}^{T_1}_{w_1}(t)\propto \beta \widehat{P}_{w_1}\!(t) + \frac{\widehat{P}_{w_1}\!(t)P_{T_1}\!(t)}{\widehat{P}(t)}.\]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
