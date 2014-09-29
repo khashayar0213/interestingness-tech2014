@@ -239,19 +239,23 @@ into this here any further.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Text Topic Diversity}
-\label{sec:text-topic-diversity}
+\subsection{Topic Diversity}
+\label{sec:topic-diversity}
 
-In order to apply this model to natural language we first need to build a good distributional representation for words. One
-natural choice which is closely tied to measuring topic diersity is to use {\sl word-topic} distribution. We need to answer to
-questions: (1) how to obtain a topic distribution for a give word; (2) how to obtain a prior topic distribution (which is
-required for computing the information diversity as described in Section~\ref{sec:information-diversity}). One way to address (1) would be to train an
+In order to apply this model to natural language we first need to build a distributional representation for words. One
+natural choice which is closely tied to measuring topic diersity is to use {\sl word-topic} distribution. We need to solve the following two
+questions:
+\begin{enumerate}
+\item {\bf How to obtain a topic distribution for a given word}: We train an
 LDA~\cite{Blei:2003:LDA:944919.944937} to build a topic model given a document corpus $\cC$. From this topic model we obtain the
-word-topic matrix $\cM$ where $M_{ij}$ is the number of times $i$-th word was assigned the $j$-th topics. By normalizing the rows of matrix $\cM$ we will obtain
-a word-topic distribution, where the $i$-th row of the matrix gives the topic distribution for the word $w_i$. To address (2), similarly, we obtain a prior
+word-topic matrix $\cM$ where $M_{ij}$ is the number of times $i$-th word was assigned the $j$-th topics\footnote{Note that word-topic distribution as described, is not directly defined in the standard {\em LDA} model and hence is only one possible approximation.}. By normalizing the rows of matrix $\cM$ we will obtain
+a word-topic distribution, where the $i$-th row of the matrix gives the topic distribution for the word $w_i$.
+\item {\bf How to obtain a prior topic distribution} (which is
+required for computing the information diversity as described in Section~\ref{sec:information-diversity}): We obtain a prior
  topic distribution by computing the proportions of overall topic
  assignments. This corresponds to summing up matrix $M$ along its
- columns, and then normalizing the resulting vector.
+ columns (rows????), and then normalizing the resulting vector.
+\end{enumerate}
 
 The proposed choice of topic distributions for words has some
 shortcomings. First, consider a word $w$ which occurs very rarely
