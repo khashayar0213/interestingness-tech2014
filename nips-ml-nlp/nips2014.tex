@@ -106,33 +106,12 @@ This is further illustrated in Figure~\ref{fig:ebay-products} where it shows a c
 off-the-shelf products that one might often see at stores, online sites, etc. In contast, the bottom row
 (Figures~\ref{fig:eyeshadow-iphone-case}, \ref{fig:zeppelin-speaker}, and \ref{fig:geeky-clock}) shows examples of the products
 from similar categories which are more unique and have a more creative design, and hence more {\em interesting}. 
+
+Quantifying interestingness is a challenging problem. First, the general notion of interestingness is not well defined.  Second, it is 
+subjective; something that is interesting to someone may not be interesting to someone else. There has been considerable research on visual interestingness and aesthetic quality of images~\cite{Datta:2006:SAP:2129560.2129588,Ke:2006:DHF:1153170.1153495,IsolaParikhTorralbaOliva2011,dhar:2011,reinecke2013predicting,journals/pami/WeinshallZHKOABGNPHP12}. 
+In text domain, researchers have studied some dimensions of this problem in terms of {\em humor identification}~\cite{Mihalcea:2005:MCL:1220575.1220642,Davidov:2010:SRS:1870568.1870582,Kiddon11,labutov-lipson:2012:ACL2012short}, {\em text aesthetics}~\cite{journals:tamd:Schmidhuber10,N13-1118,ganguly:2014}, and {\em document diversity}~\cite{bache:2013}. 
 \end{comment}
 
-\begin{figure}
-\label{fig:ebay-products}
-        \centering
-         \begin{subfigure}[b]{0.3\textwidth}
-        	        \centering
-                \includegraphics[width=30mm]{figures/eyeshadow-iphone-case.jpg}
-                \caption{\textcolor{red}{{\bf Eyeshadow}} Palettes for \textcolor{red}{{\bf iPhone}} 6 case}
-                \label{fig:eyeshadow-iphone-case}
-        \end{subfigure}
-              ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
-		 \centering
-                \includegraphics[width=30mm]{figures/horn-iphone-speaker.jpg}
-\caption{White Silicone \textcolor{red}{{\bf Horn}} Stand Speaker for Apple \textcolor{red}{{\bf iPhone}} 4/ 4S}                \label{fig:zeppelin-speaker}
-        \end{subfigure}
-       ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
-		 \centering
-                \includegraphics[width=30mm]{figures/geeky-clock.jpg}
-\caption{\textcolor{red}{{\bf Equation}} Wall \textcolor{red}{{\bf Clock}} Gifts for Math Gurus}                \label{fig:geeky-clock}
-        \end{subfigure}
-       \caption{A collection of {\em eBay} products: top row shows some off-the-shelf products while the bottom row shows a more unique/inteesting products of similar categories}\label{fig:ebay-products}
-\end{figure}
 
 \begin{comment}
 \begin{figure}
@@ -187,14 +166,40 @@ from similar categories which are more unique and have a more creative design, a
 
 
 
-Quantifying interestingness is a challenging problem. First, the general notion of interestingness is not well defined.  Second, it is 
-subjective; something that is interesting to someone may not be interesting to someone else. There has been considerable research on visual interestingness and aesthetic quality of images~\cite{Datta:2006:SAP:2129560.2129588,Ke:2006:DHF:1153170.1153495,IsolaParikhTorralbaOliva2011,dhar:2011,reinecke2013predicting,journals/pami/WeinshallZHKOABGNPHP12}. 
-In text domain, researchers have studied some dimensions of this problem in terms of {\em humor identification}~\cite{Mihalcea:2005:MCL:1220575.1220642,Davidov:2010:SRS:1870568.1870582,Kiddon11,labutov-lipson:2012:ACL2012short}, {\em text aesthetics}~\cite{journals:tamd:Schmidhuber10,N13-1118,ganguly:2014}, and {\em document diversity}~\cite{bache:2013}. 
-
- In this paper we only focus on the text information. Our hypothesis is, many interesting products often present diversity in the text describing them. In examples \ref{fig:eyeshadow-iphone-case},
+Quantifying interestingness is a challenging problem. There has been considerable research on visual interestingness and aesthetic quality of images~\cite{Datta:2006:SAP:2129560.2129588,Ke:2006:DHF:1153170.1153495,IsolaParikhTorralbaOliva2011,dhar:2011,reinecke2013predicting,journals/pami/WeinshallZHKOABGNPHP12}. 
+In text domain, researchers have studied some dimensions of this problem in terms of {\em humor identification}~\cite{Mihalcea:2005:MCL:1220575.1220642,Davidov:2010:SRS:1870568.1870582,Kiddon11,labutov-lipson:2012:ACL2012short}, {\em text aesthetics}~\cite{journals:tamd:Schmidhuber10,N13-1118,ganguly:2014}, and {\em document diversity}~\cite{bache:2013}.  In this paper we only focus on the text information. Our hypothesis is, many interesting products often present diversity in the text describing them. In examples \ref{fig:eyeshadow-iphone-case},
 \ref{fig:zeppelin-speaker}, and \ref{fig:geeky-clock} we have highlighted words that offer the largest diversity in each case.
 Fro example, in at the context of iPhone cases, one would expect less to observe topics that relate to make up and so forth
 (Figure~\ref{fig:eyeshadow-iphone-case}). In this work we introduce an information-theoretic approach for measuring topic diversity based on {\em Jensen-Shannon Information Diversity} over a set of topics learned from a document corpus using {\sl Latent Dirichlet Allocation} (LDA)~\cite{Blei:2003:LDA:944919.944937}. The idea of quantigfying topic diversity has been previously studied by~\cite{bache:2013} for measuring document diveristy in a  collection of {\sl NSF} Awards documnts and also has been addressed in \cite{ganguly:2014} as  feature for measuring text asesthetic. We show how our method differs from these approaches and present empirical results over two different data sets: a collection of e-commerce products from {\sl eBay} , and a collection of {\sl NSF} Awards from $2007$ to $2012$. 
+
+\begin{figure}
+\label{fig:ebay-products}
+        \centering
+         \begin{subfigure}[b]{0.3\textwidth}
+        	        \centering
+                \includegraphics[width=30mm]{figures/eyeshadow-iphone-case.jpg}
+                \caption{\textcolor{red}{{\bf Eyeshadow}} Palettes for \textcolor{red}{{\bf iPhone}} 6 case}
+                \label{fig:eyeshadow-iphone-case}
+        \end{subfigure}
+              ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.3\textwidth}
+		 \centering
+                \includegraphics[width=30mm]{figures/horn-iphone-speaker.jpg}
+\caption{White Silicone \textcolor{red}{{\bf Horn}} Stand Speaker for Apple \textcolor{red}{{\bf iPhone}} 4/ 4S}                \label{fig:zeppelin-speaker}
+        \end{subfigure}
+       ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.3\textwidth}
+		 \centering
+                \includegraphics[width=30mm]{figures/geeky-clock.jpg}
+\caption{\textcolor{red}{{\bf Equation}} Wall \textcolor{red}{{\bf Clock}} Gifts for Math Gurus}                \label{fig:geeky-clock}
+        \end{subfigure}
+       \caption{A collection of unique/interesting {\em eBay} products. Highlighted keywords demonstrate how the text associated with such products could span multiple diverse topics.}
+       \label{fig:ebay-products}
+\end{figure}
+
+
 
 
 %% When looking at interestingness \cite{silva2006}
@@ -224,18 +229,18 @@ Fro example, in at the context of iPhone cases, one would expect less to observe
 \label{sec:word-representation}
 
 We assume a distributional representation for the words in the vocabulary (for a brief review
-see~\cite{Turian10wordrepresentations}). A distributional representation over a vocabulary $W$ can be expressed in terms of a
-co-occurrence matrix $A_{|W|\times|C|}$ where each row represents a co-occurrence of a word with a set of contexts deonted by
-$C$. For example if we chose $C=W$ we get the familiar {\sl word-to-word} co-occurrence representation which counts the number
+see~\cite{Turian10wordrepresentations}). A distributional representation over a vocabulary $V$ maps a word in the vocabulary to a 
+probability distribution over a fixed set of contexts $C$. Often we start by a co-occurrence matrix $A_{|V|\times|C|}$ where each row represents a co-occurrence of a word with the set of contexts
+$C$. For example if we chose $C=V$ then we obtain the familiar {\sl word-to-word} co-occurrence representation which counts the number
 of times two words co-occurred in a document corpus. Another choice would be to use the set of topics learned over a document
-corpus by {\sl Latent Dirichlet Allocation} (LDA)~\cite{Blei:2003:LDA:944919.944937} as the context. In our model rows of $A$
+corpus by {\sl Latent Dirichlet Allocation} (LDA)~\cite{Blei:2003:LDA:944919.944937} as the context. The rows of $A$
 are then normalized in order to obtain a probability distribution over the context. We will use the notation $P_w$ to represent
-the probability distribution over the context, given a word $w$. We also use the notation $T=\{w_1,...,w_k\}$ for a text
+the probability distribution over the context  given a word $w$. We also use the notation $T=\{w_1,...,w_k\}$ for a text
 snippet\footnote{by text snippet we refer to a moderately short block of tex. For example in e-commerce data it could be the
 title of a product, or in Twitter it could be the tweets.} where
 $\{w_1,...,w_k\}$ are the words in the order they appear in the
 text. Given a word distributional representation, $T_{\cP}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the words
-in the text.
+in the text snippet.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -282,8 +287,8 @@ into this here any further.
 \label{sec:topic-diversity}
 
 In order to apply this model to natural language we first need to build a distributional representation for words. One
-natural choice which is closely tied to measuring topic diersity is to use {\sl word-topic} distribution. We need to solve the following two
-questions:
+natural choice for measuring the topic diversity is to use {\sl word-to-topic} distribution. We need to address the following two
+steps:
 
 {\bf Building word to topic distribution}: We train an
 LDA~\cite{Blei:2003:LDA:944919.944937} to build a topic model given a document corpus $\cC$. From this topic model we obtain the
@@ -310,22 +315,11 @@ required for computing the information diversity as described in Section~\ref{se
 \end{enumerate}
 \end{comment}
 
-The proposed choice of topic distributions for words has some
+The proposed distributional model based on the topic model has some
 shortcomings. First, consider a word $w$ which occurs very rarely
 in the entire corpus $\cC$. The topic distribution associated with this word
-will be very concentrated (in other words the topic distribution associated with this word as the result of normzlizing the corresponding row in $\M$ is heavily biased). 
-If  for this corpus it hapens that the prior topic distribution is close to uniform, that will give a very high importance to $w$, just because
-there is not enough datapoints in our set to determine its {\em true}
-topic distribution. 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Observer's Model}
-\label{sec:observer-model}
+will be very concentrated. If for this corpus it happens that the prior topic distribution is close to uniform, it will give a very high importance to the word $w$, just because
+there is not enough data points to determine its {\em true} topic distribution. To address this issue 
 
 We will now present a model of a human Observer $A$ that is being presented with
 the set $\cT$ and is supposed to judge the {\em interestingness} of
@@ -402,7 +396,7 @@ Dirichlet prior, obtaining the following posterior solution:
 
 {\bf Interesting iPhone cases:} 
 For generating the ground truth data we hired workers from {\em Amazon Mechanical Turk (AMT)} to label a collection
-of nearly $20k$ iPhone cases on {\em eBay}. The details of this step is beyond the scope of this paper, however we used insights from
+of nearly $20,000$ iPhone cases on {\em eBay}. The details of this step is beyond the scope of this paper, however we used insights from
 interesting iPhone cases found on {\em Pinterest} and {\em eBay's} user behavior data in order to generate a balanced data-set. 
 We then puled our final data-set from the annotated by selecting only those instances where the annotators all labeled it as
 positive (i.e., interesting) or negative (i.e., uninteresting). The final data-set consists of $2179$ positive and $9770$ negative instances for
@@ -412,6 +406,7 @@ a total of $11949$ instances.\\
 {\bf NSF:}
 
 
+\begin{comment}
 \subsection{Baselines}
 \label{sec:baselines}
 
@@ -430,6 +425,8 @@ Classification:
 \item{\bf Latent Semantic Indexing (LSI):}
 \item{\bf Recursive Auto Encoders (RAE):}
 \end{itemize}
+\end{comment}
+
 
 \subsection{Results}
 \label{sec:results}
