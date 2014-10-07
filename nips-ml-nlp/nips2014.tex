@@ -315,11 +315,23 @@ required for computing the information diversity as described in Section~\ref{se
 \end{enumerate}
 \end{comment}
 
+The proposed distributional model has some
+shortcomings, more specifically it suffers from the sample size bias problem. Note that 
+when we normalize the rows of the matrix $A$ to obtain a distributional model, the normalization factor 
+for every word is simply the word count. Thus for a word $w$ which occurs very rarely
+in the entire corpus $\cC$, the topic distribution will be artificially skewed and inaccurate simply because we do not have enough data points to estimate its true word-to-topic distribution.
+Now, If for this corpus it happens that the prior topic distribution is close to uniform, it will give a very high importance to the word $w$ when measuring the information diversity as described in Section~\ref{sec:information-diversity}. One way to leverage this problem is to use the relative sample size (e.g., word count) to smooth the distribution obtained by normalizing the rows of matrix $A$.
+
+
+
+
+%\begin{comment}
 The proposed distributional model based on the topic model has some
 shortcomings. First, consider a word $w$ which occurs very rarely
-in the entire corpus $\cC$. The topic distribution associated with this word
-will be very concentrated. If for this corpus it happens that the prior topic distribution is close to uniform, it will give a very high importance to the word $w$, just because
-there is not enough data points to determine its {\em true} topic distribution. To address this issue 
+in the entire corpus $\cC$. The word-to-topic distribution $P_w$ associated with this word
+will be very concentrated. If for this corpus it happens that the prior topic distribution 
+is close to uniform, it will give a very high importance to the word $w$, just because
+there is not enough data points to determine its {\em true} topic distribution. 
 
 We will now present a model of a human Observer $A$ that is being presented with
 the set $\cT$ and is supposed to judge the {\em interestingness} of
@@ -385,6 +397,7 @@ we turn to bayesian analysis: we let the Observer use
 $\widehat{P}_{w_1}$ as their maximum likelihood estimator in a
 Dirichlet prior, obtaining the following posterior solution:
 \[\widehat{P}^{T_1}_{w_1}(t)\propto \beta \widehat{P}_{w_1}\!(t) + \frac{\widehat{P}_{w_1}\!(t)P_{T_1}\!(t)}{\widehat{P}(t)}.\]
+%\end{comment}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -393,17 +406,13 @@ Dirichlet prior, obtaining the following posterior solution:
 
 \section{Experiments}
 \label{sec:experiments}
-
-{\bf Interesting iPhone cases:} 
+We used the following two datasets in our experiments: (1) Interesting iPhone cases:
 For generating the ground truth data we hired workers from {\em Amazon Mechanical Turk (AMT)} to label a collection
 of nearly $20,000$ iPhone cases on {\em eBay}. The details of this step is beyond the scope of this paper, however we used insights from
 interesting iPhone cases found on {\em Pinterest} and {\em eBay's} user behavior data in order to generate a balanced data-set. 
 We then puled our final data-set from the annotated by selecting only those instances where the annotators all labeled it as
 positive (i.e., interesting) or negative (i.e., uninteresting). The final data-set consists of $2179$ positive and $9770$ negative instances for
-a total of $11949$ instances.\\
-\\
-
-{\bf NSF:}
+a total of $11949$ instances; (2) NSF abstracts:
 
 
 \begin{comment}
@@ -425,11 +434,10 @@ Classification:
 \item{\bf Latent Semantic Indexing (LSI):}
 \item{\bf Recursive Auto Encoders (RAE):}
 \end{itemize}
-\end{comment}
-
-
 \subsection{Results}
 \label{sec:results}
+\end{comment}
+
 \begin{figure}
         \centering
         \begin{subfigure}[b]{0.24\textwidth}
