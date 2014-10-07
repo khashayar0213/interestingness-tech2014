@@ -194,10 +194,11 @@ $C$. For example if we chose $C=W$ we get the familiar {\sl word-to-word} co-occ
 of times two words co-occurred in a document corpus. Another choice would be to use the set of topics learned over a document
 corpus by {\sl Latent Dirichlet Allocation} (LDA)~\cite{Blei:2003:LDA:944919.944937} as the context. In our model rows of $A$
 are then normalized in order to obtain a probability distribution over the context. We will use the notation $P_w$ to represent
-the probability distribution of a word $w$ over the context. We also use the notation $T=\{w_1,...,w_k\}$ for a text
+the probability distribution over the context, given a word $w$. We also use the notation $T=\{w_1,...,w_k\}$ for a text
 snippet\footnote{by text snippet we refer to a moderately short block of tex. For example in e-commerce data it could be the
-title of a product, or in Twitter it could be the tweets.} where $\{w_1,...,w_k\}$ are the words in th eorder they appear in the
-text. Given a word distributional, $T_{\cP}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the words
+title of a product, or in Twitter it could be the tweets.} where
+$\{w_1,...,w_k\}$ are the words in the order they appear in the
+text. Given a word distributional representation, $T_{\cP}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the words
 in the text.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -374,7 +375,62 @@ Classification:
 
 \subsection{Results}
 \label{sec:results}
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.24\textwidth}
+                \centering
+                \includegraphics[width=36mm]{figures/phonecases-comparison-kopia.png}
+               \caption{eBay - comparison}
+                \label{fig:phonecases-comparison}
+        \end{subfigure}%\qquad
+              ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.24\textwidth}
+                \centering
+                \includegraphics[width=36mm]{figures/phonecases-breakdown-kopia.png}
+                \caption{eBay - breakdown}
+                \label{fig:phonecases-breakdown}
+        \end{subfigure}\nobreak
+              ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.24\textwidth}
+                \centering
+                \includegraphics[width=36mm]{figures/nsf-comparison-kopia.png}
+                \caption{NSF - comparison}
+                \label{fig:nsf-comparison}
+        \end{subfigure}%\qquad
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.24\textwidth}
+        	        \centering
+                \includegraphics[width=36mm]{figures/nsf-breakdown-kopia.png}
+               \caption{NSF - breakdown}
+                \label{fig:nsf-breakdown}
+        \end{subfigure}
+       \caption{ROC curves presenting the results of experiments on
+         the eBay dataset (a,b) and NSF proposal dataset (c,d). The
+         comparison plots (a,c) show the results for our approach (JSD-Sim-Con)
+         against other methods, while the breakdown plots (b,d)
+         show different variations of our approach. }\label{fig:roc-curves}
+\end{figure}
 
+\begin{table}[t]
+\caption{Classification results for the eBay dataset.}
+\label{tab:classification-results}
+\vspace{-4mm}
+\begin{center}
+\begin{tabular}{lllll}
+&Precision & Recall & F1 & Accuracy
+\\ \hline 
+Topic Features         &$0.714\pm 0.015$&$0.597\pm 0.016$&$0.650\pm
+0.014$& $0.8828\pm 0.0045$\\
+W2V + RAE             &$0.676\pm 0.005$&$0.666\pm 0.030$&$0.671\pm
+0.013$&$0.8809\pm 0.0020$ \\
+SVD Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
+0.010$&$0.8778\pm 0.0027$\\
+\end{tabular}
+\end{center}
+\end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -387,29 +443,8 @@ Classification:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{figure}[h]
-\begin{center}
-%\framebox[4.0in]{$\;$}
-\fbox{\rule[-.5cm]{0cm}{4cm} \rule[-.5cm]{4cm}{0cm}}
-\end{center}
-\caption{Sample figure caption.}
-\end{figure}
 
 
-
-\begin{table}[t]
-\caption{Sample table title}
-\label{sample-table}
-\begin{center}
-\begin{tabular}{ll}
-\multicolumn{1}{c}{\bf PART}  &\multicolumn{1}{c}{\bf DESCRIPTION}
-\\ \hline \\
-Dendrite         &Input terminal \\
-Axon             &Output terminal \\
-Soma             &Cell body (contains cell nucleus) \\
-\end{tabular}
-\end{center}
-\end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
