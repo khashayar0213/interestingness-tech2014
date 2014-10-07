@@ -320,7 +320,7 @@ shortcomings, more specifically it suffers from the sample size bias problem. No
 when we normalize the rows of the matrix $A$ to obtain a distributional model, the normalization factor 
 for every word is simply the word count. Thus for a word $w$ which occurs very rarely
 in the entire corpus $\cC$, the topic distribution will be artificially skewed and inaccurate simply because we do not have enough data points to estimate its true word-to-topic distribution.
-Now, If for this corpus it happens that the prior topic distribution is close to uniform, it will give a very high importance to the word $w$ when measuring the information diversity as described in Section~\ref{sec:information-diversity}. One way to leverage this problem is to use the relative sample size (e.g., word count) to smooth the distribution obtained by normalizing the rows of matrix $A$.
+Now, If for this corpus it happens that the prior topic distribution is close to uniform, it will give a very high importance to the word $w$ when measuring the information diversity as described in Section~\ref{sec:information-diversity}. One way to alleviate this problem is to use the relative sample size (e.g., word count) to smooth the distribution obtained by normalizing the rows of matrix $A$.
 
 
 
