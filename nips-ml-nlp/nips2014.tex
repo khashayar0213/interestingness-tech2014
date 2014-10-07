@@ -7,6 +7,7 @@
 \usepackage{nips14submit_e,times}
 \usepackage{hyperref}
 \usepackage{url}
+\usepackage{verbatim}
 %\usepackage{natbib}
 %\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
 
@@ -95,12 +96,45 @@ data sets: a collection of e-commerce products from {\sl eBay} , and a collectio
 \label{sec:introduction}
 
 With the rapid growth of E-Commerce, new products are increasingly populated into the market place on daily basis.  A larger subset of these products are 
-categorized as daily needs or off-the-shelf products, while a much smaller subset can be attributed as {\em unique}, {\em creative}, {\em serendipitous }, {\em conversation starter}, or {\em interesting}. This class of products often provoke an emotive response in users and create a more engaging experience for the them (see {\sl pinterest}\footnote{\url{www.pinterest.com}} for example).  
+categorized as daily needs or off-the-shelf products, while a much smaller subset can be attributed as {\em unique}, {\em creative}, {\em serendipitous }, or {\em interesting} (see Figure~\ref{fig:ebay-products}). This class of products often provoke an emotive response in users and create a more engaging experience for the them (e.g., sites such as {\sl Pinterest}\footnote{\url{www.pinterest.com}} host many of such products). Automatic discovery of this type of products is an important problem in e-commerce for creating an engaging experience for the users.  
+
+\begin{comment}
+With the rapid growth of E-Commerce, new products are increasingly populated into the market place on daily basis.  A larger subset of these products are 
+categorized as daily needs or off-the-shelf products, while a much smaller subset can be attributed as {\em unique}, {\em creative}, {\em serendipitous }, {\em conversation starter}, or {\em interesting}. This class of products often provoke an emotive response in users and create a more engaging experience for the them (see {\sl Pinterest}\footnote{\url{www.pinterest.com}} for example).  
 Identifying this class of products is an important problem in E-commerce in order to create an engaging experience for the users. 
 This is further illustrated in Figure~\ref{fig:ebay-products} where it shows a collection of {\sl eBay} products selected from several gadget related categories. The top row (Figures~\ref{fig:standard-iphone-case}, \ref{fig:standard-speaker}, and \ref{fig:standard-speaker}) shows examples of
 off-the-shelf products that one might often see at stores, online sites, etc. In contast, the bottom row
 (Figures~\ref{fig:eyeshadow-iphone-case}, \ref{fig:zeppelin-speaker}, and \ref{fig:geeky-clock}) shows examples of the products
 from similar categories which are more unique and have a more creative design, and hence more {\em interesting}. 
+\end{comment}
+
+\begin{figure}
+\label{fig:ebay-products}
+        \centering
+         \begin{subfigure}[b]{0.3\textwidth}
+        	        \centering
+                \includegraphics[width=30mm]{figures/eyeshadow-iphone-case.jpg}
+                \caption{\textcolor{red}{{\bf Eyeshadow}} Palettes for \textcolor{red}{{\bf iPhone}} 6 case}
+                \label{fig:eyeshadow-iphone-case}
+        \end{subfigure}
+              ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.3\textwidth}
+		 \centering
+                \includegraphics[width=30mm]{figures/horn-iphone-speaker.jpg}
+\caption{White Silicone \textcolor{red}{{\bf Horn}} Stand Speaker for Apple \textcolor{red}{{\bf iPhone}} 4/ 4S}                \label{fig:zeppelin-speaker}
+        \end{subfigure}
+       ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.3\textwidth}
+		 \centering
+                \includegraphics[width=30mm]{figures/geeky-clock.jpg}
+\caption{\textcolor{red}{{\bf Equation}} Wall \textcolor{red}{{\bf Clock}} Gifts for Math Gurus}                \label{fig:geeky-clock}
+        \end{subfigure}
+       \caption{A collection of {\em eBay} products: top row shows some off-the-shelf products while the bottom row shows a more unique/inteesting products of similar categories}\label{fig:ebay-products}
+\end{figure}
+
+\begin{comment}
 \begin{figure}
         \centering
         \begin{subfigure}[b]{0.3\textwidth}
@@ -149,6 +183,8 @@ from similar categories which are more unique and have a more creative design, a
         \end{subfigure}
        \caption{A collection of {\em eBay} products: top row shows some off-the-shelf products while the bottom row shows a more unique/inteesting products of similar categories}\label{fig:ebay-products}
 \end{figure}
+\end{comment}
+
 
 
 Quantifying interestingness is a challenging problem. First, the general notion of interestingness is not well defined.  Second, it is 
@@ -248,6 +284,19 @@ into this here any further.
 In order to apply this model to natural language we first need to build a distributional representation for words. One
 natural choice which is closely tied to measuring topic diersity is to use {\sl word-topic} distribution. We need to solve the following two
 questions:
+
+{\bf Building word to topic distribution}: We train an
+LDA~\cite{Blei:2003:LDA:944919.944937} to build a topic model given a document corpus $\cC$. From this topic model we obtain the
+word-topic matrix $\cM$ where $M_{ij}$ is the number of times $i$-th word was assigned the $j$-th topics\footnote{Note that word-topic distribution as described, is not directly defined in the standard {\em LDA} model and hence is only one possible approximation.}. By normalizing the rows of matrix $\cM$ we will obtain
+a word-topic distribution, where the $i$-th row of the matrix gives the topic distribution for the word $w_i$.
+
+{\bf Obtaining a prior topic distribution} (which is
+required for computing the information diversity as described in Section~\ref{sec:information-diversity}): We obtain a prior
+ topic distribution by computing the proportions of overall topic
+ assignments. This corresponds to summing up matrix $M$ along its
+ columns (rows????), and then normalizing the resulting vector.
+
+\begin{comment}
 \begin{enumerate}
 \item {\bf How to obtain a topic distribution for a given word}: We train an
 LDA~\cite{Blei:2003:LDA:944919.944937} to build a topic model given a document corpus $\cC$. From this topic model we obtain the
@@ -259,6 +308,7 @@ required for computing the information diversity as described in Section~\ref{se
  assignments. This corresponds to summing up matrix $M$ along its
  columns (rows????), and then normalizing the resulting vector.
 \end{enumerate}
+\end{comment}
 
 The proposed choice of topic distributions for words has some
 shortcomings. First, consider a word $w$ which occurs very rarely
@@ -267,6 +317,9 @@ will be very concentrated (in other words the topic distribution associated with
 If  for this corpus it hapens that the prior topic distribution is close to uniform, that will give a very high importance to $w$, just because
 there is not enough datapoints in our set to determine its {\em true}
 topic distribution. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -347,12 +400,17 @@ Dirichlet prior, obtaining the following posterior solution:
 \section{Experiments}
 \label{sec:experiments}
 
-\subsection{Data Sets}
-\label{sec:data-sets}
-\begin{itemize}
-\item {\bf iPhone cases:}
-\item{\bf NSF:}
-\end{itemize}
+{\bf Interesting iPhone cases:} 
+For generating the ground truth data we hired workers from {\em Amazon Mechanical Turk (AMT)} to label a collection
+of nearly $20k$ iPhone cases on {\em eBay}. The details of this step is beyond the scope of this paper, however we used insights from
+interesting iPhone cases found on {\em Pinterest} and {\em eBay's} user behavior data in order to generate a balanced data-set. 
+We then puled our final data-set from the annotated by selecting only those instances where the annotators all labeled it as
+positive (i.e., interesting) or negative (i.e., uninteresting). The final data-set consists of $2179$ positive and $9770$ negative instances for
+a total of $11949$ instances.\\
+\\
+
+{\bf NSF:}
+
 
 \subsection{Baselines}
 \label{sec:baselines}
@@ -419,15 +477,17 @@ Classification:
 \label{tab:classification-results}
 \vspace{-4mm}
 \begin{center}
-\begin{tabular}{lllll}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
 &Precision & Recall & F1 & Accuracy
 \\ \hline 
-Topic Features         &$0.714\pm 0.015$&$0.597\pm 0.016$&$0.650\pm
-0.014$& $0.8828\pm 0.0045$\\
-W2V + RAE             &$0.676\pm 0.005$&$0.666\pm 0.030$&$0.671\pm
+Topic Features         &$\mathbf{0.714}\pm 0.015$&$0.597\pm 0.016$&$0.650\pm
+0.014$& $\mathbf{0.8828}\pm 0.0045$\\
+W2V + RAE             &$0.676\pm 0.005$&$\mathbf{0.666}\pm 0.030$&$\mathbf{0.671}\pm
 0.013$&$0.8809\pm 0.0020$ \\
 SVD Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
 0.010$&$0.8778\pm 0.0027$\\
+\hline
 \end{tabular}
 \end{center}
 \end{table}
