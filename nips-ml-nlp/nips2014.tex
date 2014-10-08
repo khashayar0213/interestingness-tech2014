@@ -320,19 +320,66 @@ shortcomings, more specifically it suffers from the sample size bias problem. No
 when we normalize the rows of the matrix $A$ to obtain a distributional model, the normalization factor 
 for every word is simply the word count. Thus for a word $w$ which occurs very rarely
 in the entire corpus $\cC$, the topic distribution will be artificially skewed and inaccurate simply because we do not have enough data points to estimate its true word-to-topic distribution.
-Now, If for this corpus it happens that the prior topic distribution is close to uniform, it will give a very high importance to the word $w$ when measuring the information diversity as described in Section~\ref{sec:information-diversity}. One way to alleviate this problem is to use the relative sample size (e.g., word count) to smooth the distribution obtained by normalizing the rows of matrix $A$.
+Now, If for this corpus it happens that the prior topic distribution
+is close to uniform, it will give a very high importance to the word
+$w$ when measuring the information diversity as described in
+Section~\ref{sec:information-diversity}.
+One way to alleviate this
+problem is to use the relative sample size (e.g., word count) to
+smooth the distribution obtained by normalizing the rows of matrix
+$A$. The natural choice for the smoothing distribution would in this
+case be simply the prior distribution mentioned above.
+
+Second, we consider the issue first raised in [kevin], namely, that
+when one tries to describe meaning through topic distribution, the
+relations between the topics may be lost. For example, if a word $w$
+has a topic distribution $P_w$ concentrated on one topic $t1$, then it will
+not reflect the fact that $w$ is also closely related to $t2$ simply
+because topics $t1$ and $t2$ are similar. Now, suppose that for each
+topic $t$, we have a topic-similarity vector $S_t$ associated with
+it. We will assume that it is normalized to a distribution and
+represent those vectors as rows of a square matrix $S$. We propose
+that instead of the distribution $P_w$, a more suited one would be
+$P'_w=P_wS^T$. This can be derived probabilistically, but we can also look
+at this as follows, for each topic $t$, instead of giving it
+probability $P_w(t)$, we add to the final distribution the vector
+$S_t$, scaled by $P_w(t)$. We expect that the topic $t$ itself has
+high value for its index in $S_t(t)$, as do topics similar to
+$t$. This way, a distribution $P_w$ concentrated on one topic $t$ would be
+diffused to a distribution in which all topics similar to $t$ are well
+represented. Notice, that this approach can be applied to any measure
+of diversity based on a probability distribution, as long as we can
+come up with a topic-similarity matrix $S$. We will show how this
+approach enhances the standard entropic measure of diversity. This
+approach is related to the one shown in [kevin], where a
+topic-similarity matrix is also use, in a different way.
+It remains to say how we obtain the topic-similarity vectors $S_t$. We
+chose to use Cosine Similarity between topic word-vectors, as described in
+[kevin]. 
+
+To combine the last two paragraphs, we need to specify what will be
+the prior distribution, when using the topic-similarity adjusted
+distributions. By simple analysis we can deduce that the proper choice
+is $P'=PS^T$, where $P$ is the prior distribution as
+described before. By Bayesian analysis, we reach the following
+smoothed topic distribution for a word $w$:
+\[\widehat{P}_w=\frac{\alpha PS^T + \mu_w P_wS^T}{\alpha+\mu_w},\]
+where $\mu_w$ is the frequency of word $w$ in D, and $P_w$ is the
+topic assignment distribution obtained from the word-topic matrix,
+while $\alpha$ is the parameter that specifies the strength of the
+prior.
 
 
-
-
-%\begin{comment}
+\begin{comment}
 The proposed distributional model based on the topic model has some
 shortcomings. First, consider a word $w$ which occurs very rarely
 in the entire corpus $\cC$. The word-to-topic distribution $P_w$ associated with this word
 will be very concentrated. If for this corpus it happens that the prior topic distribution 
 is close to uniform, it will give a very high importance to the word $w$, just because
 there is not enough data points to determine its {\em true} topic distribution. 
+\end{comment}
 
+\begin{comment}
 We will now present a model of a human Observer $A$ that is being presented with
 the set $\cT$ and is supposed to judge the {\em interestingness} of
 each piece of text from it. Additionally, we assume that $A$ has
@@ -360,7 +407,39 @@ where $\mu_w$ is the frequency of word $w$ in D, and $P_w$ is the
 topic assignment distribution obtained from the word-topic matrix,
 while $\alpha$ is the parameter that specifies the strength of the
 prior.
+\end{comment}
 
+Finally, we propose a third enhancement to the word-topic
+distributions. Suppose, the set of words $T=\{w_1,...,w_k\}$
+represents a text snippet that we want to analyze. The word $w_i$ has
+a specific meaning inside of $T$, that can be significantly different
+than its meaning out of context. We can describe that context using
+the mixture distribution from Definition \ref{mixture}. Denote
+$T_i=T-\{w_i\}$ as the set of all words in $T$ except
+$w_i$. By $P_{T_i}$, we denote the mixture distribution for $T_i$. We
+propose the following definition of context-dependent word-topic
+distribution. 
+\bed
+Let $\widehat{P},\widehat{P}_{w_i},P_{T_i}$ be the topic prior, general
+topic distribution for $w_i$, and the context distribution,
+respectively. Then, the context-dependent distribution is
+\[P^{T_i}_{w_i}(t)\propto \frac{\widehat{P}_{w_i}\!(t)P_{T_i}\!(t)}{\widehat{P}(t)}.\]
+\eed
+Without getting into the probabilistic explanation, we can roughly say
+that context distribution $P_{T_i}$ reshapes $w_i$'s topic
+distribution, putting most importance on those topics that have high
+probabilties in both $P_{T_i}$ and in $\widehat{P}_{w_i}$.
+The danger with relying on $P^{T_1}_{w_1}$
+is that if the distributions $\widehat{P}_{w_1}$ and $P_{T_1}$ are
+mostly disjoint, than their product will be very small. In other
+words, we would need a long sampling process in generating the
+hypothetical word-topic count matrix to obtain a statistically
+significant estimation of the $P^{T_1}_{w_1}$. Once again,
+we use Bayesian smoothing, with Dirichlet prior concentrated around
+$\widehat{P}_{w_1}$, obtaining (with
+parameter $\beta$ describing the strength of the prior):
+\[\widehat{P}^{T_1}_{w_1}(t)\propto \beta \widehat{P}_{w_1}\!(t) + \frac{\widehat{P}_{w_1}\!(t)P_{T_1}\!(t)}{\widehat{P}(t)}.\]
+\begin{comment}
 Next, let us analyze the Observer's behavior when reading a text
 segment from $\cT$. We treat each piece of text as a bag of words,
 disregarding the order. Suppose, the set of words is $T=\{w_1,...,w_k\}$. We
@@ -397,7 +476,7 @@ we turn to bayesian analysis: we let the Observer use
 $\widehat{P}_{w_1}$ as their maximum likelihood estimator in a
 Dirichlet prior, obtaining the following posterior solution:
 \[\widehat{P}^{T_1}_{w_1}(t)\propto \beta \widehat{P}_{w_1}\!(t) + \frac{\widehat{P}_{w_1}\!(t)P_{T_1}\!(t)}{\widehat{P}(t)}.\]
-%\end{comment}
+\end{comment}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
