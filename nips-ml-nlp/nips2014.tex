@@ -287,9 +287,7 @@ into this here any further.
 \label{sec:topic-diversity}
 
 In order to apply this model to natural language we first need to build a distributional representation for words. One
-natural choice for measuring the topic diversity is to use {\sl word-to-topic} distribution. We need to address the following two
-steps:
-
+natural choice for measuring the topic diversity is to use {\sl word-to-topic} distribution. We need to address the following problems:
 {\bf Building word to topic distribution}: We train an
 LDA~\cite{Blei:2003:LDA:944919.944937} to build a topic model given a document corpus $\cC$. From this topic model we obtain the
 word-topic matrix $\cM$ where $M_{ij}$ is the number of times $i$-th word was assigned the $j$-th topics\footnote{Note that word-topic distribution as described, is not directly defined in the standard {\em LDA} model and hence is only one possible approximation.}. By normalizing the rows of matrix $\cM$ we will obtain
@@ -316,7 +314,11 @@ required for computing the information diversity as described in Section~\ref{se
 \end{comment}
 
 The proposed distributional model has some
-shortcomings, more specifically it suffers from the sample size bias problem. Note that 
+shortcomings\\
+
+{\bf Topic similarity:}\\ 
+
+{\bf Sample size bias problem:} more specifically it suffers from the sample size bias problem. Note that 
 when we normalize the rows of the matrix $A$ to obtain a distributional model, the normalization factor 
 for every word is simply the word count. Thus for a word $w$ which occurs very rarely
 in the entire corpus $\cC$, the topic distribution will be artificially skewed and inaccurate simply because we do not have enough data points to estimate its true word-to-topic distribution.
