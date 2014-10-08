@@ -414,7 +414,7 @@ while $\alpha$ is the parameter that specifies the strength of the
 prior.
 \end{comment}
 
-\begin{comment}
+
 Finally, we propose a third enhancement to the word-topic
 distributions. Suppose, the set of words $T=\{w_1,...,w_k\}$
 represents a text snippet that we want to analyze. The word $w_i$ has
@@ -445,7 +445,7 @@ we use Bayesian smoothing, with Dirichlet prior concentrated around
 $\widehat{P}_{w_1}$, obtaining (with
 parameter $\beta$ describing the strength of the prior):
 \[\widehat{P}^{T_1}_{w_1}(t)\propto \beta \widehat{P}_{w_1}\!(t) + \frac{\widehat{P}_{w_1}\!(t)P_{T_1}\!(t)}{\widehat{P}(t)}.\]
-\end{comment}
+
 \begin{comment}
 Next, let us analyze the Observer's behavior when reading a text
 segment from $\cT$. We treat each piece of text as a bag of words,
@@ -492,6 +492,47 @@ Dirichlet prior, obtaining the following posterior solution:
 
 \section{Experiments}
 \label{sec:experiments}
+One of the key advanatages of our approach is that it works well for
+short snippets of text. Other methods known to us struggle there,
+because they rely on inferring a topic distribution of the piece of
+text as if it were a large document, resulting in inferior
+results. However, we evaluated our method both in this scenario, as
+well as in the case were the text length is substantial enough that
+the other methods do not suffer from this disadvantage.
+We used the following two datasets in our experiments: (1) Interesting iPhone cases:
+For generating the ground truth data we hired workers from {\em Amazon Mechanical Turk (AMT)} to label a collection
+of nearly $20,000$ iPhone cases on {\em eBay}. The details of this step is beyond the scope of this paper, however we used insights from
+interesting iPhone cases found on {\em Pinterest} and {\em eBay's} user behavior data in order to generate a balanced data-set. 
+We then puled our final data-set from the annotated by selecting only those instances where the annotators all labeled it as
+positive (i.e., interesting) or negative (i.e., uninteresting). The final data-set consists of $2179$ positive and $9770$ negative instances for
+a total of $11949$ instances. For each instance, the product title of
+the corresponding eBay listing was used as the input. In this case we are
+dealing with very short text snippets, usually 5-10 words each. To
+train a topic model, we used a larger, more broader set of about
+$2000000$ product titles, grouped by category into  about $8000$
+documents of approximately 200 titles each. We used Mallet LDA implementation; (2) NSF
+abstracts: for the second dataset we used a set of 61902 National Science Foundation
+Scholarship proposal abstracts to evaluate how our diversity measure
+compares to other methods on larger pieces of text. We used this set
+for training a topic model, however to get labeled data, we had to
+generate artificial examples, by randomly mixing pairs of abstracts that we
+could expect to be either similar (small diversity) or very different
+(high diversity) and labeling them accordingly. We generated 5000 of
+those examples with positive and negative labels evenly represented.
+
+Naturally, our diversity measure, like the measures it was evaluated
+against, is an unsupervised method, so we used ROC plots to describe
+how they match with our labeled data from both sources. However,
+as a byproduct from computing our measure, we have the mixture topic
+distribution describing a text snippet. An unnormalized vector of this
+distribution can be used as a feature vector for a separate
+classification task. This allowed us to evaluate our approach as
+feature generation, comparing with the more commonly used ones like
+LSI and Deep Learning.
+
+
+
+\begin{comment}
 We used the following two datasets in our experiments:{\bf  (1) Interesting iPhone cases}:
 For generating the ground truth data we hired workers from {\em Amazon Mechanical Turk (AMT)} to label a collection
 of nearly $20,000$ iPhone cases on {\em eBay}. The details of this step is beyond the scope of this paper, however we used insights from
@@ -499,7 +540,7 @@ interesting iPhone cases found on {\em Pinterest} and {\em eBay's} user behavior
 We then pulled our final data-set from the annotated data by selecting only those instances where the annotators all labeled it as
 positive (i.e., interesting), or negative (i.e., uninteresting). The final data-set consists of $2179$ positive and $9770$ negative instances for
 a total of $11949$ instances; {\bf (2) NSF abstracts}:
-
+\end{comment}
 
 \begin{comment}
 \subsection{Baselines}
