@@ -230,7 +230,7 @@ Fro example, in at the context of iPhone cases, one would expect less to observe
 
 We assume a distributional representation for the words in the vocabulary (for a brief review
 see~\cite{Turian10wordrepresentations}). A distributional representation over a vocabulary $V$ maps a word in the vocabulary to a 
-probability distribution over a fixed set of contexts $C$. Often we start by a co-occurrence matrix $A_{|V|\times|C|}$ where each row represents a co-occurrence of a word with the set of contexts
+probability distribution over a fixed set of contexts $C$. Often we start by a co-occurrence matrix $\cM_{|V|\times|C|}$ where each row represents a co-occurrence of a word with the set of contexts
 $C$. For example if we chose $C=V$ then we obtain the familiar {\sl word-to-word} co-occurrence representation which counts the number
 of times two words co-occurred in a document corpus. Another choice would be to use the set of topics learned over a document
 corpus by {\sl Latent Dirichlet Allocation} (LDA)~\cite{Blei:2003:LDA:944919.944937} as the context. The rows of $A$
@@ -312,8 +312,39 @@ required for computing the information diversity as described in Section~\ref{se
 \end{comment}
 %The proposed distributional model has some
 %shortcomings\\
-{\bf (3) Topic similarity:}
-Second, we consider the issue first raised in [kevin], namely, that
+{\bf (3) Capturing topic similarity:} Here we consider the problem first raised in~\cite{bache:2013}. When building a word-to-topic distribution model based on 
+the word-to-topic co-occurrence matrix, the relationship among topics may be lost (i.e, topic similarity ).  For example, if a word $w$
+has a topic distribution $P_w$ concentrated on some topic $t$, then it will
+not necessarily peek at all other topics that are very similar to topic $t$. To address this problem, we first define a topic similarity matrrix $\cS_{|T|\times|T|}$
+where $i^{th}$ row of $\cS$ gives the topic similarity vector for the $i^{th}$ topic (e.g., {\em cosine} similarity between topics~\cite{bache:2013}). We further assume that it is normalized 
+and hence can be thought of topic similarity a distribution. Using $\cS$ we obtain $\tilde{P}_w = P_w\cS^T$ which essentially diffuses the initial distribution to
+one where  all topics similar to $t$ are well represented. Similarly, we can use $\cS$ to to reflect the topic similarity in the prior distribution as $\tilde{P} = P\cS^T$.
+In Section~\ref{sec:experiments} we will show how this
+approach enhances the standard entropic measure of diversity.\\
+{\bf (4) Sample size bias problem:}  Note that 
+when we normalize the rows of the matrix $\cM$ to obtain a distributional model, the normalization factor 
+for every word is simply the word count. Thus for a word $w$ which occurs very rarely
+in the entire corpus $\cC$, the topic distribution will be artificially skewed and is inaccurate simply because we do not have enough data points to estimate its true word-to-topic distribution.
+Now, if for this corpus it happens that the prior topic distribution
+is close to uniform, it will give a very high importance to the word
+$w$ when measuring the information diversity as described in
+Section~\ref{sec:information-diversity}.
+One way to alleviate this
+problem is to use the relative sample size (e.g., word count) to
+smooth the distribution obtained by normalizing the rows of matrix
+$\cM$. A natural choice for the smoothing distribution would in this
+case be simply the prior distribution mentioned above. Applying {\em Laplace smoothing}
+we get:
+\begin{equation}
+\widehat{P}_w=\frac{\alpha \tilde{P}+ \mu_w \tilde{P}_w}{\alpha+\mu_w}
+\end{equation}
+where $\mu_w$ is the frequency of word $w$ in D, and $P_w$ is the
+topic assignment distribution obtained from the word-topic matrix,
+while $\alpha$ is the parameter that specifies the strength of the
+prior.
+
+\begin{comment}
+Here we consider the issue first raised in \cite{bache:2013}, namely, that
 when one tries to describe meaning through topic distribution, the
 relations between the topics may be lost. For example, if a word $w$
 has a topic distribution $P_w$ concentrated on one topic $t1$, then it will
@@ -339,32 +370,9 @@ topic-similarity matrix is also use, in a different way.
 It remains to say how we obtain the topic-similarity vectors $S_t$. We
 chose to use Cosine Similarity between topic word-vectors, as described in
 [kevin]. \\
-{\bf (4) Sample size bias problem:} more specifically it suffers from the sample size bias problem. Note that 
-when we normalize the rows of the matrix $A$ to obtain a distributional model, the normalization factor 
-for every word is simply the word count. Thus for a word $w$ which occurs very rarely
-in the entire corpus $\cC$, the topic distribution will be artificially skewed and inaccurate simply because we do not have enough data points to estimate its true word-to-topic distribution.
-Now, If for this corpus it happens that the prior topic distribution
-is close to uniform, it will give a very high importance to the word
-$w$ when measuring the information diversity as described in
-Section~\ref{sec:information-diversity}.
-One way to alleviate this
-problem is to use the relative sample size (e.g., word count) to
-smooth the distribution obtained by normalizing the rows of matrix
-$A$. The natural choice for the smoothing distribution would in this
-case be simply the prior distribution mentioned above.
+\end{coment}
 
 
-To combine the last two paragraphs, we need to specify what will be
-the prior distribution, when using the topic-similarity adjusted
-distributions. By simple analysis we can deduce that the proper choice
-is $P'=PS^T$, where $P$ is the prior distribution as
-described before. By Bayesian analysis, we reach the following
-smoothed topic distribution for a word $w$:
-\[\widehat{P}_w=\frac{\alpha PS^T + \mu_w P_wS^T}{\alpha+\mu_w},\]
-where $\mu_w$ is the frequency of word $w$ in D, and $P_w$ is the
-topic assignment distribution obtained from the word-topic matrix,
-while $\alpha$ is the parameter that specifies the strength of the
-prior.
 
 
 \begin{comment}
@@ -406,6 +414,7 @@ while $\alpha$ is the parameter that specifies the strength of the
 prior.
 \end{comment}
 
+\begin{comment}
 Finally, we propose a third enhancement to the word-topic
 distributions. Suppose, the set of words $T=\{w_1,...,w_k\}$
 represents a text snippet that we want to analyze. The word $w_i$ has
@@ -436,6 +445,7 @@ we use Bayesian smoothing, with Dirichlet prior concentrated around
 $\widehat{P}_{w_1}$, obtaining (with
 parameter $\beta$ describing the strength of the prior):
 \[\widehat{P}^{T_1}_{w_1}(t)\propto \beta \widehat{P}_{w_1}\!(t) + \frac{\widehat{P}_{w_1}\!(t)P_{T_1}\!(t)}{\widehat{P}(t)}.\]
+\end{comment}
 \begin{comment}
 Next, let us analyze the Observer's behavior when reading a text
 segment from $\cT$. We treat each piece of text as a bag of words,
@@ -482,13 +492,13 @@ Dirichlet prior, obtaining the following posterior solution:
 
 \section{Experiments}
 \label{sec:experiments}
-We used the following two datasets in our experiments: (1) Interesting iPhone cases:
+We used the following two datasets in our experiments:{\bf  (1) Interesting iPhone cases}:
 For generating the ground truth data we hired workers from {\em Amazon Mechanical Turk (AMT)} to label a collection
 of nearly $20,000$ iPhone cases on {\em eBay}. The details of this step is beyond the scope of this paper, however we used insights from
 interesting iPhone cases found on {\em Pinterest} and {\em eBay's} user behavior data in order to generate a balanced data-set. 
-We then puled our final data-set from the annotated by selecting only those instances where the annotators all labeled it as
-positive (i.e., interesting) or negative (i.e., uninteresting). The final data-set consists of $2179$ positive and $9770$ negative instances for
-a total of $11949$ instances; (2) NSF abstracts:
+We then pulled our final data-set from the annotated data by selecting only those instances where the annotators all labeled it as
+positive (i.e., interesting), or negative (i.e., uninteresting). The final data-set consists of $2179$ positive and $9770$ negative instances for
+a total of $11949$ instances; {\bf (2) NSF abstracts}:
 
 
 \begin{comment}
@@ -564,7 +574,7 @@ Classification:
 \\ \hline 
 Topic Features         &$\mathbf{0.714}\pm 0.015$&$0.597\pm 0.016$&$0.650\pm
 0.014$& $\mathbf{0.8828}\pm 0.0045$\\
-W2V + RAE             &$0.676\pm 0.005$&$\mathbf{0.666}\pm 0.030$&$\mathbf{0.671}\pm
+RAE             &$0.676\pm 0.005$&$\mathbf{0.666}\pm 0.030$&$\mathbf{0.671}\pm
 0.013$&$0.8809\pm 0.0020$ \\
 SVD Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
 0.010$&$0.8778\pm 0.0027$\\
