@@ -235,7 +235,7 @@ required for computing the information diversity as described in Section~\ref{se
 {\bf (3) Capturing topic similarity:} here we consider the problem first raised in~\cite{bache:2013}. When building a word-to-topic distribution model based on 
 the word-to-topic co-occurrence matrix, the relationship among topics (i.e, topic similarity ) may be lost. For example, if a word $w$
 has a topic distribution $P_w$ concentrated on some topic $t$, then it will
-not necessarily peek at all other topics that are very similar to topic $t$. To address this problem, we first define a topic similarity matrrix $\cS_{|T|\times|T|}$
+not necessarily peek at all other topics that are very similar to topic $t$. To address this problem, we first define a topic similarity matrix $\cS_{|T|\times|T|}$
 where the $i^{th}$ row of $\cS$ gives the topic similarity vector for the $i^{th}$ topic (e.g., cosine similarity between topics~\cite{bache:2013}). We further assume that it is normalized 
 and hence can be thought of as a topic similarity distribution. Using $\cS$ we obtain $\tilde{P}_w = P_w\cS^T$ which essentially diffuses the initial distribution to
 one where  all topics similar to some topic $t$ are well represented. Similarly, we can use $\cS$ to to reflect the topic similarity in the prior distribution as $\tilde{P} = P\cS^T$.
