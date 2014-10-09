@@ -229,23 +229,23 @@ In order to apply this model to natural language we first need to build a distri
 natural choice for measuring the topic diversity is to use {\sl word-to-topic} distribution. We need to address the following problems:\\
 {\bf (1) Building word to topic distribution}: We train an
 LDA~\cite{Blei:2003:LDA:944919.944937} to build a topic model given a document corpus $\cC$. From this topic model we obtain the
-word-topic matrix $\cM$ where $M_{ij}$ is the probability of $w_i$  given $j$-th topic which is given by the LDA model. By normalizing the rows of matrix $\cM$ we will obtain
-a word-topic distribution, where the $i$-th row of the matrix gives the topic distribution for the word $w_i$ (note that word-to-topic distribution as described is not explicitly defined in the standard {\em LDA} model and our approach is one way to approximate it).\\
-{\bf (2) Obtaining a prior topic distribution} (which is
-required for computing the information diversity as described in Section~\ref{sec:information-diversity}): We obtain a prior
- topic distribution by computing the proportions of overall topic
- assignments. This corresponds to summing up matrix $M$ along its
- columns (rows????), and then normalizing the resulting vector.\\
-{\bf (3) Capturing topic similarity:} Here we consider the problem first raised in~\cite{bache:2013}. When building a word-to-topic distribution model based on 
-the word-to-topic co-occurrence matrix, the relationship among topics may be lost (i.e, topic similarity ).  For example, if a word $w$
+word-topic matrix $\cM$ where $\M_{ij}$ is the probability of $w_i$  given $j$-th topic which is given by the LDA model. By normalizing the rows of matrix $\cM$ we will obtain
+a word-topic distribution, where the $i$-th row of the matrix gives the topic distribution for the word $w_i$ (note that word-to-topic distribution as described is not explicitly defined in the standard LDA model and our approach is one way to approximate it).\\
+{\bf (2) Obtaining a prior topic distribution:} this is
+required for computing the information diversity as described in Section~\ref{sec:information-diversity}. We obtain a prior
+ topic distribution $P$ by computing the proportions of overall topic
+ assignments. This corresponds to summing up matrix $\cM$ along its
+ rows and then normalizing the resulting vector.\\
+{\bf (3) Capturing topic similarity:} here we consider the problem first raised in~\cite{bache:2013}. When building a word-to-topic distribution model based on 
+the word-to-topic co-occurrence matrix, the relationship among topics (i.e, topic similarity ) may be lost. For example, if a word $w$
 has a topic distribution $P_w$ concentrated on some topic $t$, then it will
 not necessarily peek at all other topics that are very similar to topic $t$. To address this problem, we first define a topic similarity matrrix $\cS_{|T|\times|T|}$
-where $i^{th}$ row of $\cS$ gives the topic similarity vector for the $i^{th}$ topic (e.g., {\em cosine} similarity between topics~\cite{bache:2013}). We further assume that it is normalized 
+where $i^{th}$ row of $\cS$ gives the topic similarity vector for the $i^{th}$ topic (e.g., cosine similarity between topics~\cite{bache:2013}). We further assume that it is normalized 
 and hence can be thought of topic similarity a distribution. Using $\cS$ we obtain $\tilde{P}_w = P_w\cS^T$ which essentially diffuses the initial distribution to
 one where  all topics similar to $t$ are well represented. Similarly, we can use $\cS$ to to reflect the topic similarity in the prior distribution as $\tilde{P} = P\cS^T$.
 In Section~\ref{sec:experiments} we will show how this
 approach enhances the standard entropic measure of diversity.\\
-{\bf (4) Sample size bias problem:}  Note that 
+{\bf (4) Sample size bias problem:}  note that 
 when we normalize the rows of the matrix $\cM$ to obtain a distributional model, the normalization factor 
 for every word is simply the word count. Thus for a word $w$ which occurs very rarely
 in the entire corpus $\cC$, the topic distribution will be artificially skewed and is inaccurate simply because we do not have enough data points to estimate its true word-to-topic distribution.
@@ -266,7 +266,7 @@ where $\mu_w$ is the frequency of word $w$ in D, and $P_w$ is the
 topic assignment distribution obtained from the word-topic matrix,
 while $\alpha$ is the parameter that specifies the strength of the
 prior.\\
-{\bf (5) Conditioning on context words:} We propose a final enhancement to the word-topic
+{\bf (5) Conditioning on context words:} we propose a final enhancement to the word-topic
 distributions. Suppose, the set of words $T=\{w_1,...,w_k\}$
 represents a text snippet that we want to analyze. The word $w_i$ has
 a specific meaning inside of $T$, that can be significantly different
