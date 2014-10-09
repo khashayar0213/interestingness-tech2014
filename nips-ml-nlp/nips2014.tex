@@ -189,24 +189,20 @@ in the text snippet.
 Given a distributional representation over a vocabulary $V$ and context $C$ with $P_w$ giving a probability distribution of a
 word $w$ over the context $C$, we can measure information diversity for a given text snippet $W=\{w_1,...,w_k\}$ and its
 distributional representation $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$ as follows:
-
 \bed\label{importance}
 Given a distribution $P_w$, its {\sl importance} with respect to a
 prior distribution $P$ is defined as $D_w = D_{KL}(P_w\|P)$ where $D_{KL}(\|)$ denotes the
 {\sl Kullback-Leibler} Divergence.
 \eed
-
 \bed\label{mixture}
 Given a set of distributions $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$ and a
 prior $P$, we
 define a mixture distribution $P_W=\sum_{i=1}^k d_{w_i} P_{w_i}$ where $d_{w_i}=\frac{D_{w_i}}{\sum D_{w_j}}$ are the normalized
 importances.
 \eed
-
 Essentially, $P_W$ is the weighted average of the set $\cP_{W}$, where
 the weights are chosen according to the importances. Next we
 define the diversity measure:
-
 \bed\label{diversity}
 We define the Jensen-Shannon Information Diversity of a set of
 distributions $\cP_W$ with respect to 
@@ -280,12 +276,12 @@ Let $\tilde{P},\widehat{P}_{w_i}, \tilde{P}_{W_{\bar{i}}}$ be the topic prior, g
 topic distribution for $w_i$, and the context distribution,
 respectively. Then, the context-dependent distribution is
 \begin{equation*}
-P^{W_i}_{w_i}(t)\propto \frac{\tilde{P}_{W_i}(t)}{\tilde{P}(t)}\widehat{P}_{w_i}(t)
+P^{W_{\bar{i}}}_{w_i}(t)\propto \frac{\tilde{P}_{W_{\bar{i}}}(t)}{\tilde{P}(t)}\widehat{P}_{w_i}(t)
 \end{equation*}
 \eed
 There is a probabilistic explanation that we have left out for 
 lack of space. However this can be intuitively understood as follows:
-we can think of $\frac{\tilde{P}_{W_i}(t)}{\tilde{P}(t)}$ as a weight
+we can think of $\frac{\tilde{P}_{W_{\bar{i}}}(t)}{\tilde{P}(t)}$ as a weight
 that further reshapes the smoothed word-to-topic distribution $\widehat{P}_{w_i}(t)$
 to take into account the context. In our experiments we also smooth this distribution
 using {\em Laplacian} smoothing.
@@ -322,9 +318,7 @@ We present two sets of results. First, we present
 ROC curves comparing different entropic measures of topic diversity in an unsupervised setting 
 (labeled data is only used for generating the curves). Figures~\ref{fig:phonecases-comparison} and \ref{fig:nsf-comparison}
 compare our diversity metric using both topic similarity and context conditioning (labeled by {\em JSD-Sim-Con}) with a few baselines; namely LDA topic entropy, LDA topic entropy entropy using topic similarity (labeled by {\em Entropy-Sim}), {\em Rao diversity} (see~\cite{bache:2013} for details). In either case it can be observed that our diversity metric outperforms the other baselines with an AUC $0.73$ while the other measures give almost uninformative results. This can be explained for the {\em eBay} dataset since the text snippets are short. Thus the LDA may yield a poor topic inference for such short text and as a result all entropy measures using topic inference would perform also poorly. Figures~\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown} show the gains we obtain by application of the topic similarity and context conditioning techniques (steps 4, and 5) that we discussed in Section~\ref{sec:topic-diversity}. However, their degree of effects are different for each
-dataset. 
-
-In the second set of results, we used the unnormalized vector of mixture topic
+dataset.  In the second set of results, we used the unnormalized vector of mixture topic
 distribution (described in Definition~\ref{mixture}) computed over {\em eBay} product titles in a supervised classification setting. Table~\ref{tab:classification-results} compares the performance of the SVM classifier using our proposed mixture topic distribution as features to two different baselines, namely, SVM using {\em Latent Semantic Indexing (LSI)} features (by forming a document-term matrix and performing SVD), and a deep learning approach using the {\em recursive auto-encoders (RAE)} described in~\cite{Socher:2011:SRA:2145432.2145450}. These results are averaged over five different cross-validation splits of using $0.6$ for training and $0.4$ for testing. Our proposed approach shows a higher precision although marginally showing a higher accuracy compared to the baselines.
 
 \begin{figure}
