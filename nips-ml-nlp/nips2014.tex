@@ -341,7 +341,32 @@ we get:
 where $\mu_w$ is the frequency of word $w$ in D, and $P_w$ is the
 topic assignment distribution obtained from the word-topic matrix,
 while $\alpha$ is the parameter that specifies the strength of the
-prior.
+prior.\\
+{\bf (5) Conditioning on context words:} We propose a final enhancement to the word-topic
+distributions. Suppose, the set of words $T=\{w_1,...,w_k\}$
+represents a text snippet that we want to analyze. The word $w_i$ has
+a specific meaning inside of $T$, that can be significantly different
+than its meaning out of context. We can describe that context using
+the mixture distribution from Definition \ref{mixture}. Denote
+$T_i=T-\{w_i\}$ as the set of all words in $T$ except
+$w_i$. By $P_{T_i}$, we denote the mixture distribution for $T_i$. We
+propose the following definition of context-dependent word-topic
+distribution. 
+\bed
+Let $\widehat{P},\widehat{P}_{w_i},P_{T_i}$ be the topic prior, general
+topic distribution for $w_i$, and the context distribution,
+respectively. Then, the context-dependent distribution is
+\begin{equation*}
+P^{T_i}_{w_i}(t)\propto \frac{\tilde{P}_{T_i}(t)}{\tilde{P}(t)}\tilde{P}_{w_i}(t)
+\end{equation*}
+\eed
+There is a probabilistic explanation that we have left out for 
+lack of space. However this can be intuitively understood as follows:
+we can think of $\frac{\tilde{P}_{T_i}(t)}{\tilde{P}(t)}$ as a weight
+that further reshapes the smoothed word-to-topic distribution $\tilde{P}_{w_i}(t)$
+to take into account the context. In our experiments we also smooth this distribution
+using {\em Laplacian} smoothing.
+
 
 \begin{comment}
 Here we consider the issue first raised in \cite{bache:2013}, namely, that
@@ -414,7 +439,7 @@ while $\alpha$ is the parameter that specifies the strength of the
 prior.
 \end{comment}
 
-
+\begin{comment}
 Finally, we propose a third enhancement to the word-topic
 distributions. Suppose, the set of words $T=\{w_1,...,w_k\}$
 represents a text snippet that we want to analyze. The word $w_i$ has
@@ -445,6 +470,7 @@ we use Bayesian smoothing, with Dirichlet prior concentrated around
 $\widehat{P}_{w_1}$, obtaining (with
 parameter $\beta$ describing the strength of the prior):
 \[\widehat{P}^{T_1}_{w_1}(t)\propto \beta \widehat{P}_{w_1}\!(t) + \frac{\widehat{P}_{w_1}\!(t)P_{T_1}\!(t)}{\widehat{P}(t)}.\]
+\end{comment}
 
 \begin{comment}
 Next, let us analyze the Observer's behavior when reading a text
@@ -492,7 +518,71 @@ Dirichlet prior, obtaining the following posterior solution:
 
 \section{Experiments}
 \label{sec:experiments}
-One of the key advanatages of our approach is that it works well for
+
+We used the following two datasets in our experiments: (1) Interesting iPhone cases:
+for generating the ground truth data we hired workers from {\em Amazon Mechanical Turk (AMT)} to label a collection
+of nearly 20,000 iPhone cases on {\em eBay}. The details of this step is beyond the scope of this paper, however we used insights from
+interesting iPhone cases found on {\em Pinterest} and {\em eBay's} user behavior data in order to generate a balanced data-set. 
+We then pulled our final dataset from the annotated by selecting only those instances where the annotators all labeled it as
+positive (i.e., interesting) or negative (i.e., uninteresting). The final data-set consists of 2179 positive and 9770 negative instances for
+a total of 11949 instances. For each instance, the product title of
+the corresponding {\em eBay} listing was used as the input. In this case we are
+dealing with very short text snippets, usually 10 to 12 words each. To
+train a topic model, we used a larger, more broader set of about
+2 million product titles, grouped based on {\em eBay} categorical information into about 8,000
+documents of approximately 200 titles each. We used the Mallet LDA implementation and learned a topic model with $400$ topics; (2) {\em NSF}
+abstracts: for the second dataset we used a set of 61,902 National Science Foundation
+Scholarship proposal abstracts (see~\cite{bache:2013} for more details) to evaluate how our diversity measure
+compares to other methods on larger pieces of text. We used this set
+for training a topic model, however to get labeled data, we had to
+generate artificial examples, by randomly mixing pairs of abstracts that we
+could expect to be either similar (small diversity) or very different
+(high diversity) and labeling them accordingly. We generated 5,000 of
+those examples with positive and negative labels evenly represented.
+
+We present two sets of results. First, we present
+ROC curves comparing different entropic measures of topic diversity in an unsupervised setting 
+(labeled data is only used for generating the curves).
+
+
+
+Figure~\ref{fig:roc-curves} presents the ROC curves for the
+unsupervised task. Analyzing Plot \ref{fig:nsf-comparison} we can see
+how our proposed measure (denoted as JSD-Sim-Con) compared to the
+baseline methods for the NSF dataset. Note, that in this task the
+pieces of text are large enough (a few hundred words on average), to
+obtain reasonable topic distributions from Mallet. In particular, this
+task is comparable with the one in \cite{bache:2013}. Our measure
+obtains the best AUC of approx. $0.74$, however Rao Diversity and
+Entropy-Sim both get close to that as well. The regular Entropy
+performs significantly worse, which shows that enhancing the topic
+distribution with topic-similarities gives significant improvements
+even for the Entropic measure of diversity for text. The picture looks
+quite different for the eBay dataset, as seen in plot
+\ref{fig:phonecases-comparison}. Here, we can see that our measure
+still performs very well, with AUC of 0.73, while the other measures
+give almost meaningless results. This can be explained easily because
+in this set, the text snippets are too short to infer a good topic
+distribution directly from the LDA topic model. Plots
+\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown}  show how
+different versions of our measure perform, and the gains obtained from
+each enhancement. Both adding topic-similarity (denoted as {\em Sim})
+and context-dependence (denoted as {\em Con})
+improves the results, however, their effects are different for each
+dataset . Additionally, to find out what is the effect of importance
+weights from Definition \ref{importance}, we tested a version of the
+measure, which uses uniform weights instead. Interestingly, this had
+no negative impact for the eBay dataset, but significantly worsened
+the result for the NSF dataset. It appears that, as one would expect,
+using importance weights matters more if the analyzed piece of text is
+longer.
+
+
+
+
+
+\begin{comment}
+One of the key advantages  of our approach is that it works well for
 short snippets of text. Other methods known to us struggle there,
 because they rely on inferring a topic distribution of the piece of
 text as if it were a large document, resulting in inferior
@@ -520,6 +610,9 @@ could expect to be either similar (small diversity) or very different
 (high diversity) and labeling them accordingly. We generated 5000 of
 those examples with positive and negative labels evenly represented.
 
+
+
+
 Naturally, our diversity measure, like the measures it was evaluated
 against, is an unsupervised method, so we used ROC plots to describe
 how they match with our labeled data from both sources. However,
@@ -529,7 +622,7 @@ distribution can be used as a feature vector for a separate
 classification task. This allowed us to evaluate our approach as
 feature generation, comparing with the more commonly used ones like
 LSI and Deep Learning.
-
+\end{comment}
 
 
 \begin{comment}
@@ -542,7 +635,7 @@ positive (i.e., interesting), or negative (i.e., uninteresting). The final data-
 a total of $11949$ instances; {\bf (2) NSF abstracts}:
 \end{comment}
 
-%\begin{comment}
+\begin{comment}
 \subsection{Baselines}
 \label{sec:baselines}
 In the unsupervised task, we compared our method against the following methods
@@ -557,11 +650,11 @@ In the unsupervised task, we compared our method against the following methods
 \item{\bf Rao Diversity:} as described in \cite{bache:2013}. We use
   the topic distribution as above, and topic-similarity matrix as
   described earlier.
-\begin{comment} \cite{ganguly:2014}, \end{comment}
 \end{itemize}
+\end{comment}
 
 
-
+\begin{comment}
 Classification:
 \begin{itemize}
 \item {\bf Bag of words (BOW):}
@@ -570,7 +663,7 @@ Classification:
 \end{itemize}
 \subsection{Results}
 \label{sec:results}
-%\end{comment}
+\end{comment}
 
 \begin{figure}
         \centering
@@ -611,6 +704,7 @@ Classification:
          show different variations of our approach. }\label{fig:roc-curves}
 \end{figure}
 
+\begin{comment}
 Figure \ref{fig:roc-curves} presents the ROC curves for the
 unsupervised task. Analyzing Plot \ref{fig:nsf-comparison} we can see
 how our proposed measure (denoted as JSD-Sim-Con) compared to the
@@ -641,6 +735,7 @@ no negative impact for the eBay dataset, but significantly worsened
 the result for the NSF dataset. It appears that, as one would expect,
 using importance weights matters more if the analyzed piece of text is
 longer.
+\end{comment}
 
 \begin{table}[t]
 \caption{Classification results for the eBay dataset.}
@@ -666,8 +761,8 @@ SVD Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Conclusions}
-\label{sec:conclusions}
+%\section{Conclusions}
+%\label{sec:conclusions}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
