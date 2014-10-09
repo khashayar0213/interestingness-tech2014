@@ -524,7 +524,7 @@ of nearly 20,000 iPhone cases on {\em eBay}. The details of this step is beyond 
 interesting iPhone cases found on {\em Pinterest} and {\em eBay's} user behavior data in order to generate a balanced data-set. 
 We then pulled our final dataset from the annotated by selecting only those instances where the annotators all labeled it as
 positive (i.e., interesting) or negative (i.e., uninteresting). The final data-set consists of 2179 positive and 9770 negative instances for
-a total of 11949 instances. For each instance, the product title of
+a total of 11,949 instances. For each instance, the product title of
 the corresponding {\em eBay} listing was used as the input. In this case we are
 dealing with very short text snippets, usually 10 to 12 words each. To
 train a topic model, we used a larger, more broader set of about
@@ -542,11 +542,7 @@ those examples with positive and negative labels evenly represented.
 We present two sets of results. First, we present
 ROC curves comparing different entropic measures of topic diversity in an unsupervised setting 
 (labeled data is only used for generating the curves). Figures~\ref{fig:phonecases-comparison} and \ref{fig:nsf-comparison}
-compare our diversity metric using both topic similarity and context conditioning (labeled by {\em JSD-Sim-Con}) with a few baselines; namely standard {\em entropy}, standard entropy using topic similarity (labeled by {\em Entropy-Sim}), {\em Rao diversity } (the method used in~\cite{bache:2013}). In either case it can be observed that our diversity metric outperforms the other baselines. Here, we can see that our measure
-still performs very well, with AUC of 0.73, while the other measures
-give almost meaningless results. This can be explained easily because
-in this set, the text snippets are too short to infer a good topic
-distribution directly from the LDA topic model. Figures~\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown} show the gains we obtain by application of the topic similarity and context conditioning techniques (steps 4, and 5) that we discussed in Section~\ref{sec:topic-diversity}. However, their degree of effects are different for each
+compare our diversity metric using both topic similarity and context conditioning (labeled by {\em JSD-Sim-Con}) with a few baselines; namely LDA topic entropy, LDA topic entropy entropy using topic similarity (labeled by {\em Entropy-Sim}), {\em Rao diversity} (see~\cite{bache:2013} for details). In either case it can be observed that our diversity metric outperforms the other baselines with an AUC $0.73$ while the other measures give almost uninformative results. This can be explained for the {\em eBay} dataset since the text snippets are short. Thus the LDA may yield a poor topic inference for such short text and as a result all entropy measures using topic inference would perform also poorly. Figures~\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown} show the gains we obtain by application of the topic similarity and context conditioning techniques (steps 4, and 5) that we discussed in Section~\ref{sec:topic-diversity}. However, their degree of effects are different for each
 dataset. 
 
 In the second set of results, we used the unnormalized vector of mixture topic
@@ -644,7 +640,7 @@ Classification:
         \begin{subfigure}[b]{0.24\textwidth}
                 \centering
                 \includegraphics[width=36mm]{figures/phonecases-comparison-kopia.png}
-               \caption{eBay - comparison}
+               \caption{eBay (baseline)}
                 \label{fig:phonecases-comparison}
         \end{subfigure}%\qquad
               ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
@@ -652,7 +648,7 @@ Classification:
         \begin{subfigure}[b]{0.24\textwidth}
                 \centering
                 \includegraphics[width=36mm]{figures/phonecases-breakdown-kopia.png}
-                \caption{eBay - breakdown}
+                \caption{eBay (JSD)}
                 \label{fig:phonecases-breakdown}
         \end{subfigure}\nobreak
               ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
@@ -660,7 +656,7 @@ Classification:
         \begin{subfigure}[b]{0.24\textwidth}
                 \centering
                 \includegraphics[width=36mm]{figures/nsf-comparison-kopia.png}
-                \caption{NSF - comparison}
+                \caption{NSF (baseline)}
                 \label{fig:nsf-comparison}
         \end{subfigure}%\qquad
         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
@@ -668,7 +664,7 @@ Classification:
         \begin{subfigure}[b]{0.24\textwidth}
         	        \centering
                 \includegraphics[width=36mm]{figures/nsf-breakdown-kopia.png}
-               \caption{NSF - breakdown}
+               \caption{NSF (JSD)}
                 \label{fig:nsf-breakdown}
         \end{subfigure}
        \caption{ROC curves presenting the results of experiments on
