@@ -127,78 +127,6 @@ For example in Figure~\ref{fig:eyeshadow-iphone-case}, in the context of iPhone 
        \label{fig:ebay-products}
 \end{figure}
 
-\begin{comment}
-\begin{figure}
-        \centering
-        \begin{subfigure}[b]{0.3\textwidth}
-                \centering
-                \includegraphics[width=25mm]{figures/standard-iphone-case.jpg}
-                \caption{Black Qi Standard Wireless Charging Charger Receiver Case For iPhone 5 5G}
-                \label{fig:standard-iphone-case}
-        \end{subfigure}%
-              ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
-                \centering
-                \includegraphics[width=25mm]{figures/standard-iphone-speaker.jpg}
-                \caption{Bluetooth Wireless Speaker Mini Portable Super Bass For iPhone}
-                \label{fig:standard-speaker}
-        \end{subfigure}%
-              ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
-                \centering
-                \includegraphics[width=25mm]{figures/standard-clock.jpg}
-                \caption{Modern DIY Your Wall Clock Sticker Decoration Home Roman Numerals Silver SCY07}
-                \label{fig:standard-speaker}
-        \end{subfigure}\\
-        ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
-        	        \centering
-                \includegraphics[width=30mm]{figures/eyeshadow-iphone-case.jpg}
-                \caption{\textcolor{red}{{\bf Eyeshadow}} Palettes for \textcolor{red}{{\bf iPhone}} 6 case}
-                \label{fig:eyeshadow-iphone-case}
-        \end{subfigure}
-              ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
-		 \centering
-                \includegraphics[width=30mm]{figures/horn-iphone-speaker.jpg}
-\caption{White Silicone \textcolor{red}{{\bf Horn}} Stand Speaker for Apple \textcolor{red}{{\bf iPhone}} 4/ 4S}                \label{fig:zeppelin-speaker}
-        \end{subfigure}
-       ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
-		 \centering
-                \includegraphics[width=30mm]{figures/geeky-clock}
-\caption{\textcolor{red}{{\bf Equation}} Wall \textcolor{red}{{\bf Clock}} Gifts for Math Gurus or Best Geek Friends}                \label{fig:geeky-clock}
-        \end{subfigure}
-       \caption{A collection of {\em eBay} products: top row shows some off-the-shelf products while the bottom row shows a more unique/inteesting products of similar categories}\label{fig:ebay-products}
-\end{figure}
-\end{comment}
-
-
-
-
-
-
-%% When looking at interestingness \cite{silva2006}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -218,21 +146,6 @@ corpus by {\sl Latent Dirichlet Allocation} (LDA)~\cite{Blei:2003:LDA:944919.944
 are then normalized in order to obtain a probability distribution over the context. We will use the notation $P_w$ to represent
 the probability distribution over the context  given a word $w$. We also use the notation $T=\{w_1,...,w_k\}$ for a bag of word representation of a text snippet. Given a word distributional representation, $\cP_{T}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the words
 in the text snippet.
-
-\begin{comment}
-We assume a distributional representation for the words in the vocabulary (for a brief review
-see~\cite{Turian10wordrepresentations}). A distributional representation over a vocabulary $V$ maps a word in the vocabulary to a 
-probability distribution over a fixed set of contexts $C$. Often we start by a co-occurrence matrix $\cM_{|V|\times|C|}$ where each row represents a co-occurrence of a word with the set of contexts
-$C$. For example if we chose $C=V$ then we obtain the familiar {\sl word-to-word} co-occurrence representation which counts the number
-of times two words co-occurred in a document corpus. Another choice would be to use the set of topics learned over a document
-corpus by {\sl Latent Dirichlet Allocation} (LDA)~\cite{Blei:2003:LDA:944919.944937} as the context. The rows of $A$
-are then normalized in order to obtain a probability distribution over the context. We will use the notation $P_w$ to represent
-the probability distribution over the context  given a word $w$. We also use the notation $T=\{w_1,...,w_k\}$ for a text
-snippet where
-$\{w_1,...,w_k\}$ are the words in the order they appear in the
-text. Given a word distributional representation, $T\_{\cP}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the words
-in the text snippet.
-\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -289,21 +202,6 @@ required for computing the information diversity as described in Section~\ref{se
  topic distribution by computing the proportions of overall topic
  assignments. This corresponds to summing up matrix $M$ along its
  columns (rows????), and then normalizing the resulting vector.\\
-\begin{comment}
-\begin{enumerate}
-\item {\bf How to obtain a topic distribution for a given word}: We train an
-LDA~\cite{Blei:2003:LDA:944919.944937} to build a topic model given a document corpus $\cC$. From this topic model we obtain the
-word-topic matrix $\cM$ where $M_{ij}$ is the number of times $i$-th word was assigned the $j$-th topics\footnote{Note that word-topic distribution as described, is not directly defined in the standard {\em LDA} model and hence is only one possible approximation.}. By normalizing the rows of matrix $\cM$ we will obtain
-a word-topic distribution, where the $i$-th row of the matrix gives the topic distribution for the word $w_i$.
-\item {\bf How to obtain a prior topic distribution} (which is
-required for computing the information diversity as described in Section~\ref{sec:information-diversity}): We obtain a prior
- topic distribution by computing the proportions of overall topic
- assignments. This corresponds to summing up matrix $M$ along its
- columns (rows????), and then normalizing the resulting vector.
-\end{enumerate}
-\end{comment}
-%The proposed distributional model has some
-%shortcomings\\
 {\bf (3) Capturing topic similarity:} Here we consider the problem first raised in~\cite{bache:2013}. When building a word-to-topic distribution model based on 
 the word-to-topic co-occurrence matrix, the relationship among topics may be lost (i.e, topic similarity ).  For example, if a word $w$
 has a topic distribution $P_w$ concentrated on some topic $t$, then it will
@@ -359,151 +257,6 @@ that further reshapes the smoothed word-to-topic distribution $\widehat{P}_{w_i}
 to take into account the context. In our experiments we also smooth this distribution
 using {\em Laplacian} smoothing.
 
-
-\begin{comment}
-Here we consider the issue first raised in \cite{bache:2013}, namely, that
-when one tries to describe meaning through topic distribution, the
-relations between the topics may be lost. For example, if a word $w$
-has a topic distribution $P_w$ concentrated on one topic $t1$, then it will
-not reflect the fact that $w$ is also closely related to $t2$ simply
-because topics $t1$ and $t2$ are similar. Now, suppose that for each
-topic $t$, we have a topic-similarity vector $S_t$ associated with
-it. We will assume that it is normalized to a distribution and
-represent those vectors as rows of a square matrix $S$. We propose
-that instead of the distribution $P_w$, a more suited one would be
-$P'_w=P_wS^T$. This can be derived probabilistically, but we can also look
-at this as follows, for each topic $t$, instead of giving it
-probability $P_w(t)$, we add to the final distribution the vector
-$S_t$, scaled by $P_w(t)$. We expect that the topic $t$ itself has
-high value for its index in $S_t(t)$, as do topics similar to
-$t$. This way, a distribution $P_w$ concentrated on one topic $t$ would be
-diffused to a distribution in which all topics similar to $t$ are well
-represented. Notice, that this approach can be applied to any measure
-of diversity based on a probability distribution, as long as we can
-come up with a topic-similarity matrix $S$. We will show how this
-approach enhances the standard entropic measure of diversity. This
-approach is related to the one shown in [kevin], where a
-topic-similarity matrix is also use, in a different way.
-It remains to say how we obtain the topic-similarity vectors $S_t$. We
-chose to use Cosine Similarity between topic word-vectors, as described in
-[kevin]. \\
-\end{coment}
-
-
-
-
-\begin{comment}
-The proposed distributional model based on the topic model has some
-shortcomings. First, consider a word $w$ which occurs very rarely
-in the entire corpus $\cC$. The word-to-topic distribution $P_w$ associated with this word
-will be very concentrated. If for this corpus it happens that the prior topic distribution 
-is close to uniform, it will give a very high importance to the word $w$, just because
-there is not enough data points to determine its {\em true} topic distribution. 
-\end{comment}
-
-\begin{comment}
-We will now present a model of a human Observer $A$ that is being presented with
-the set $\cT$ and is supposed to judge the {\em interestingness} of
-each piece of text from it. Additionally, we assume that $A$ has
-gained their linguistic knowledge by observing samples from the set
-$\cD$. What is, then, the general meaning (topic distribution) of a word $w$,
-from the Observer's viewpoint? A statistically adequate approach is to
-take a Bayesian model with a Dirichlet prior. We observe occurrences
-in set $\cD$ of topic assignments for $w$ to learn the posterior
-distribution. However, instead of using the fixed assignments produced
-by the topic model, we let the Observer choose their own assignment as
-follows: given a pair $(w,t)$, where $t$ is the topic assignment given
-by the model for a specific occurrence of $w$, the observer selects a
-topic from some topic-similarity distribution $S_t$, conditional on
-$t$. An appropriate Dirichlet prior can be derived from this by
-looking at the overall topic assignments (not for a specific
-word). What would we get if we fed those to the Observer, letting $A$
-generate their own topic for each?  Denoting by $S$ the matrix with
-rows of topic-similarity distributions and by $P$ the (row vector) topic
-distribution coming from the word-topic matrix, we find that the
-observer's prior will concentrate around the distribution described by
-the product $\widehat{P}=PS^T$. Using Bayes's rule to calculate the Observer's
-posterior probability, we get
-\[\widehat{P}_w=\frac{\alpha PS^T + \mu_w P_wS^T}{\alpha+\mu_w},\]
-where $\mu_w$ is the frequency of word $w$ in D, and $P_w$ is the
-topic assignment distribution obtained from the word-topic matrix,
-while $\alpha$ is the parameter that specifies the strength of the
-prior.
-\end{comment}
-
-\begin{comment}
-Finally, we propose a third enhancement to the word-topic
-distributions. Suppose, the set of words $T=\{w_1,...,w_k\}$
-represents a text snippet that we want to analyze. The word $w_i$ has
-a specific meaning inside of $T$, that can be significantly different
-than its meaning out of context. We can describe that context using
-the mixture distribution from Definition \ref{mixture}. Denote
-$T_i=T-\{w_i\}$ as the set of all words in $T$ except
-$w_i$. By $P_{T_i}$, we denote the mixture distribution for $T_i$. We
-propose the following definition of context-dependent word-topic
-distribution. 
-\bed
-Let $\widehat{P},\widehat{P}_{w_i},P_{T_i}$ be the topic prior, general
-topic distribution for $w_i$, and the context distribution,
-respectively. Then, the context-dependent distribution is
-\[P^{T_i}_{w_i}(t)\propto \frac{\widehat{P}_{w_i}\!(t)P_{T_i}\!(t)}{\widehat{P}(t)}.\]
-\eed
-Without getting into the probabilistic explanation, we can roughly say
-that context distribution $P_{T_i}$ reshapes $w_i$'s topic
-distribution, putting most importance on those topics that have high
-probabilties in both $P_{T_i}$ and in $\widehat{P}_{w_i}$.
-The danger with relying on $P^{T_1}_{w_1}$
-is that if the distributions $\widehat{P}_{w_1}$ and $P_{T_1}$ are
-mostly disjoint, than their product will be very small. In other
-words, we would need a long sampling process in generating the
-hypothetical word-topic count matrix to obtain a statistically
-significant estimation of the $P^{T_1}_{w_1}$. Once again,
-we use Bayesian smoothing, with Dirichlet prior concentrated around
-$\widehat{P}_{w_1}$, obtaining (with
-parameter $\beta$ describing the strength of the prior):
-\[\widehat{P}^{T_1}_{w_1}(t)\propto \beta \widehat{P}_{w_1}\!(t) + \frac{\widehat{P}_{w_1}\!(t)P_{T_1}\!(t)}{\widehat{P}(t)}.\]
-\end{comment}
-
-\begin{comment}
-Next, let us analyze the Observer's behavior when reading a text
-segment from $\cT$. We treat each piece of text as a bag of words,
-disregarding the order. Suppose, the set of words is $T=\{w_1,...,w_k\}$. We
-have already established how the Observer understands each word
-separately. However, given a set of words, each one exists in the
-context of the others. We can describe that context using the mixture
-distribution from Definition \ref{mixture}. Denote
-$T_1=\{w_2,...,w_k\}$ as the set of all words in $T$ except
-$w_1$. What is the appropriate topic distribution for $w_1$, given a
-context mixture distribution $P_{T_1}$? For this, we can look more
-closely at the LDA model we used to obtain the word-topic matrix. We
-can think of it as being generated by the following process: first
-drawing a topic form the prior topic distribution, then drawing a word
-from that topic's word distribution. It is natural to ask what would
-the matrix look like if we used $P_{T_1}$ as the topic distribution
-instead of the prior, and what would be the corresponding topic
-distribution for word $w_1$. 
-
-\bep
-Let $\widehat{P},\widehat{P}_{w_1},P_{T_1}$ be the topic prior, general
-topic distribution for $w_1$, and the context distribution,
-respectively. Then, the context dependent distribution defined as
-above, will be
-\[P^{T_1}_{w_1}(t)\propto \frac{\widehat{P}_{w_1}\!(t)P_{T_1}\!(t)}{\widehat{P}(t)}.\]
-\eep
-
-The danger with relying on $P^{T_1}_{w_1}$
-is that if the distributions $\widehat{P}_{w_1}$ and $P_{T_1}$ are
-mostly disjoint, than their product will be very small. In other
-words, we would need a long sampling process in generating the
-hypothetical word-topic count matrix to obtain a statistically
-significant estimation of the $P^{T_1}_{w_1}$. Once again,
-we turn to bayesian analysis: we let the Observer use
-$\widehat{P}_{w_1}$ as their maximum likelihood estimator in a
-Dirichlet prior, obtaining the following posterior solution:
-\[\widehat{P}^{T_1}_{w_1}(t)\propto \beta \widehat{P}_{w_1}\!(t) + \frac{\widehat{P}_{w_1}\!(t)P_{T_1}\!(t)}{\widehat{P}(t)}.\]
-\end{comment}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -540,93 +293,6 @@ dataset.
 
 In the second set of results, we used the unnormalized vector of mixture topic
 distribution (described in Definition~\ref{mixture}) computed over {\em eBay} product titles in a supervised classification setting. Table~\ref{tab:classification-results} compares the performance of the SVM classifier using our proposed mixture topic distribution as features to two different baselines, namely, SVM using {\em Latent Semantic Indexing (LSI)} features (by forming a document-term matrix and performing SVD), and a deep learning approach using the {\em recursive auto-encoders (RAE)} described in~\cite{Socher:2011:SRA:2145432.2145450}. These results are averaged over five different cross-validation splits of using $0.6$ for training and $0.4$ for testing. Our proposed approach shows a higher precision although marginally showing a higher accuracy compared to the baselines.
-
-
-
-
-\begin{comment}
-One of the key advantages  of our approach is that it works well for
-short snippets of text. Other methods known to us struggle there,
-because they rely on inferring a topic distribution of the piece of
-text as if it were a large document, resulting in inferior
-results. However, we evaluated our method both in this scenario, as
-well as in the case were the text length is substantial enough that
-the other methods do not suffer from this disadvantage.
-We used the following two datasets in our experiments: (1) Interesting iPhone cases:
-For generating the ground truth data we hired workers from {\em Amazon Mechanical Turk (AMT)} to label a collection
-of nearly $20,000$ iPhone cases on {\em eBay}. The details of this step is beyond the scope of this paper, however we used insights from
-interesting iPhone cases found on {\em Pinterest} and {\em eBay's} user behavior data in order to generate a balanced data-set. 
-We then puled our final data-set from the annotated by selecting only those instances where the annotators all labeled it as
-positive (i.e., interesting) or negative (i.e., uninteresting). The final data-set consists of $2179$ positive and $9770$ negative instances for
-a total of $11949$ instances. For each instance, the product title of
-the corresponding eBay listing was used as the input. In this case we are
-dealing with very short text snippets, usually 5-10 words each. To
-train a topic model, we used a larger, more broader set of about
-$2000000$ product titles, grouped by category into  about $8000$
-documents of approximately 200 titles each. We used Mallet LDA implementation; (2) NSF
-abstracts: for the second dataset we used a set of 61902 National Science Foundation
-Scholarship proposal abstracts to evaluate how our diversity measure
-compares to other methods on larger pieces of text. We used this set
-for training a topic model, however to get labeled data, we had to
-generate artificial examples, by randomly mixing pairs of abstracts that we
-could expect to be either similar (small diversity) or very different
-(high diversity) and labeling them accordingly. We generated 5000 of
-those examples with positive and negative labels evenly represented.
-
-
-
-
-Naturally, our diversity measure, like the measures it was evaluated
-against, is an unsupervised method, so we used ROC plots to describe
-how they match with our labeled data from both sources. However,
-as a byproduct from computing our measure, we have the mixture topic
-distribution describing a text snippet. An unnormalized vector of this
-distribution can be used as a feature vector for a separate
-classification task. This allowed us to evaluate our approach as
-feature generation, comparing with the more commonly used ones like
-LSI and Deep Learning.
-\end{comment}
-
-
-\begin{comment}
-We used the following two datasets in our experiments:{\bf  (1) Interesting iPhone cases}:
-For generating the ground truth data we hired workers from {\em Amazon Mechanical Turk (AMT)} to label a collection
-of nearly $20,000$ iPhone cases on {\em eBay}. The details of this step is beyond the scope of this paper, however we used insights from
-interesting iPhone cases found on {\em Pinterest} and {\em eBay's} user behavior data in order to generate a balanced data-set. 
-We then pulled our final data-set from the annotated data by selecting only those instances where the annotators all labeled it as
-positive (i.e., interesting), or negative (i.e., uninteresting). The final data-set consists of $2179$ positive and $9770$ negative instances for
-a total of $11949$ instances; {\bf (2) NSF abstracts}:
-\end{comment}
-
-\begin{comment}
-\subsection{Baselines}
-\label{sec:baselines}
-In the unsupervised task, we compared our method against the following methods
-\begin{itemize}
-\item {\bf Shannon  Entropy:} This is the most standard measure of
-  diversity, however thus far it has not been successfully applied for
-  NLP. We apply the entropy to the topic distribution of the given
- piece of text, inferred from the LDA topic model, again using the
- Mallet implementation. Additionally, we show how applying our
- topic-similarity enhancement to that distribution changes the result 
- (denoted by Entropy-Sim in the plots). 
-\item{\bf Rao Diversity:} as described in \cite{bache:2013}. We use
-  the topic distribution as above, and topic-similarity matrix as
-  described earlier.
-\end{itemize}
-\end{comment}
-
-
-\begin{comment}
-Classification:
-\begin{itemize}
-\item {\bf Bag of words (BOW):}
-\item{\bf Latent Semantic Indexing (LSI):}
-\item{\bf Recursive Auto Encoders (RAE):}
-\end{itemize}
-\subsection{Results}
-\label{sec:results}
-\end{comment}
 
 \begin{figure}
         \centering
@@ -667,38 +333,6 @@ Classification:
          show different variations of our approach. }\label{fig:roc-curves}
 \end{figure}
 
-\begin{comment}
-Figure \ref{fig:roc-curves} presents the ROC curves for the
-unsupervised task. Analyzing Plot \ref{fig:nsf-comparison} we can see
-how our proposed measure (denoted as JSD-Sim-Con) compared to the
-baseline methods for the NSF dataset. Note, that in this task the
-pieces of text are large enough (a few hundred words on average), to
-obtain reasonable topic distributions from Mallet. In particular, this
-task is comparable with the one in \cite{bache:2013}. Our measure
-obtains the best AUC of approx. $0.74$, however Rao Diversity and
-Entropy-Sim both get close to that as well. The regular Entropy
-performs significantly worse, which shows that enhancing the topic
-distribution with topic-similarities gives significant improvements
-even for the Entropic measure of diversity for text. The picture looks
-quite different for the eBay dataset, as seen in plot
-\ref{fig:phonecases-comparison}. Here, we can see that our measure
-still performs very well, with AUC of 0.73, while the other measures
-give almost meaningless results. This can be explained easily because
-in this set, the text snippets are too short to infer a good topic
-distribution directly from the LDA topic model. Plots
-\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown}  show how
-different versions of our measure perform, and the gains obtained from
-each enhancement. Both adding topic-similarity (denoted as {\em Sim})
-and context-dependence (denoted as {\em Con})
-improves the results, however, their effects are different for each
-dataset . Additionally, to find out what is the effect of importance
-weights from Definition \ref{importance}, we tested a version of the
-measure, which uses uniform weights instead. Interestingly, this had
-no negative impact for the eBay dataset, but significantly worsened
-the result for the NSF dataset. It appears that, as one would expect,
-using importance weights matters more if the analyzed piece of text is
-longer.
-\end{comment}
 
 \begin{table}[t]
 \caption{Classification results for the eBay dataset.}
