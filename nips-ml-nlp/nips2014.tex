@@ -173,12 +173,12 @@ For example in Figure~\ref{fig:eyeshadow-iphone-case}, in the context of iPhone 
 
 We assume a distributional representation for the words in the vocabulary (for a brief review
 see~\cite{Turian10wordrepresentations}). A distributional representation over a vocabulary $V$ maps a word in the vocabulary to a 
-probability distribution over a fixed set of contexts $C$. Often we start by a co-occurrence matrix $\cM_{|V|\times|C|}$ where each row represents a co-occurrence of a word with the set of contexts
+probability distribution over a fixed domain $C$. Often we start by a co-occurrence matrix $\cM_{|V|\times|C|}$ where each row represents a co-occurrence of a word with domain
 $C$. For example if we chose $C=V$ then we obtain the familiar {\sl word-to-word} co-occurrence representation which counts the number
 of times two words co-occurred in a document corpus. Another choice would be to use the set of topics learned over a document
-corpus by {\sl Latent Dirichlet Allocation} (LDA)~\cite{Blei:2003:LDA:944919.944937} as the context. The rows of $A$
-are then normalized in order to obtain a probability distribution over the context. We will use the notation $P_w$ to represent
-the probability distribution over the context  given a word $w$. We also use the notation $W=\{w_1,...,w_k\}$ for a bag of word representation of a text snippet. Given a word distributional representation, $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the words
+corpus by {\sl Latent Dirichlet Allocation} (LDA)~\cite{Blei:2003:LDA:944919.944937} as the domain. The rows of $A$
+are then normalized in order to obtain a probability distribution over the topic domain. We will use the notation $P_w$ to represent
+the probability distribution over the domain  given a word $w$. We also use the notation $W=\{w_1,...,w_k\}$ for a bag of word representation of a text snippet. Given a word distributional representation, $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the words
 in the text snippet.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -186,8 +186,8 @@ in the text snippet.
 \subsection{Information Diversity}
 \label{sec:information-diversity}
 
-Given a distributional representation over a vocabulary $V$ and context $C$ with $P_w$ giving a probability distribution of a
-word $w$ over the context $C$, we can measure information diversity for a given text snippet $W=\{w_1,...,w_k\}$ and its
+Given a distributional representation over a vocabulary $V$ and a domain $C$ with $P_w$ giving a probability distribution of a
+word $w$ over domain $C$, we can measure information diversity for a given text snippet $W=\{w_1,...,w_k\}$ and its
 distributional representation $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$ as follows:
 \bed\label{importance}
 Given a distribution $P_w$, its {\sl importance} with respect to a
@@ -304,7 +304,7 @@ the corresponding {\em eBay} listing was used as the input. In this case we are
 dealing with very short text snippets, usually 10 to 12 words each. To
 train a topic model, we used a larger, more broader set of about
 2 million product titles, grouped based on {\em eBay} categorical information into about 8,000
-documents of approximately 200 titles each. We used the Mallet LDA implementation and learned a topic model with $400$ topics; (2) {\em NSF}
+documents of approximately 200 titles each; (2) {\em NSF}
 abstracts: for the second dataset we used a set of 61,902 National Science Foundation
 Scholarship proposal abstracts (see~\cite{bache:2013} for more details) to evaluate how our diversity measure
 compares to other methods on larger pieces of text. We used this set
@@ -312,7 +312,7 @@ for training a topic model, however to get labeled data, we had to
 generate artificial examples, by randomly mixing pairs of abstracts that we
 could expect to be either similar (small diversity) or very different
 (high diversity) and labeling them accordingly. We generated 5,000 of
-those examples with positive and negative labels evenly represented.
+those examples with positive and negative labels evenly represented. For both datasets we used the Mallet LDA implementation and learned a topic model with $400$ topics.
 
 We present two sets of results. First, we present
 ROC curves comparing different entropic measures of topic diversity in an unsupervised setting 
