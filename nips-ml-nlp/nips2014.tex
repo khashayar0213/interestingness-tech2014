@@ -251,7 +251,7 @@ Given a distributional representation over a vocabulary $W$ and context $C$ with
 word $w$ over the context $C$, we can measure information diversity for a given text snippet $T=\{w_1,...,w_k\}$ and its
 distributional representation $T_{\cP}=\{P_{w_1},...,P_{w_k}\}$ as follows:
 
-\bed
+\bed\label{importance}
 Given a distribution $P_w$, its {\sl importance} with respect to a
 prior distribution $P$ is defined as $D_w = D_{KL}(P_w\|P)$ where $D_{KL}(\|)$ denotes the
 {\sl Kullback-Leibler} Divergence.
@@ -611,6 +611,37 @@ Classification:
          show different variations of our approach. }\label{fig:roc-curves}
 \end{figure}
 
+Figure \ref{fig:roc-curves} presents the ROC curves for the
+unsupervised task. Analyzing Plot \ref{fig:nsf-comparison} we can see
+how our proposed measure (denoted as JSD-Sim-Con) compared to the
+baseline methods for the NSF dataset. Note, that in this task the
+pieces of text are large enough (a few hundred words on average), to
+obtain reasonable topic distributions from Mallet. In particular, this
+task is comparable with the one in \cite{bache:2013}. Our measure
+obtains the best AUC of approx. $0.74$, however Rao Diversity and
+Entropy-Sim both get close to that as well. The regular Entropy
+performs significantly worse, which shows that enhancing the topic
+distribution with topic-similarities gives significant improvements
+even for the Entropic measure of diversity for text. The picture looks
+quite different for the eBay dataset, as seen in plot
+\ref{fig:phonecases-comparison}. Here, we can see that our measure
+still performs very well, with AUC of 0.73, while the other measures
+give almost meaningless results. This can be explained easily because
+in this set, the text snippets are too short to infer a good topic
+distribution directly from the LDA topic model. Plots
+\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown}  show how
+different versions of our measure perform, and the gains obtained from
+each enhancement. Both adding topic-similarity (denoted as {\em Sim})
+and context-dependence (denoted as {\em Con})
+improves the results, however, their effects are different for each
+dataset . Additionally, to find out what is the effect of importance
+weights from Definition \ref{importance}, we tested a version of the
+measure, which uses uniform weights instead. Interestingly, this had
+no negative impact for the eBay dataset, but significantly worsened
+the result for the NSF dataset. It appears that, as one would expect,
+using importance weights matters more if the analyzed piece of text is
+longer.
+
 \begin{table}[t]
 \caption{Classification results for the eBay dataset.}
 \label{tab:classification-results}
@@ -620,7 +651,7 @@ Classification:
 \hline
 &Precision & Recall & F1 & Accuracy
 \\ \hline 
-Topic Features         &$\mathbf{0.714}\pm 0.015$&$0.597\pm 0.016$&$0.650\pm
+JSD Features         &$\mathbf{0.714}\pm 0.015$&$0.597\pm 0.016$&$0.650\pm
 0.014$& $\mathbf{0.8828}\pm 0.0045$\\
 RAE             &$0.676\pm 0.005$&$\mathbf{0.666}\pm 0.030$&$\mathbf{0.671}\pm
 0.013$&$0.8809\pm 0.0020$ \\
