@@ -542,15 +542,22 @@ positive (i.e., interesting), or negative (i.e., uninteresting). The final data-
 a total of $11949$ instances; {\bf (2) NSF abstracts}:
 \end{comment}
 
-\begin{comment}
+%\begin{comment}
 \subsection{Baselines}
 \label{sec:baselines}
-
-Diversity:
+In the unsupervised task, we compared our method against the following methods
 \begin{itemize}
-\item {\bf Shannon  Entropy:}
-\item{\bf Topic Diversity:} \cite{ganguly:2014}, \cite{bache:2013}
-\item{\bf Word frequency as distribution:}
+\item {\bf Shannon  Entropy:} This is the most standard measure of
+  diversity, however thus far it has not been successfully applied for
+  NLP. We apply the entropy to the topic distribution of the given
+ piece of text, inferred from the LDA topic model, again using the
+ Mallet implementation. Additionally, we show how applying our
+ topic-similarity enhancement to that distribution changes the result 
+ (denoted by Entropy-Sim in the plots). 
+\item{\bf Rao Diversity:} as described in \cite{bache:2013}. We use
+  the topic distribution as above, and topic-similarity matrix as
+  described earlier.
+\begin{comment} \cite{ganguly:2014}, \end{comment}
 \end{itemize}
 
 
@@ -563,7 +570,7 @@ Classification:
 \end{itemize}
 \subsection{Results}
 \label{sec:results}
-\end{comment}
+%\end{comment}
 
 \begin{figure}
         \centering
