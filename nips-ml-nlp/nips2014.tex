@@ -542,41 +542,16 @@ those examples with positive and negative labels evenly represented.
 
 We present two sets of results. First, we present
 ROC curves comparing different entropic measures of topic diversity in an unsupervised setting 
-(labeled data is only used for generating the curves).
-
-
-
-Figure~\ref{fig:roc-curves} presents the ROC curves for the
-unsupervised task. Analyzing Plot \ref{fig:nsf-comparison} we can see
-how our proposed measure (denoted as JSD-Sim-Con) compared to the
-baseline methods for the NSF dataset. Note, that in this task the
-pieces of text are large enough (a few hundred words on average), to
-obtain reasonable topic distributions from Mallet. In particular, this
-task is comparable with the one in \cite{bache:2013}. Our measure
-obtains the best AUC of approx. $0.74$, however Rao Diversity and
-Entropy-Sim both get close to that as well. The regular Entropy
-performs significantly worse, which shows that enhancing the topic
-distribution with topic-similarities gives significant improvements
-even for the Entropic measure of diversity for text. The picture looks
-quite different for the eBay dataset, as seen in plot
-\ref{fig:phonecases-comparison}. Here, we can see that our measure
+(labeled data is only used for generating the curves). Figures~\ref{fig:phonecases-comparison} and \ref{fig:nsf-comparison}
+compare our diversity metric using both topic similarity and context conditioning (labeled by {\em JSD-Sim-Con}) with a few baselines; namely standard {\em entropy}, standard entropy using topic similarity (labeled by {\em Entropy-Sim}), {\em Rao diversity } (the method used in~\cite{bache:2013}). In either case it can be observed that our diversity metric outperforms the other baselines. Here, we can see that our measure
 still performs very well, with AUC of 0.73, while the other measures
 give almost meaningless results. This can be explained easily because
 in this set, the text snippets are too short to infer a good topic
-distribution directly from the LDA topic model. Plots
-\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown}  show how
-different versions of our measure perform, and the gains obtained from
-each enhancement. Both adding topic-similarity (denoted as {\em Sim})
-and context-dependence (denoted as {\em Con})
-improves the results, however, their effects are different for each
-dataset . Additionally, to find out what is the effect of importance
-weights from Definition \ref{importance}, we tested a version of the
-measure, which uses uniform weights instead. Interestingly, this had
-no negative impact for the eBay dataset, but significantly worsened
-the result for the NSF dataset. It appears that, as one would expect,
-using importance weights matters more if the analyzed piece of text is
-longer.
+distribution directly from the LDA topic model. Figures~\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown} show the gains we obtain by application of the topic similarity and context conditioning techniques (steps 4, and 5) that we discussed in Section~\ref{sec:topic-diversity}. However, their degree of effects are different for each
+dataset. 
 
+In the second set of results, we used the unnormalized vector of mixture topic
+distribution (described in Definition~\ref{mixture}) computed over {\em eBay} product titles in a supervised classification setting. Table~\ref{tab:classification-results} compares the performance of the SVM classifier using our proposed mixture topic distribution as features to two different baselines, namely, SVM using {\em Latent Semantic Indexing (LSI}) features (by forming a document-term matrix and performing SVD), and a deep learning approach using the {\em recursive auto-encoders (RAE)} described in~\cite{Socher:2011:SRA:2145432.2145450}. These results are averaged over five different cross-validation splits of using $0.6$ for training and $0.4$ for testing. Our proposed approach shows a higher precision although marginally showing a higher accuracy compared to the baselines.
 
 
 
