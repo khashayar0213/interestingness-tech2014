@@ -267,26 +267,25 @@ topic assignment distribution obtained from the word-topic matrix,
 while $\alpha$ is the parameter that specifies the strength of the
 prior.\\
 {\bf (5) Conditioning on context words:} we propose a final enhancement to the word-topic
-distributions. Suppose, the set of words $T=\{w_1,...,w_k\}$
+distributions. Suppose, the set of words $W=\{w_1,...,w_k\}$
 represents a text snippet that we want to analyze. The word $w_i$ has
-a specific meaning inside of $T$, that can be significantly different
-than its meaning out of context. We can describe that context using
-the mixture distribution from Definition \ref{mixture}. Denote
-$T_i=T-\{w_i\}$ as the set of all words in $T$ except
-$w_i$. By $P_{T_i}$, we denote the mixture distribution for $T_i$. We
+a specific meaning inside of $W$, that can be significantly different
+than its meaning out of context. Denote
+$W_{\bar{i}}=W-\{w_i\}$ as the set of all words in $W$ except
+$w_i$. By $P_{W_{\bar{i}}}$, we denote the mixture distribution for $W_{\bar{i}}$ (Definition \ref{mixture}) and we use $\tilde{P}_{W_{\bar{i}}}$ when it is smoothed using Laplace smoothing method. We
 propose the following definition of context-dependent word-topic
 distribution. 
 \bed
-Let $\widehat{P},\widehat{P}_{w_i},P_{T_i}$ be the topic prior, general
+Let $\tilde{P},\widehat{P}_{w_i}, \tilde{P}_{W_{\bar{i}}}$ be the topic prior, general
 topic distribution for $w_i$, and the context distribution,
 respectively. Then, the context-dependent distribution is
 \begin{equation*}
-P^{T_i}_{w_i}(t)\propto \frac{\tilde{P}_{T_i}(t)}{\tilde{P}(t)}\widehat{P}_{w_i}(t)
+P^{W_i}_{w_i}(t)\propto \frac{\tilde{P}_{W_i}(t)}{\tilde{P}(t)}\widehat{P}_{w_i}(t)
 \end{equation*}
 \eed
 There is a probabilistic explanation that we have left out for 
 lack of space. However this can be intuitively understood as follows:
-we can think of $\frac{\tilde{P}_{T_i}(t)}{\tilde{P}(t)}$ as a weight
+we can think of $\frac{\tilde{P}_{W_i}(t)}{\tilde{P}(t)}$ as a weight
 that further reshapes the smoothed word-to-topic distribution $\widehat{P}_{w_i}(t)$
 to take into account the context. In our experiments we also smooth this distribution
 using {\em Laplacian} smoothing.
