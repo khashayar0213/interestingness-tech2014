@@ -98,7 +98,7 @@ data sets: a collection of e-commerce products from {\sl eBay} , and a corpus of
 With the rapid growth of e-commerce, new products are increasingly populated into the market place on daily basis.  A larger subset of these products are 
 categorized as daily needs or off-the-shelf products, while a much smaller subset can be attributed as {\em unique}, {\em creative}, {\em serendipitous }, or {\em interesting} (see Figure~\ref{fig:ebay-products}). This class of products often provoke an emotive response in users and create a more engaging experience for the them (see  {\em Pinterest} for example). Automatic discovery of this type of products is an important problem in e-commerce for creating an engaging experience for the users.   Quantifying interestingness is a challenging problem. There has been considerable research on visual interestingness and aesthetic quality of images~\cite{Datta:2006:SAP:2129560.2129588,Ke:2006:DHF:1153170.1153495,IsolaParikhTorralbaOliva2011,dhar:2011,reinecke2013predicting,journals/pami/WeinshallZHKOABGNPHP12}. 
 In text domain, researchers have studied different dimensions of this problem in terms of {\em humor identification}~\cite{Mihalcea:2005:MCL:1220575.1220642,Davidov:2010:SRS:1870568.1870582,Kiddon11,labutov-lipson:2012:ACL2012short}, {\em text aesthetics}~\cite{journals:tamd:Schmidhuber10,N13-1118,ganguly:2014}, and {\em document diversity}~\cite{bache:2013}.  In this paper we only focus on text. Our hypothesis is, many interesting products often present diversity in the text describing them. In examples shown in \ref{fig:ebay-products}, we have highlighted words that offer the largest diversity in each case.
-For example in Figure~\ref{fig:eyeshadow-iphone-case}, in the context of iPhone cases, one would expect less to observe topics that relate to make up and so forth. In this paper we introduce an information-theoretic approach for measuring topic diversity based on {\em Jensen-Shannon Information Diversity} and show how it correlates with text interestingness. Measuring topic diversity in text has been previously studied by~\cite{bache:2013} for measuring text diversity. We show how our method differs from this approach and present empirical results over two different data sets: a collection of e-commerce products from {\sl eBay}, and a corpus of {\sl NSF} proposals. 
+For example in Figure~\ref{fig:eyeshadow-iphone-case}, in the context of iPhone cases, one would expect less to observe topics that relate to make up and so forth. In this paper we introduce an information-theoretic approach for measuring topic diversity based on {\em Jensen-Shannon Information Diversity} and show how it correlates with text interestingness. Measuring topic diversity in text has been previously studied by~\cite{bache:2013}. We show how our method differs from this approach and present empirical results over two different data sets: a collection of e-commerce products from {\sl eBay}, and a corpus of {\sl NSF} proposals. 
 
 \begin{figure}
 \label{fig:ebay-products}
@@ -216,7 +216,7 @@ $C$. For example if we chose $C=V$ then we obtain the familiar {\sl word-to-word
 of times two words co-occurred in a document corpus. Another choice would be to use the set of topics learned over a document
 corpus by {\sl Latent Dirichlet Allocation} (LDA)~\cite{Blei:2003:LDA:944919.944937} as the context. The rows of $A$
 are then normalized in order to obtain a probability distribution over the context. We will use the notation $P_w$ to represent
-the probability distribution over the context  given a word $w$. We also use the notation $T=\{w_1,...,w_k\}$ for a bag of word representation of a text snippet. Given a word distributional representation, $T_{\cP}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the words
+the probability distribution over the context  given a word $w$. We also use the notation $T=\{w_1,...,w_k\}$ for a bag of word representation of a text snippet. Given a word distributional representation, $\cP_{T}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the words
 in the text snippet.
 
 \begin{comment}
@@ -230,7 +230,7 @@ are then normalized in order to obtain a probability distribution over the conte
 the probability distribution over the context  given a word $w$. We also use the notation $T=\{w_1,...,w_k\}$ for a text
 snippet where
 $\{w_1,...,w_k\}$ are the words in the order they appear in the
-text. Given a word distributional representation, $T_{\cP}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the words
+text. Given a word distributional representation, $T\_{\cP}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the words
 in the text snippet.
 \end{comment}
 
@@ -241,7 +241,7 @@ in the text snippet.
 
 Given a distributional representation over a vocabulary $W$ and context $C$ with $P_w$ giving a probability distribution of a
 word $w$ over the context $C$, we can measure information diversity for a given text snippet $T=\{w_1,...,w_k\}$ and its
-distributional representation $T_{\cP}=\{P_{w_1},...,P_{w_k}\}$ as follows:
+distributional representation $\cP_{T}=\{P_{w_1},...,P_{w_k}\}$ as follows:
 
 \bed\label{importance}
 Given a distribution $P_w$, its {\sl importance} with respect to a
@@ -250,7 +250,7 @@ prior distribution $P$ is defined as $D_w = D_{KL}(P_w\|P)$ where $D_{KL}(\|)$ d
 \eed
 
 \bed\label{mixture}
-Given a set of distributions $T_{\cP}=\{P_{w_1},...,P_{w_k}\}$ and a
+Given a set of distributions $\cP_{T}=\{P_{w_1},...,P_{w_k}\}$ and a
 prior $P$, we
 define a mixture distribution $P_T$ as $P_T=\sum_{i=1}^k d_{w_i} P_{w_i}$ where $d_{w_i}=\frac{D_{w_i}}{\sum D_{w_j}}$ are the normalized
 importances.
@@ -263,11 +263,11 @@ define the diversity measure:
 \bed\label{diversity}
 We define the Jensen-Shannon Information Diversity of a set of
 distributions $\cP_T$ with respect to 
-prior $P$ as $D_S=\sum_{i=1}^k d_{w_i}D_{KL}(P_{w_i}\|P_T)$
+prior $P$ as $\mbox{JSD}_P(\cP_T)=\sum_{i=1}^k d_{w_i}D_{KL}(P_{w_i}\|P_T)$
 where $d_{w_i}$ and $P_T$ are as in the previous definition.
 \eed
 This definition is closely related to the 
-{\em general Jensen-Shannon Divergence}, defined in~\cite{FugledeTopsoe}. Another
+{\em general Jensen-Shannon Divergence}~\cite{FugledeTopsoe}. Another
 interesting theoretical property of Jensen-Shannon Information
 Diversity is that it can be interpreted as a generalization of Shannon
 entropy as a population diversity measure, however we will not go
