@@ -178,7 +178,7 @@ $C$. For example if we chose $C=V$ then we obtain the familiar {\sl word-to-word
 of times two words co-occurred in a document corpus. Another choice would be to use the set of topics learned over a document
 corpus by {\sl Latent Dirichlet Allocation} (LDA)~\cite{Blei:2003:LDA:944919.944937} as the context. The rows of $A$
 are then normalized in order to obtain a probability distribution over the context. We will use the notation $P_w$ to represent
-the probability distribution over the context  given a word $w$. We also use the notation $T=\{w_1,...,w_k\}$ for a bag of word representation of a text snippet. Given a word distributional representation, $\cP_{T}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the words
+the probability distribution over the context  given a word $w$. We also use the notation $W=\{w_1,...,w_k\}$ for a bag of word representation of a text snippet. Given a word distributional representation, $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the words
 in the text snippet.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -186,9 +186,9 @@ in the text snippet.
 \subsection{Information Diversity}
 \label{sec:information-diversity}
 
-Given a distributional representation over a vocabulary $W$ and context $C$ with $P_w$ giving a probability distribution of a
-word $w$ over the context $C$, we can measure information diversity for a given text snippet $T=\{w_1,...,w_k\}$ and its
-distributional representation $\cP_{T}=\{P_{w_1},...,P_{w_k}\}$ as follows:
+Given a distributional representation over a vocabulary $V$ and context $C$ with $P_w$ giving a probability distribution of a
+word $w$ over the context $C$, we can measure information diversity for a given text snippet $W=\{w_1,...,w_k\}$ and its
+distributional representation $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$ as follows:
 
 \bed\label{importance}
 Given a distribution $P_w$, its {\sl importance} with respect to a
@@ -197,21 +197,21 @@ prior distribution $P$ is defined as $D_w = D_{KL}(P_w\|P)$ where $D_{KL}(\|)$ d
 \eed
 
 \bed\label{mixture}
-Given a set of distributions $\cP_{T}=\{P_{w_1},...,P_{w_k}\}$ and a
+Given a set of distributions $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$ and a
 prior $P$, we
-define a mixture distribution $P_T$ as $P_T=\sum_{i=1}^k d_{w_i} P_{w_i}$ where $d_{w_i}=\frac{D_{w_i}}{\sum D_{w_j}}$ are the normalized
+define a mixture distribution $P_W=\sum_{i=1}^k d_{w_i} P_{w_i}$ where $d_{w_i}=\frac{D_{w_i}}{\sum D_{w_j}}$ are the normalized
 importances.
 \eed
 
-Essentially, $P_T$ is the weighted average of the set $T_{\cP}$, where
+Essentially, $P_W$ is the weighted average of the set $\cP_{W}$, where
 the weights are chosen according to the importances. Next we
 define the diversity measure:
 
 \bed\label{diversity}
 We define the Jensen-Shannon Information Diversity of a set of
-distributions $\cP_T$ with respect to 
-prior $P$ as $\mbox{JSD}_P(\cP_T)=\sum_{i=1}^k d_{w_i}D_{KL}(P_{w_i}\|P_T)$
-where $d_{w_i}$ and $P_T$ are as in the previous definition.
+distributions $\cP_W$ with respect to 
+prior $P$ as $\mbox{JSD}_P(\cP_W)=\sum_{i=1}^k d_{w_i}D_{KL}(P_{w_i}\|P_W)$
+where $d_{w_i}$ and $P_W$ are as in the previous definition.
 \eed
 This definition is closely related to the 
 {\em general Jensen-Shannon Divergence}~\cite{FugledeTopsoe}. Another
@@ -229,8 +229,8 @@ In order to apply this model to natural language we first need to build a distri
 natural choice for measuring the topic diversity is to use {\sl word-to-topic} distribution. We need to address the following problems:\\
 {\bf (1) Building word to topic distribution}: We train an
 LDA~\cite{Blei:2003:LDA:944919.944937} to build a topic model given a document corpus $\cC$. From this topic model we obtain the
-word-topic matrix $\cM$ where $\M_{ij}$ is the probability of $w_i$  given $j$-th topic which is given by the LDA model. By normalizing the rows of matrix $\cM$ we will obtain
-a word-topic distribution, where the $i$-th row of the matrix gives the topic distribution for the word $w_i$ (note that word-to-topic distribution as described is not explicitly defined in the standard LDA model and our approach is one way to approximate it).\\
+word-topic matrix $\cM$ where $\cM_{ij}$ is the probability of $w_i$  given $j$-th topic which is given by the LDA model. By normalizing the rows of matrix $\cM$ we will obtain
+a word-topic distribution, where the $i$-th row of the matrix gives the topic distribution for the word $w_i$ (note that word-to-topic distribution as described is not explicitly defined in the standard LDA model and our approach is one way to approximate it). We also use $T$ to denote the set of topics learned in the LDA model.\\
 {\bf (2) Obtaining a prior topic distribution:} this is
 required for computing the information diversity as described in Section~\ref{sec:information-diversity}. We obtain a prior
  topic distribution $P$ by computing the proportions of overall topic
@@ -240,9 +240,9 @@ required for computing the information diversity as described in Section~\ref{se
 the word-to-topic co-occurrence matrix, the relationship among topics (i.e, topic similarity ) may be lost. For example, if a word $w$
 has a topic distribution $P_w$ concentrated on some topic $t$, then it will
 not necessarily peek at all other topics that are very similar to topic $t$. To address this problem, we first define a topic similarity matrrix $\cS_{|T|\times|T|}$
-where $i^{th}$ row of $\cS$ gives the topic similarity vector for the $i^{th}$ topic (e.g., cosine similarity between topics~\cite{bache:2013}). We further assume that it is normalized 
-and hence can be thought of topic similarity a distribution. Using $\cS$ we obtain $\tilde{P}_w = P_w\cS^T$ which essentially diffuses the initial distribution to
-one where  all topics similar to $t$ are well represented. Similarly, we can use $\cS$ to to reflect the topic similarity in the prior distribution as $\tilde{P} = P\cS^T$.
+where the $i^{th}$ row of $\cS$ gives the topic similarity vector for the $i^{th}$ topic (e.g., cosine similarity between topics~\cite{bache:2013}). We further assume that it is normalized 
+and hence can be thought of as a topic similarity distribution. Using $\cS$ we obtain $\tilde{P}_w = P_w\cS^T$ which essentially diffuses the initial distribution to
+one where  all topics similar to some topic $t$ are well represented. Similarly, we can use $\cS$ to to reflect the topic similarity in the prior distribution as $\tilde{P} = P\cS^T$.
 In Section~\ref{sec:experiments} we will show how this
 approach enhances the standard entropic measure of diversity.\\
 {\bf (4) Sample size bias problem:}  note that 
