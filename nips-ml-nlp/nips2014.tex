@@ -177,7 +177,7 @@ Fro example, in at the context of iPhone cases, one would expect less to observe
         \centering
          \begin{subfigure}[b]{0.3\textwidth}
         	        \centering
-                \includegraphics[width=30mm]{figures/eyeshadow-iphone-case.jpg}
+                \includegraphics[width=25mm]{figures/eyeshadow-iphone-case.jpg}
                 \caption{\textcolor{red}{{\bf Eyeshadow}} Palettes for \textcolor{red}{{\bf iPhone}} 6 case}
                 \label{fig:eyeshadow-iphone-case}
         \end{subfigure}
@@ -185,7 +185,7 @@ Fro example, in at the context of iPhone cases, one would expect less to observe
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.3\textwidth}
 		 \centering
-                \includegraphics[width=30mm]{figures/horn-iphone-speaker.jpg}
+                \includegraphics[width=25mm]{figures/horn-iphone-speaker.jpg}
 \caption{White Silicone \textcolor{red}{{\bf Horn}} Stand Speaker for Apple \textcolor{red}{{\bf iPhone}} 4/ 4S}                \label{fig:zeppelin-speaker}
         \end{subfigure}
        ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
@@ -225,8 +225,8 @@ Fro example, in at the context of iPhone cases, one would expect less to observe
 \section{Our Approach}
 \label{sec:our-approach}
 
-\subsection{Word Representation}
-\label{sec:word-representation}
+%\subsection{Word Representation}
+%\label{sec:word-representation}
 
 We assume a distributional representation for the words in the vocabulary (for a brief review
 see~\cite{Turian10wordrepresentations}). A distributional representation over a vocabulary $V$ maps a word in the vocabulary to a 
@@ -236,8 +236,7 @@ of times two words co-occurred in a document corpus. Another choice would be to 
 corpus by {\sl Latent Dirichlet Allocation} (LDA)~\cite{Blei:2003:LDA:944919.944937} as the context. The rows of $A$
 are then normalized in order to obtain a probability distribution over the context. We will use the notation $P_w$ to represent
 the probability distribution over the context  given a word $w$. We also use the notation $T=\{w_1,...,w_k\}$ for a text
-snippet\footnote{by text snippet we refer to a moderately short block of tex. For example in e-commerce data it could be the
-title of a product, or in Twitter it could be the tweets.} where
+snippet where
 $\{w_1,...,w_k\}$ are the words in the order they appear in the
 text. Given a word distributional representation, $T_{\cP}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the words
 in the text snippet.
@@ -290,7 +289,7 @@ In order to apply this model to natural language we first need to build a distri
 natural choice for measuring the topic diversity is to use {\sl word-to-topic} distribution. We need to address the following problems:\\
 {\bf (1) Building word to topic distribution}: We train an
 LDA~\cite{Blei:2003:LDA:944919.944937} to build a topic model given a document corpus $\cC$. From this topic model we obtain the
-word-topic matrix $\cM$ where $M_{ij}$ is the number of times $i$-th word was assigned the $j$-th topics\footnote{Note that word-topic distribution as described, is not directly defined in the standard {\em LDA} model and hence is only one possible approximation.}. By normalizing the rows of matrix $\cM$ we will obtain
+word-topic matrix $\cM$ where $M_{ij}$ is the number of times $i$-th word was assigned the $j$-th topics . Note that word-topic distribution as described, is not directly defined in the standard {\em LDA} model and hence is only one possible approximation. By normalizing the rows of matrix $\cM$ we will obtain
 a word-topic distribution, where the $i$-th row of the matrix gives the topic distribution for the word $w_i$.\\
 {\bf (2) Obtaining a prior topic distribution} (which is
 required for computing the information diversity as described in Section~\ref{sec:information-diversity}): We obtain a prior
@@ -551,7 +550,7 @@ distribution directly from the LDA topic model. Figures~\ref{fig:phonecases-brea
 dataset. 
 
 In the second set of results, we used the unnormalized vector of mixture topic
-distribution (described in Definition~\ref{mixture}) computed over {\em eBay} product titles in a supervised classification setting. Table~\ref{tab:classification-results} compares the performance of the SVM classifier using our proposed mixture topic distribution as features to two different baselines, namely, SVM using {\em Latent Semantic Indexing (LSI}) features (by forming a document-term matrix and performing SVD), and a deep learning approach using the {\em recursive auto-encoders (RAE)} described in~\cite{Socher:2011:SRA:2145432.2145450}. These results are averaged over five different cross-validation splits of using $0.6$ for training and $0.4$ for testing. Our proposed approach shows a higher precision although marginally showing a higher accuracy compared to the baselines.
+distribution (described in Definition~\ref{mixture}) computed over {\em eBay} product titles in a supervised classification setting. Table~\ref{tab:classification-results} compares the performance of the SVM classifier using our proposed mixture topic distribution as features to two different baselines, namely, SVM using {\em Latent Semantic Indexing (LSI)} features (by forming a document-term matrix and performing SVD), and a deep learning approach using the {\em recursive auto-encoders (RAE)} described in~\cite{Socher:2011:SRA:2145432.2145450}. These results are averaged over five different cross-validation splits of using $0.6$ for training and $0.4$ for testing. Our proposed approach shows a higher precision although marginally showing a higher accuracy compared to the baselines.
 
 
 
