@@ -282,8 +282,8 @@ In order to apply this model to natural language we first need to build a distri
 natural choice for measuring the topic diversity is to use {\sl word-to-topic} distribution. We need to address the following problems:\\
 {\bf (1) Building word to topic distribution}: We train an
 LDA~\cite{Blei:2003:LDA:944919.944937} to build a topic model given a document corpus $\cC$. From this topic model we obtain the
-word-topic matrix $\cM$ where $M_{ij}$ is the number of times $i$-th word was assigned the $j$-th topics . Note that word-topic distribution as described, is not directly defined in the standard {\em LDA} model and hence is only one possible approximation. By normalizing the rows of matrix $\cM$ we will obtain
-a word-topic distribution, where the $i$-th row of the matrix gives the topic distribution for the word $w_i$.\\
+word-topic matrix $\cM$ where $M_{ij}$ is the probability of $w_i$  given $j$-th topic which is given by the LDA model. By normalizing the rows of matrix $\cM$ we will obtain
+a word-topic distribution, where the $i$-th row of the matrix gives the topic distribution for the word $w_i$ (note that word-to-topic distribution as described, is not directly part of the standard {\em LDA} model and our approach is only one way to approximate it).\\
 {\bf (2) Obtaining a prior topic distribution} (which is
 required for computing the information diversity as described in Section~\ref{sec:information-diversity}): We obtain a prior
  topic distribution by computing the proportions of overall topic
