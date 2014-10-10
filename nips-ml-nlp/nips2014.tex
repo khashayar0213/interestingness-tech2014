@@ -112,16 +112,16 @@ data sets: a collection of e-commerce products from {\sl eBay}, and a corpus of 
 \section{Introduction}
 \label{sec:introduction}
 
-With the rapid growth of e-commerce, new products are increasingly populated into the market place on daily basis.  A larger subset of these products consists of our daily needs or off-the-shelf products, while a much smaller subset can be attributed as {\em unique}, {\em creative}, {\em serendipitous }, or {\em interesting} (see Figure~\ref{fig:ebay-products}). This class of products often provoke an emotive response in users and create a more engaging experience for the them (see  {\em Pinterest} for example). Automatic discovery of this type of products is an important problem in e-commerce for creating an engaging experience for the users.   Quantifying interestingness is a challenging problem. There has been considerable research on visual interestingness and aesthetic quality of images~\cite{Datta:2006:SAP:2129560.2129588,Ke:2006:DHF:1153170.1153495,IsolaParikhTorralbaOliva2011,dhar:2011,reinecke2013predicting,journals/pami/WeinshallZHKOABGNPHP12}. 
+With the rapid growth of e-commerce, new products are increasingly populated into the market place on daily basis.  A larger subset of these products consists of our daily needs or off-the-shelf products, while a much smaller subset can be attributed as {\em unique}, {\em creative}, {\em serendipitous }, or {\em interesting} (see Figure~\ref{fig:ebay-products}). This class of products often provoke an emotive response in users and create a more engaging experience for the them (see  {\em Pinterest} for example). Automatic discovery of this type of products is an important problem in e-commerce for creating an engaging experience for the users.   Quantifying interestingness, however,  is a challenging problem. There has been considerable research on visual interestingness and aesthetic quality of images~\cite{Datta:2006:SAP:2129560.2129588,Ke:2006:DHF:1153170.1153495,IsolaParikhTorralbaOliva2011,dhar:2011,reinecke2013predicting,journals/pami/WeinshallZHKOABGNPHP12}. 
 In text domain, researchers have studied different dimensions of this
 problem in terms of {\em humor
   identification}~\cite{Mihalcea:2005:MCL:1220575.1220642,Davidov:2010:SRS:1870568.1870582,Kiddon11,labutov-lipson:2012:ACL2012short},
 {\em text
   aesthetics}~\cite{journals:tamd:Schmidhuber10,N13-1118,ganguly:2014},
 and {\em document diversity}~\cite{bache:2013}.  In this paper we only
-focus on text. Our hypothesis is, many interesting products often
+focus on text. Our hypothesis is, many interesting texts often
 present diversity in the text describing them. In examples shown in Figure \ref{fig:ebay-products}, we have highlighted words that offer the largest diversity in each case.
-For example in Figure~\ref{fig:eyeshadow-iphone-case}, in the context of iPhone cases, one would expect less to observe topics that relate to make up and so forth. In this paper we introduce an information-theoretic approach for measuring topic diversity based on {\em Jensen-Shannon Information Diversity} and show how it correlates with text interestingness. Measuring topic diversity in text has been previously studied by~\cite{bache:2013}. We show how our method differs from this approach and present empirical results over two different data sets: a collection of e-commerce products from {\sl eBay}, and a corpus of {\sl NSF} proposals. 
+For example in Figure~\ref{fig:eyeshadow-iphone-case}, in the context of iPhone cases, one would expect less to observe topics that relate to make up. In this paper we present an information-theoretic approach for measuring topic diversity based on {\em Jensen-Shannon Information Diversity} and show how it correlates with text interestingness. Measuring topic diversity in text has been previously studied by~\cite{bache:2013}. We show how our method differs from this approach and present empirical results over two different data sets: a collection of products from {\sl eBay}, and a corpus of {\sl NSF} proposals. 
 
 \begin{figure}
 \label{fig:ebay-products}
@@ -163,11 +163,11 @@ For example in Figure~\ref{fig:eyeshadow-iphone-case}, in the context of iPhone 
 We assume a distributional representation for the words in the vocabulary (for a brief review
 see~\cite{Turian10wordrepresentations}). A distributional representation over a vocabulary $V$ maps a word in the vocabulary to a 
 probability distribution over a fixed set of contexts $C$. Often we start by a co-occurrence matrix $\cM_{|V|\times|C|}$ where each row represents a co-occurrence of a word with the set of contexts
-$C$. For example if we chose $C=V$ then we obtain the familiar {\sl word-to-word} co-occurrence representation which counts the number
-of times two words co-occurred in a document corpus. Another choice would be to use the set of topics learned over a document
+$C$. For example if we chose C=V then we obtain the familiar {\sl word-to-word} co-occurrence representation which counts the number
+of times two words co-occurred in a document corpus. Another choice is to use the set of topics learned over a document
 corpus by {\sl Latent Dirichlet Allocation} (LDA)~\cite{Blei:2003:LDA:944919.944937} as the context. The rows of $\cM_{|V|\times|C|}$
 are then normalized in order to obtain a probability distribution over the context. We will use the notation $P_w$ to represent
-the probability distribution over the context  given a word $w$. We also use the notation $W=\{w_1,...,w_k\}$ for a bag of word representation of a text snippet. Given a word distributional representation, $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the words
+the probability distribution over the context  given a word $w$. We also use the notation $W=\{w_1,...,w_k\}$ for a bag of word representation of a text snippet. Given a word distributional representation, $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$ denotes the set of probability distributions over the context for the words
 in the text snippet.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -176,7 +176,7 @@ in the text snippet.
 \label{sec:information-diversity}
 
 Given a distributional representation over a vocabulary $V$ and context $C$ with $P_w$ giving a probability distribution of a
-word $w$ over the context $C$, we can measure information diversity for a given text snippet $W=\{w_1,...,w_k\}$ and its
+word $w$ over the context $C$, we can measure information diversity for a text snippet $W=\{w_1,...,w_k\}$ and its
 distributional representation $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$ as follows:
 \bed\label{importance}
 Given a distribution $P_w$, its {\sl importance} with respect to a
@@ -217,7 +217,7 @@ LDA~\cite{Blei:2003:LDA:944919.944937} to build a topic model given a
 document corpus $\cC$. From this LDA topic model we obtain the
 word-topic-count matrix $\cM$ where $\cM_{ij}$ is the number of
 assignments of $j$-th topic to word $w_i$ in the corpus. By normalizing the rows of matrix $\cM$ we will obtain
-a word-topic distribution, where the $i$-th row of the matrix gives the topic distribution for the word $w_i$ (note that word-to-topic distribution as described is not explicitly defined in the standard LDA model and our approach is one way to approximate it). We also use $T$ to denote the set of topics learned in the LDA model.\\
+a word-topic distribution, where the $i$-th row of the matrix gives the topic distribution for the word $w_i$ (note that word-to-topic distribution as described above is not explicitly defined as a part of the standard LDA model and our approach is one way to approximate it). We also use $T$ to denote the set of topics learned in the LDA model.\\
 {\bf (2) Obtaining a prior topic distribution:} this is
 required for computing the information diversity as described in Section~\ref{sec:information-diversity}. We obtain a prior
  topic distribution $P$ by computing the proportions of overall topic
@@ -235,7 +235,7 @@ one where  all topics similar to some topic $t$ are well represented. Similarly,
 In Section~\ref{sec:experiments} we will show how this
 approach enhances the standard entropic measure of diversity.\\
 {\bf (4) Sample size bias problem:}  note that 
-when we normalize the rows of the matrix $\cM$ to obtain a distributional model, the normalization factor 
+when we normalize the rows of the matrix $\cM$ to obtain a word-to-topic distributional model, the normalization factor 
 for every word is simply the word count. Thus for a word $w$ which occurs very rarely
 in the entire corpus $\cC$, the topic distribution will be artificially skewed and is inaccurate simply because we do not have enough data points to estimate its true word-to-topic distribution.
 Now, if for this corpus it happens that the prior topic distribution
@@ -263,7 +263,7 @@ than its meaning out of context. Denote
 $W_{\bar{i}}=W-\{w_i\}$ as the set of all words in $W$ except
 $w_i$. By $P_{W_{\bar{i}}}$, we denote the mixture distribution for $W_{\bar{i}}$ (Definition \ref{mixture}) and we use $\tilde{P}_{W_{\bar{i}}}$ when it is smoothed using Laplace smoothing method. We
 propose the following definition of context-dependent word-topic
-distribution. 
+distribution:
 \bed
 Let $\tilde{P},\widehat{P}_{w_i}, \tilde{P}_{W_{\bar{i}}}$ be the topic prior, general
 topic distribution for $w_i$, and the context distribution,
@@ -297,7 +297,7 @@ the corresponding {\em eBay} listing was used as the input. In this case we are
 dealing with very short text snippets, usually 10 to 12 words each. To
 train a topic model, we used a larger, more broader set of about
 2 million product titles, grouped based on {\em eBay} categorical information into about 8,000
-documents of approximately 200 titles each. We used the Mallet LDA implementation and learned a topic model with $400$ topics; (2) {\em NSF}
+documents of approximately 200 titles each; (2) {\em NSF}
 abstracts: for the second dataset we used a set of 61,902 National Science Foundation
 Scholarship proposal abstracts (see~\cite{bache:2013} for more details) to evaluate how our diversity measure
 compares to other methods on larger pieces of text. We used this set
@@ -305,7 +305,7 @@ for training a topic model, however to get labeled data, we had to
 generate artificial examples, by randomly mixing pairs of abstracts that we
 could expect to be either similar (small diversity) or very different
 (high diversity) and labeling them accordingly. We generated 5,000 of
-those examples with positive and negative labels evenly represented.
+those examples with positive and negative labels evenly represented. For both datasets, we used the Mallet LDA implementation and learned a separate topic model with $400$ topics
 
 We present two sets of results. First, we present
 ROC curves comparing different entropic measures of topic diversity in an unsupervised setting 
@@ -317,17 +317,17 @@ namely LDA topic entropy, LDA topic entropy using topic similarity
 (see~\cite{bache:2013} for details). In either case it can be observed
 that our diversity metric outperforms the other baselines with an AUC
 around $0.73$. Moreover, for the {\em eBay} dataset the other measures
-give almost uninformative results. This can be explained since the
-text snippets are short, thus the LDA may yield a poor topic inference for such short text and as a result all measures using topic inference would perform poorly. Figures~\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown} show the gains we obtain by applying topic similarity and context conditioning techniques (steps 4 and 5) that we discussed in Section~\ref{sec:topic-diversity}. However, their degree of effects are different for each
+give poor results. This can be explained as follows: since the
+text snippets are short, the LDA may yield a poor topic inference for such short text and as a result all measures using topic inference would perform poorly. Figures~\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown} show the gains we obtain by applying topic similarity and context conditioning techniques (steps 4 and 5) that we discussed in Section~\ref{sec:topic-diversity}. However, their degree of effects is different for each
 dataset.  In the second set of results, we used the unnormalized vector of mixture topic
 distribution (described in Definition~\ref{mixture}) computed over
 {\em eBay} product titles in a supervised classification
-setting. Table~\ref{tab:classification-results} compares the
-performance of the SVM classifier using our proposed mixture topic
-distribution as features to two different baselines, namely, SVM using
+setting. Table~\ref{tab:classification-results} shows
+the performance of the SVM classifier using our proposed mixture topic
+distribution as features and compares it to two different baselines, namely, SVM using
 {\em Latent Semantic Indexing (LSI)} features (by forming a
 document-term matrix and performing SVD), and a deep learning approach
-using the {\em recursive auto-encoders (RAE)} described
+using the {\em recursive auto-encoders (RAE)} framework described
 in~\cite{Socher:2011:SRA:2145432.2145450}. These results are averaged
 over five different cross-validation splits using $0.6$ for training
 and $0.4$ for testing. Our proposed approach shows a higher precision
