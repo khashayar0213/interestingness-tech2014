@@ -1,0 +1,480 @@
+\DeclareMathOperator{\x}{\mathbf{x}}
+\DeclareMathOperator{\e}{\mathbf{e}}
+\DeclareMathOperator{\M}{\mathbf{M}}
+\DeclareMathOperator{\w}{\mathbf{w}}
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+\edef\polishl{\l} 
+
+
+
+\RequirePackage{latexsym}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb} 
+\RequirePackage{color} 
+\RequirePackage{bm}
+\RequirePackage{color}
+\RequirePackage{picinpar}
+
+%%%%%%%% Stock standard definitions %%%%%%%%%%%%%%%
+
+\newcommand{\wbt}{\widetilde{\mathbf{w}}}
+\DeclareMathOperator{\ab}{\mathbf{a}}
+\DeclareMathOperator{\abh}{\widehat{\ab}}
+\DeclareMathOperator{\bb}{\mathbf{b}}
+\DeclareMathOperator{\bbh}{\widehat{\bb}}
+\DeclareMathOperator{\cb}{\mathbf{c}}
+\DeclareMathOperator{\db}{\mathbf{d}}
+\DeclareMathOperator{\eb}{\mathbf{e}}
+\DeclareMathOperator{\fb}{\mathbf{f}}
+\DeclareMathOperator{\gb}{\mathbf{g}}
+\DeclareMathOperator{\hb}{\mathbf{h}}
+\DeclareMathOperator{\ib}{\mathbf{i}}
+\DeclareMathOperator{\jb}{\mathbf{j}}
+\DeclareMathOperator{\kb}{\mathbf{k}}
+\DeclareMathOperator{\lb}{\mathbf{l}}
+\DeclareMathOperator{\mb}{\mathbf{m}}
+\DeclareMathOperator{\nbb}{\mathbf{n}}
+\DeclareMathOperator{\ob}{\mathbf{o}}
+\DeclareMathOperator{\pb}{\mathbf{p}}
+\DeclareMathOperator{\qb}{\mathbf{q}}
+\DeclareMathOperator{\rb}{\mathbf{r}}
+\DeclareMathOperator{\sbb}{\mathbf{s}}
+\DeclareMathOperator{\tb}{\mathbf{t}}
+\DeclareMathOperator{\ub}{\mathbf{u}}
+\DeclareMathOperator{\vb}{\mathbf{v}}
+\DeclareMathOperator{\wb}{\mathbf{w}}
+\DeclareMathOperator{\xb}{\mathbf{x}}
+\DeclareMathOperator{\yb}{\mathbf{y}}
+\DeclareMathOperator{\zb}{\mathbf{z}}
+\renewcommand{\l}{\ell}
+
+\DeclareMathOperator{\atilde}{\tilde{\ab}}
+\DeclareMathOperator{\btilde}{\tilde{\bb}}
+\DeclareMathOperator{\ctilde}{\tilde{\cb}}
+\DeclareMathOperator{\dtilde}{\tilde{\db}}
+\DeclareMathOperator{\etilde}{\tilde{\eb}}
+\DeclareMathOperator{\ftilde}{\tilde{\fb}}
+\DeclareMathOperator{\gtilde}{\tilde{\gb}}
+\DeclareMathOperator{\htilde}{\tilde{\hb}}
+\DeclareMathOperator{\itilde}{\tilde{\ib}}
+\DeclareMathOperator{\jtilde}{\tilde{\jb}}
+\DeclareMathOperator{\ktilde}{\tilde{\kb}}
+\DeclareMathOperator{\ltilde}{\tilde{\lb}}
+\DeclareMathOperator{\mtilde}{\tilde{\mb}}
+\DeclareMathOperator{\ntilde}{\tilde{\nbb}}
+\DeclareMathOperator{\otilde}{\tilde{\ob}}
+\DeclareMathOperator{\ptilde}{\tilde{\pb}}
+\DeclareMathOperator{\qtilde}{\tilde{\qb}}
+\DeclareMathOperator{\rtilde}{\tilde{\rb}}
+\DeclareMathOperator{\stilde}{\tilde{\sbb}}
+\DeclareMathOperator{\ttilde}{\tilde{\tb}}
+\DeclareMathOperator{\utilde}{\tilde{\ub}}
+\DeclareMathOperator{\vtilde}{\tilde{\vb}}
+\DeclareMathOperator{\wtilde}{\tilde{\wb}}
+\DeclareMathOperator{\xtilde}{\tilde{\xb}}
+\DeclareMathOperator{\ytilde}{\tilde{\yb}}
+\DeclareMathOperator{\ztilde}{\tilde{\zb}}
+
+\DeclareMathOperator{\abar}{\bar{\ab}}
+\DeclareMathOperator{\bbar}{\bar{\bb}}
+\DeclareMathOperator{\cbar}{\bar{\cb}}
+\DeclareMathOperator{\dbar}{\bar{\db}}
+\DeclareMathOperator{\ebar}{\bar{\eb}}
+\DeclareMathOperator{\fbar}{\bar{\fb}}
+\DeclareMathOperator{\gbar}{\bar{\gb}}
+\DeclareMathOperator{\hbbar}{\bar{\hb}}
+\DeclareMathOperator{\ibar}{\bar{\ib}}
+\DeclareMathOperator{\jbar}{\bar{\jb}}
+\DeclareMathOperator{\kbar}{\bar{\kb}}
+\DeclareMathOperator{\lbar}{\bar{\lb}}
+\DeclareMathOperator{\mbar}{\bar{\mb}}
+\DeclareMathOperator{\nbar}{\bar{\nbb}}
+\DeclareMathOperator{\obar}{\bar{\ob}}
+\DeclareMathOperator{\pbar}{\bar{\pb}}
+\DeclareMathOperator{\qbar}{\bar{\qb}}
+\DeclareMathOperator{\rbar}{\bar{\rb}}
+\DeclareMathOperator{\sbar}{\bar{\sbb}}
+\DeclareMathOperator{\tbar}{\bar{\tb}}
+\DeclareMathOperator{\ubar}{\bar{\ub}}
+\DeclareMathOperator{\vbar}{\bar{\vb}}
+\DeclareMathOperator{\wbar}{\bar{\wb}}
+\DeclareMathOperator{\xbar}{\bar{\xb}}
+\DeclareMathOperator{\ybar}{\bar{\yb}}
+\DeclareMathOperator{\zbar}{\bar{\zb}}
+
+\DeclareMathOperator{\Ab}{\mathbf{A}}
+\DeclareMathOperator{\Bb}{\mathbf{B}}
+\DeclareMathOperator{\Cb}{\mathbf{C}}
+\DeclareMathOperator{\Db}{\mathbf{D}}
+\DeclareMathOperator{\Eb}{\mathbf{E}}
+\DeclareMathOperator{\Fb}{\mathbf{F}}
+\DeclareMathOperator{\Gb}{\mathbf{G}}
+\DeclareMathOperator{\Hb}{\mathbf{H}}
+\DeclareMathOperator{\Ib}{\mathbf{I}}
+\DeclareMathOperator{\Jb}{\mathbf{J}}
+\DeclareMathOperator{\Kb}{\mathbf{K}}
+\DeclareMathOperator{\Lb}{\mathbf{L}}
+\DeclareMathOperator{\Mb}{\mathbf{M}}
+\DeclareMathOperator{\Nb}{\mathbf{N}}
+\DeclareMathOperator{\Ob}{\mathbf{O}}
+\DeclareMathOperator{\Pb}{\mathbf{P}}
+\DeclareMathOperator{\Qb}{\mathbf{Q}}
+\DeclareMathOperator{\Rb}{\mathbf{R}}
+\DeclareMathOperator{\Sbb}{\mathbf{S}}
+\DeclareMathOperator{\Tb}{\mathbf{T}}
+\DeclareMathOperator{\Ub}{\mathbf{U}}
+\DeclareMathOperator{\Vb}{\mathbf{V}}
+\DeclareMathOperator{\Wb}{\mathbf{W}}
+\DeclareMathOperator{\Xb}{\mathbf{X}}
+\DeclareMathOperator{\Xbt}{\widetilde{\Xb}}
+\DeclareMathOperator{\Xbh}{\widehat{\Xb}}
+\DeclareMathOperator{\Xbs}{\widetilde{\Xb}}
+\DeclareMathOperator{\Zbs}{\widetilde{\Zb}}
+\DeclareMathOperator{\Kbs}{\widetilde{\Kb}}
+\DeclareMathOperator{\Zbh}{\widehat{\Zb}}
+\DeclareMathOperator{\Ubh}{\widehat{\Ub}}
+\DeclareMathOperator{\Yb}{\mathbf{Y}}
+\DeclareMathOperator{\Zb}{\mathbf{Z}}
+
+\DeclareMathOperator{\Abar}{\bar{A}}
+\DeclareMathOperator{\Bbar}{\bar{B}}
+\DeclareMathOperator{\Cbar}{\bar{C}}
+\DeclareMathOperator{\Dbar}{\bar{D}}
+\DeclareMathOperator{\Ebar}{\bar{E}}
+\DeclareMathOperator{\Fbar}{\bar{F}}
+\DeclareMathOperator{\Gbar}{\bar{G}}
+\DeclareMathOperator{\Hbar}{\bar{H}}
+\DeclareMathOperator{\Ibar}{\bar{I}}
+\DeclareMathOperator{\Jbar}{\bar{J}}
+\DeclareMathOperator{\Kbar}{\bar{K}}
+\DeclareMathOperator{\Lbar}{\bar{L}}
+\DeclareMathOperator{\Mbar}{\bar{M}}
+\DeclareMathOperator{\Nbar}{\bar{N}}
+\DeclareMathOperator{\Obar}{\bar{O}}
+\DeclareMathOperator{\Pbar}{\bar{P}}
+\DeclareMathOperator{\Qbar}{\bar{Q}}
+\DeclareMathOperator{\Rbar}{\bar{R}}
+\DeclareMathOperator{\Sbar}{\bar{S}}
+\DeclareMathOperator{\Tbar}{\bar{T}}
+\DeclareMathOperator{\Ubar}{\bar{U}}
+\DeclareMathOperator{\Vbar}{\bar{V}}
+\DeclareMathOperator{\Wbar}{\bar{W}}
+\DeclareMathOperator{\Xbar}{\bar{X}}
+\DeclareMathOperator{\Ybar}{\bar{Y}}
+\DeclareMathOperator{\Zbar}{\bar{Z}}
+
+\DeclareMathOperator{\Abbar}{\bar{\Ab}}
+\DeclareMathOperator{\Bbbar}{\bar{\Bb}}
+\DeclareMathOperator{\Cbbar}{\bar{\Cb}}
+\DeclareMathOperator{\Dbbar}{\bar{\Db}}
+\DeclareMathOperator{\Ebbar}{\bar{\Eb}}
+\DeclareMathOperator{\Fbbar}{\bar{\Fb}}
+\DeclareMathOperator{\Gbbar}{\bar{\Gb}}
+\DeclareMathOperator{\Hbbar}{\bar{\Hb}}
+\DeclareMathOperator{\Ibbar}{\bar{\Ib}}
+\DeclareMathOperator{\Jbbar}{\bar{\Jb}}
+\DeclareMathOperator{\Kbbar}{\bar{\Kb}}
+\DeclareMathOperator{\Lbbar}{\bar{\Lb}}
+\DeclareMathOperator{\Mbbar}{\bar{\Mb}}
+\DeclareMathOperator{\Nbbar}{\bar{\Nb}}
+\DeclareMathOperator{\Obbar}{\bar{\Ob}}
+\DeclareMathOperator{\Pbbar}{\bar{\Pb}}
+\DeclareMathOperator{\Qbbar}{\bar{\Qb}}
+\DeclareMathOperator{\Rbbar}{\bar{\Rb}}
+\DeclareMathOperator{\Sbbar}{\bar{\Sb}}
+\DeclareMathOperator{\Tbbar}{\bar{\Tb}}
+\DeclareMathOperator{\Ubbar}{\bar{\Ub}}
+\DeclareMathOperator{\Vbbar}{\bar{\Vb}}
+\DeclareMathOperator{\Wbbar}{\bar{\Wb}}
+\DeclareMathOperator{\Xbbar}{\bar{\Xb}}
+\DeclareMathOperator{\Ybbar}{\bar{\Yb}}
+\DeclareMathOperator{\Zbbar}{\bar{\Zb}}
+
+\DeclareMathOperator{\Ahat}{\widehat{A}}
+\DeclareMathOperator{\Bhat}{\widehat{B}}
+\DeclareMathOperator{\Chat}{\widehat{C}}
+\DeclareMathOperator{\Dhat}{\widehat{D}}
+\DeclareMathOperator{\Ehat}{\widehat{E}}
+\DeclareMathOperator{\Fhat}{\widehat{F}}
+\DeclareMathOperator{\Ghat}{\widehat{G}}
+\DeclareMathOperator{\Hhat}{\widehat{H}}
+\DeclareMathOperator{\Ihat}{\widehat{I}}
+\DeclareMathOperator{\Jhat}{\widehat{J}}
+\DeclareMathOperator{\Khat}{\widehat{K}}
+\DeclareMathOperator{\Lhat}{\widehat{L}}
+\DeclareMathOperator{\Mhat}{\widehat{M}}
+\DeclareMathOperator{\Nhat}{\widehat{N}}
+\DeclareMathOperator{\Ohat}{\widehat{O}}
+\DeclareMathOperator{\Phat}{\widehat{P}}
+\DeclareMathOperator{\Qhat}{\widehat{Q}}
+\DeclareMathOperator{\Rhat}{\widehat{R}}
+\DeclareMathOperator{\Shat}{\widehat{S}}
+\DeclareMathOperator{\That}{\widehat{T}}
+\DeclareMathOperator{\Uhat}{\widehat{U}}
+\DeclareMathOperator{\Vhat}{\widehat{V}}
+\DeclareMathOperator{\What}{\widehat{W}}
+\DeclareMathOperator{\Xhat}{\widehat{X}}
+\DeclareMathOperator{\Yhat}{\widehat{Y}}
+\DeclareMathOperator{\Zhat}{\widehat{Z}}
+
+\DeclareMathOperator{\Abhat}{\widehat{\Ab}}
+\DeclareMathOperator{\Bbhat}{\widehat{\Bb}}
+\DeclareMathOperator{\Cbhat}{\widehat{\Cb}}
+\DeclareMathOperator{\Dbhat}{\widehat{\Db}}
+\DeclareMathOperator{\Ebhat}{\widehat{\Eb}}
+\DeclareMathOperator{\Fbhat}{\widehat{\Fb}}
+\DeclareMathOperator{\Gbhat}{\widehat{\Gb}}
+\DeclareMathOperator{\Hbhat}{\widehat{\Hb}}
+\DeclareMathOperator{\Ibhat}{\widehat{\Ib}}
+\DeclareMathOperator{\Jbhat}{\widehat{\Jb}}
+\DeclareMathOperator{\Kbhat}{\widehat{\Kb}}
+\DeclareMathOperator{\Lbhat}{\widehat{\Lb}}
+\DeclareMathOperator{\Mbhat}{\widehat{\Mb}}
+\DeclareMathOperator{\Nbhat}{\widehat{\Nb}}
+\DeclareMathOperator{\Obhat}{\widehat{\Ob}}
+\DeclareMathOperator{\Pbhat}{\widehat{\Pb}}
+\DeclareMathOperator{\Qbhat}{\widehat{\Qb}}
+\DeclareMathOperator{\Rbhat}{\widehat{\Rb}}
+\DeclareMathOperator{\Sbhat}{\widehat{\Sb}}
+\DeclareMathOperator{\Tbhat}{\widehat{\Tb}}
+\DeclareMathOperator{\Ubhat}{\widehat{\Ub}}
+\DeclareMathOperator{\Vbhat}{\widehat{\Vb}}
+\DeclareMathOperator{\Wbhat}{\widehat{\Wb}}
+\DeclareMathOperator{\Xbhat}{\widehat{\Xb}}
+\DeclareMathOperator{\Ybhat}{\widehat{\Yb}}
+\DeclareMathOperator{\Zbhat}{\widehat{\Zb}}
+
+\DeclareMathOperator{\Acal}{\mathcal{A}}
+\DeclareMathOperator{\Bcal}{\mathcal{B}}
+\DeclareMathOperator{\Ccal}{\mathcal{C}}
+\DeclareMathOperator{\Dcal}{\mathcal{D}}
+\DeclareMathOperator{\Ecal}{\mathcal{E}}
+\DeclareMathOperator{\Fcal}{\mathcal{F}}
+\DeclareMathOperator{\Gcal}{\mathcal{G}}
+\DeclareMathOperator{\Hcal}{\mathcal{H}}
+\DeclareMathOperator{\Ical}{\mathcal{I}}
+\DeclareMathOperator{\Jcal}{\mathcal{J}}
+\DeclareMathOperator{\Kcal}{\mathcal{K}}
+\DeclareMathOperator{\Lcal}{\mathcal{L}}
+\DeclareMathOperator{\Mcal}{\mathcal{M}}
+\DeclareMathOperator{\Ncal}{\mathcal{N}}
+\DeclareMathOperator{\Ocal}{\mathcal{O}}
+\DeclareMathOperator{\Pcal}{\mathcal{P}}
+\DeclareMathOperator{\Qcal}{\mathcal{Q}}
+\DeclareMathOperator{\Rcal}{\mathcal{R}}
+\DeclareMathOperator{\Scal}{\mathcal{S}}
+\DeclareMathOperator{\Scalt}{\widetilde{\Scal}}
+\DeclareMathOperator{\Tcal}{\mathcal{T}}
+\DeclareMathOperator{\Ucal}{\mathcal{U}}
+\DeclareMathOperator{\Vcal}{\mathcal{V}}
+\DeclareMathOperator{\Wcal}{\mathcal{W}}
+\DeclareMathOperator{\Xcal}{\mathcal{X}}
+\DeclareMathOperator{\Ycal}{\mathcal{Y}}
+\DeclareMathOperator{\Zcal}{\mathcal{Z}}
+
+\DeclareMathOperator{\Atilde}{\widetilde{A}}
+\DeclareMathOperator{\Btilde}{\widetilde{B}}
+\DeclareMathOperator{\Ctilde}{\widetilde{C}}
+\DeclareMathOperator{\Dtilde}{\widetilde{D}}
+\DeclareMathOperator{\Etilde}{\widetilde{E}}
+\DeclareMathOperator{\Ftilde}{\widetilde{F}}
+\DeclareMathOperator{\Gtilde}{\widetilde{G}}
+\DeclareMathOperator{\Htilde}{\widetilde{H}}
+\DeclareMathOperator{\Itilde}{\widetilde{I}}
+\DeclareMathOperator{\Jtilde}{\widetilde{J}}
+\DeclareMathOperator{\Ktilde}{\widetilde{K}}
+\DeclareMathOperator{\Ltilde}{\widetilde{L}}
+\DeclareMathOperator{\Mtilde}{\widetilde{M}}
+\DeclareMathOperator{\Ntilde}{\widetilde{N}}
+\DeclareMathOperator{\Otilde}{\widetilde{O}}
+\DeclareMathOperator{\Ptilde}{\widetilde{P}}
+\DeclareMathOperator{\Qtilde}{\widetilde{Q}}
+\DeclareMathOperator{\Rtilde}{\widetilde{R}}
+\DeclareMathOperator{\Stilde}{\widetilde{S}}
+\DeclareMathOperator{\Ttilde}{\widetilde{T}}
+\DeclareMathOperator{\Utilde}{\widetilde{U}}
+\DeclareMathOperator{\Vtilde}{\widetilde{V}}
+\DeclareMathOperator{\Wtilde}{\widetilde{W}}
+\DeclareMathOperator{\Xtilde}{\widetilde{X}}
+\DeclareMathOperator{\Ytilde}{\widetilde{Y}}
+\DeclareMathOperator{\Ztilde}{\widetilde{Z}}
+
+
+%%%%%%%% Widely accepted definitions %%%%%%%%%%%%%%%
+
+\DeclareMathOperator{\CC}{\mathbb{C}} % Complex numbers
+\DeclareMathOperator{\EE}{\mathbb{E}} % Expectation
+\DeclareMathOperator{\KK}{\mathbb{K}} % Arbitrary field
+\DeclareMathOperator{\MM}{\mathbb{M}} % Median
+\DeclareMathOperator{\NN}{\mathbb{N}} % Natural numbers
+\DeclareMathOperator{\PP}{\mathbb{P}} % Probability
+\DeclareMathOperator{\QQ}{\mathbb{Q}} % Rationals
+\DeclareMathOperator{\RR}{\mathbb{R}} % Real numbers 
+\DeclareMathOperator{\ZZ}{\mathbb{Z}} % Integers
+
+\DeclareMathOperator{\one}{\mathbf{1}}  % Identity
+\DeclareMathOperator{\zero}{\mathbf{0}} % Zero
+\DeclareMathOperator{\TRUE}{\mathbf{TRUE}}  % True
+\DeclareMathOperator{\FALSE}{\mathbf{FALSE}}  % False
+
+\DeclareMathOperator*{\mini}{\mathop{\mathrm{minimize}}}
+\DeclareMathOperator*{\maxi}{\mathop{\mathrm{maximize}}}
+\DeclareMathOperator*{\argmin}{\mathop{\mathrm{argmin}}}
+\DeclareMathOperator*{\argmax}{\mathop{\mathrm{argmax}}}
+\DeclareMathOperator*{\argsup}{\mathop{\mathrm{argsup}}}
+\DeclareMathOperator*{\arginf}{\mathop{\mathrm{arginf}}}
+\DeclareMathOperator{\sgn}{\mathop{\mathrm{sign}}}
+\DeclareMathOperator{\sign}{\mathop{\mathrm{sign}}}
+\DeclareMathOperator{\tr}{\mathop{\mathrm{tr}}}
+\DeclareMathOperator{\rank}{\mathop{\mathrm{rank}}}
+\DeclareMathOperator{\traj}{\mathop{\mathrm{Traj}}}
+
+%%%%%%%% Bold Greek Letters %%%%%%%%%%%%%%%
+\DeclareMathOperator{\sigmab}{\bm{\sigma}}
+\DeclareMathOperator{\Sigmab}{\mathbf{\Sigma}}
+
+
+%%%%%%%% Mess around with LaTeX %%%%%%%%%%%%%%%
+
+%% Some style files might actually define these variables.
+%% So don't mess with them if they are already defined
+
+\ifx\BlackBox\undefined
+\newcommand{\BlackBox}{\rule{1.5ex}{1.5ex}}  % end of proof
+\fi
+
+\ifx\proof\undefined
+\newenvironment{proof}{\par\noindent{\bf Proof\ }}{\hfill\BlackBox\\[2mm]}
+% \else
+% \renewenvironment{proof}{\par\noindent{\bf Proof\ }}{\hfill\BlackBox\\[2mm]}
+\fi
+
+%Trying to put all on Section track
+%\makeatletter
+%\@addtoreset{equation}{section}
+%\def\theequation{\thesection.\arabic{equation}}
+%\def\thetheorem{\thesection.\arabic{theorem}}
+%\makeatother
+
+%the below clashes with the previous defs of them... 
+%in the style files
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{conjecture}[conjecture]{Conjecture}
+
+
+%%%%%%%% Utility functions %%%%%%%%%%%%%%%
+
+\newcommand{\eq}[1]{(\ref{#1})} 
+\newcommand{\mymatrix}[2]{\left[\begin{array}{#1} #2 \end{array}\right]}
+\newcommand{\mychoose}[2]{\left(\begin{array}{c} #1 \\ #2 \end{array}\right)}
+\newcommand{\mydet}[1]{\det\left[ #1 \right]}
+\newcommand{\sembrack}[1]{[\![#1]\!]}
+
+\newcommand{\ea}{\emph{et al. }}
+\newcommand{\eg}{\emph{e.g. }}
+\newcommand{\ie}{\emph{i.e., }}
+
+\newcommand{\mnote}[1]{\marginpar{#1}}
+%\newcommand{\note}[1]{{\bf {#1}}}
+
+%%%%%%%% Specific symbols for this project %%%%%%%%%%%%%%%
+
+\DeclareMathOperator{\half}{\frac{1}{2}}
+
+\newcommand{\Ref}[1]{\hfill\Green{[#1]}}
+\DeclareMathOperator{\XX}{\mathcal{X}}
+\newcommand{\ar}{\implies}
+\newcommand{\yh}{\hat{y}}
+\DeclareMathOperator{\lan}{\langle}
+\DeclareMathOperator{\ran}{\rangle}
+
+\DeclareMathOperator{\dc}{\mathrm{dc}}
+
+\DeclareMathOperator{\Utb}{\widetilde{\Ub}}
+\DeclareMathOperator{\Stb}{\widetilde{\Sbb}}
+
+\ifx\Brown\undefined
+\definecolor{brown}{rgb}{0.5,0.1,0.1}
+\newcommand{\Brown}[1]{\color{brown}{#1}\color{black}}
+\fi
+
+\ifx\Red\undefined
+\definecolor{red}{rgb}{1.0,0,0}
+\newcommand{\Red}[1]{\color{red}{#1}\color{black}}
+\fi
+
+\ifx\Green\undefined
+\definecolor{green}{rgb}{0,0.4,0}
+\newcommand{\Green}[1]{\color{green}{#1}\color{black}}
+\fi
+
+\ifx\Blue\undefined
+\definecolor{blue}{rgb}{0,0,1.0}
+\newcommand{\Blue}[1]{\color{blue}{#1}\color{black}}
+\fi
+
+
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beh}{\begin{conjecture}}
+\newcommand{\eeh}{\end{conjecture}}
+\newcommand\bel{\begin{lemma}}
+\newcommand\eel{\end{lemma}}
+\newcommand\bet{\begin{theoreme}}
+\newcommand\eet{\end{theoreme}}
+\newcommand\bex{\begin{example}}
+\newcommand\eex{\end{example}}
+\newcommand\bed{\begin{definition}}
+\newcommand\eed{\end{definition}}
+\newcommand\bep{\begin{proposition}}
+\newcommand\eep{\end{proposition}}
+\newcommand\ber{\begin{remark}}
+\newcommand\eer{\end{remark}}
+\newcommand\bec{\begin{corollary}}
+\newcommand\eec{\end{corollary}}
+%\newcommand\proof{\noindent {\bf Proof.}\ \ }
+%\newcommand\qed{\hfill$\Box$\medskip}
+\newcommand\cP{{\mathcal P}}
+\newcommand\cJ{{\mathcal J}}
+\newcommand\cD{{\mathcal D}}
+\newcommand\cC{{\mathcal C}}
+\newcommand\cO{{\mathcal O}}
+\newcommand\cS{{\mathcal S}}
+\newcommand\cT{{\mathcal T}}
+\newcommand\cV{{\mathcal V}}
+\newcommand\cW{{\mathcal W}}
+\newcommand\cY{{\mathcal Y}}
+\newcommand\cF{{\mathcal F}}
+\newcommand\cU{{\mathcal U}}
+\newcommand\cE{{\mathcal E}}
+\newcommand\cG{{\mathcal G}}
+\newcommand\cB{{\mathcal B}}
+\newcommand\cI{{\rm I}}
+\newcommand\cN{{\mathcal N}}
+\newcommand\cM{{\mathcal M}}
+\newcommand\cA{{\mathcal A}}
+\newcommand\cQ{{\mathcal Q}}
+\newcommand\cK{{\mathcal K}}
+\newcommand\cZ{{\mathcal Z}}
+\newcommand\CAP{{\rm cap}}
+\newcommand\ENT{{\rm ent}}
+\newcommand\gr{{\rm gr}}
+
+\def\qq{{\mathbb Q}}
+\def\ff{{\mathbb F}}
+\def\rr{{\mathbb R}}
+\def\zz{{\mathbb Z}}
+\def\cc{{\mathbb C}}
+\def\nn{{\mathbb N}}
+\def\kk{{\mathbb K}}
+\def\ee{{\mathbb E}}
+\def\ww{{\mathbb W}}
+\def\hh{{\mathbb H}}
+\def\ss{{\mathbb S}}
+\def\tt{{\mathbb T}}
+\def\pp{{\mathbb P}}
+
