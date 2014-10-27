@@ -1,0 +1,123 @@
+%
+As a starting point of our model, we assume that we can describe any
+word with a probability distribution over a fixed set of topics -
+e.g. using a word-topic matrix of some topic model. Now, given a small
+set of words, we in effect have a set of topic distributions. Let us
+denote the set of words by $S=\{w_1,...,w_k\}$, and the distribution
+of a word $w$ by $P_w$.  We now ask
+what is the diversity of the set of probability
+distributions $\cP_S=\{P_{w_1},...,P_{w_k}\}$? To make this task
+somewhat more concrete, we make some 
+assumptions of what we expect from the measure. First, if the set
+$\cP_S$ only contains one element, then it is not diverse. Moreover,
+we have a certain fixed {\em prior} distribution $P$, which we
+can think of as the overall distribution of topics. If a distribution
+$P_{w_i}$ is equal to $P$, then it does not carry any information, so
+it should not have any impact on the diversity of $\cP_S$. In
+accordance with those assumptions, we will will introduce some basic
+notation. Let $D_{KL}(\centerdot\|\centerdot)$ denote the
+Kullback-Leibler Divergence.
+
+\bed
+Given a distribution $P_w$, its {\bf importance} with respect to a
+prior distribution $P$ is defined as 
+\[D_w = D_{KL}(P_w\|P).\]
+\eed
+
+\bed\label{mixture}
+Given a set of distributions $\cP_S=\{P_{w_1},...,P_{w_k}\}$ and a
+prior $P$, we
+define a mixture distribution $P_S$ as
+\[P_S=\sum_{i=1}^k d_{w_i} P_{w_i},\]
+where $d_{w_i}=\frac{D_{w_i}}{\sum D_{w_j}}$ are the normalized
+importances.
+\eed
+
+Essentially, $P_S$ is the weighted average of the set $\cP_S$, where
+the weights are chosen according to the importances. Now, we can
+define the diversity measure.
+
+\bed\label{diversity}
+We define the Jensen-Shannon Information Diversity of a set of
+distributions $\cP_S$ with respect to 
+prior $P$ as
+\[D_S=\sum_{i=1}^k d_{w_i}D_{KL}(P_{w_i}\|P_S), \]
+where $d_{w_i}$ and $P_S$ are as in the previous definition.
+\eed
+This definition is closely related to the {\em general Jensen-Shannon
+  Divergence}, defined in [topsoe]. Its information-theoretic interpretation
+will help us understand why it can be an appropriate measure of
+diversity. Let us consider an information source which selects one
+topic from a fixed set, each selection being independent from the
+previous ones. The selection is a two-step process:
+\begin{enumerate}
+\item first, one of the probability distributions is chosen from
+  the set $\cP_S$, where $P_{w_i}$ is chosen with probability
+  $d_{w_i}$;
+\item then, the output topic is drawn from that distribution.
+\end{enumerate}
+Suppose, that we want to design an encoder $A_1$ for the topics, that is optimal
+for this source (in terms of shortest average code length), assuming
+that we know the mechanism of the source (including the $P_{w_i}$'s
+and $d_{w_i}$'s), such that the encoder sees the source only as a black box
+outputting the topics. Denote the shortest average code length achievable
+by $A_1$ as $L_1$. Now, consider a second encoder $A_2$ with the same
+goal, but this time it can look {\em into} the source and adjust its
+encoding based on which distribution $P_{w_i}$ was selected by the
+source (and we assume that a hypothetical decoder can also {\em
+  look up} the word $w_i$). Denote the shortest average code length in this instance as
+$L_2$. As discussed in [topsoe], the general Jensen-Shannon Divergence
+$D_S$ is equal to $L_1-L_2$. In other words, it describes how much
+information is contained in the selection of distribution $P_{w_i}$
+within the information source. For example, in the boundary case where
+all of the distributions in $\cP_S$ are identical, then $L_1=L_2$
+because the initial selection is irrelevant and the set $\cP_S$ is not
+diverse.  
+
+Building on this interpretation, we will discuss a more detailed
+thought experiment, which will argue for the choice of weights
+$d_{w_i}$. Consider a set of words as a sentence that is supposed to
+convey certain information. A word $w_i$ is described by the topic
+distribution $P_{w_i}$, so the amount of information needed to
+describe it is the divergence of $P_{w_i}$ from the Observer's prior
+distribution $P$, which is precisely $D_{w_i}$. We can think of
+$P_{w_i}$ as the distribution of Observer's thoughts, given that they
+just saw the word $w_i$. So, if for example this distribution happens
+to be equal to the prior, this means that the Observer's reaction is
+independent from whether or not $w_i$ was read, in which case we
+conclude, that there is no information there. 
+
+To encode the information contained in the sentence, we can describe
+each word using $D_{w_i}$ bits, and concatenate them together. We may
+now ask what is the topic distribution for the Observer reading this
+code bit by bit (or, say, randomly sampling bits from it), assuming
+that at each step they use the distribution corresponding to the word
+from which that bit comes from. Clearly, it will be the mixture
+distribution $P_S$ from Definition \ref{mixture} and, moreover, what
+we have just described is essentially an instance of the information
+source model presented earlier. 
+
+The diversity measure we are describing works in a different setting
+than is typically assumed. The standard model for computing diversity
+is derived from analysing a population of living organisms, each being
+assigned a label from a fixed set of species. In our case, the species
+are represented by topics and the organisms are represented by
+words. The key difference, however, is that we do not force a fixed
+assignment, but instead give a topic distribution for each
+word. This can be reduced to a regular population model in the case where
+every topic distribution has singleton support (set of topics with
+non-zero probabilities). It is
+reasonable to ask, then, how does our measure compare to other
+population diversity measures. As it turns out, it is simply a
+generalization of the Shannon entropy, which is one of the canonical
+approaches to population diversity.
+
+\bep\label{entropy}
+Let $S=\{P_{w_1},...,P_{w_k}\}$ be a set of distributions over topics,
+such that each has a singleton support. Assume that the prior
+topic distribution $P$ corresponding to $S$ is a uniform
+distribution. Then, 
+\[D_S=H(P_S),\]
+where $P_S$ corresponds to the overall topic distribution in the set
+$S$, and $H$ denotes Shannon entropy.
+\eep
