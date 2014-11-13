@@ -1,0 +1,460 @@
+\documentclass[portrait,a0paper]{baposter-templ/baposter}
+
+\tracingstats=2
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{relsize}
+\usepackage{multirow}
+\usepackage{bm}
+\usepackage{booktabs}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\usepgflibrary{shapes.symbols}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{positioning}
+
+\usepackage{times}
+\usepackage{helvet}
+%\usepackage{bookman}
+\usepackage{palatino}
+
+\newcommand{\captionfont}{\footnotesize}
+
+\selectcolormodel{cmyk}
+
+
+\let\polishl\l
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Math symbols used in the text. Shared with paper
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../defs}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Multicol Settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\columnsep}{0.7em}
+\setlength{\columnseprule}{0mm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Save space in lists. Use this after the opening of the list
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\compresslist}{%
+\setlength{\itemsep}{1pt}%
+\setlength{\parskip}{0pt}%
+\setlength{\parsep}{0pt}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Begin of Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Here starts the poster
+%%%---------------------------------------------------------------------------
+%%% Format it to your taste with the options
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define some colors
+\definecolor{silver}{cmyk}{0,0,0,0.3}
+\definecolor{yellow}{cmyk}{0,0,0.9,0.0}
+\definecolor{reddishyellow}{cmyk}{0,0.22,1.0,0.0}
+\definecolor{black}{cmyk}{0,0,0.0,1.0}
+\definecolor{darkYellow}{cmyk}{0,0,1.0,0.5}
+\definecolor{darkSilver}{cmyk}{0,0,0,0.1}
+
+\definecolor{lightyellow}{cmyk}{0,0,0.3,0.0}
+\definecolor{lighteryellow}{cmyk}{0,0,0.1,0.0}
+\definecolor{lightestyellow}{cmyk}{0,0,0.05,0.0}
+
+%%
+\typeout{Poster Starts}
+\background{}
+
+\newlength{\leftimgwidth}
+\begin{poster}%
+  % Poster Options
+  {
+  % Show grid to help with alignment
+  grid=false,
+  % Column spacing
+  colspacing=1em,
+  % Color style
+  bgColorOne=lighteryellow,
+  bgColorTwo=lightestyellow,
+  borderColor=reddishyellow,
+  headerColorOne=yellow,
+  headerColorTwo=reddishyellow,
+  headerFontColor=black,
+  boxColorOne=lightyellow,
+  boxColorTwo=lighteryellow,
+  % Format of textbox
+  textborder=roundedleft,
+%  textborder=rectangle,
+  % Format of text header
+  eyecatcher=true,
+  headerborder=open,
+  headerheight=0.09\textheight,
+  headershape=roundedright,
+  headershade=plain,
+  headerfont=\Large\textsf, %Sans Serif
+  boxshade=plain,
+  background=shadeTB,
+  linewidth=2pt
+  }
+  % Eye Catcher
+  {} % No eye catcher for this poster. (eyecatcher=no above). If an eye catcher is present, the title is centered between eye-catcher and logo.
+  % Title
+  {\sf 
+\begin{tabular}{c@{\qquad}c@{\qquad}c}
+& An Information Theoretic Approach & \\
+\includegraphics[height=1em,viewport=0 160 375 261,clip]{figures/UCSC} 
+& to Quantifying Text Interestingness &
+\includegraphics[height=1em,viewport=0 160 375 261,clip]{figures/UCSC} 
+\end{tabular}
+% \footnotesize{%
+%  \begin{tabular}{r}NIPS poster\\ Granada 12.12.2011 \end{tabular}
+%}
+ \vspace{.3em}}
+  % Authors
+{\sf %Sans Serif
+% Serif
+\begin{tabular}{c@{\qquad\qquad}c}%@{\qquad\qquad}c}
+Micha{\polishl} Derezi\'{n}ski &
+Khashayar Rohanimanesh
+\\
+\end{tabular}
+% \raisebox{5mm}{\includegraphics[height=2em,viewport=0 160 375 261,clip]{figures/UCSC}}
+%
+%
+\vspace{-.5em} % bring logos down a bit so title does not touch top
+}
+% University logo
+{}
+\tikzstyle{light shaded}=[top color=baposterBGtwo!30!white,bottom color=baposterBGone!30!white,shading=axis,shading angle=30]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Now define the boxes that make up the poster
+%%%---------------------------------------------------------------------------
+%%% Each box has a name and can be placed absolutely or relatively.
+%%% The only inconvenience is that you can only specify a relative position 
+%%% towards an already declared box. So if you have a box attached to the 
+%%% bottom, one to the top and a third one which should be in between, you 
+%%% have to specify the top and bottom boxes before you specify the middle 
+%%% box.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\fboxsep=0mm%padding thickness
+\fboxrule=2pt%border thickness
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\headerbox{Finding Interesting Products}{name=related,column=0,row=0}{
+{\bf Goal:} Increase user engagement when shopping on eBay.
+
+\medskip 
+{\bf Solution:} Display ads for products that are {\em unique},
+  {\em surprising}, {\em interesting}. 
+
+\medskip
+Users are unlikely to buy such products, but will spend more time
+browsing them and clicking on the ads. 
+
+\vspace{-2mm}
+\begin{center}
+{\bf Example: Interesting iPhone cases}
+\vspace{1mm}
+
+\fcolorbox{yellow}{white}{\includegraphics[width=0.95\textwidth]{figures/interesting.png}}
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\headerbox{Interestingness as Text Diversity}{name=newcontribution,column=0,below=related}{
+We used eBay {\bf product titles as features}.
+
+\medskip
+{\bf Hypothesis:} Often an interesting concept is generated
+  by mixing a {\bf diverse set of topics}.
+We can identify those topics from the words appearing in the
+  product title (usually 10-12 words).
+
+\begin{multicols}{2}
+\begin{center}\fcolorbox{yellow}{white}{\includegraphics[width=25mm]{figures/eyeshadow-iphone-case.jpg}}
+\end{center}
+
+\textcolor{red}{{\bf Eyeshadow}} 
+Palettes for \textcolor{red}{{\bf iPhone}} 6 case
+\end{multicols}
+
+\begin{multicols}{2}
+\begin{center}\fcolorbox{yellow}{white}{\includegraphics[width=25mm]{figures/horn-iphone-speaker.jpg}} 
+\end{center}
+
+White Silicone \textcolor{red}{{\bf Horn}} Stand Speaker for
+  Apple \textcolor{red}{{\bf iPhone}} 4/ 4S
+\end{multicols}
+
+\begin{multicols}{2}
+\begin{center}\fcolorbox{yellow}{white}{\includegraphics[width=25mm]{figures/geeky-clock.jpg}}
+\end{center}
+
+\textcolor{red}{{\bf Equation}} Wall \textcolor{red}{{\bf
+      Clock}} Gifts for Math Gurus
+\end{multicols}
+\vspace{0.5em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \headerbox{Data Sets}{name=openproblems,column=0,below=newcontribution,above=bottom}{
+{\bf 1. Interesting iPhone cases on eBay.}
+
+We hired workers from {\em AMT} to label a collection
+of iPhone cases found on {\em Pinterest} and {\em
+  eBay's}. 
+
+The final data-set consists of 2179 positive and 9770
+negative instances for 
+a total of 11,949 instances, with product title used as input. 
+The topic model was trained using Mallet on 2 million product
+  titles, grouped by categories into 800 documents.
+
+\medskip
+{\bf 2. NSF abstracts (61,902, 200-300 words each).}
+
+We used this set for training a topic model.
+To get labeled data, we had to generate $5000$ artificial
+  labeled examples, by mixing random abstracts. 
+\vspace{0.5em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+ }
+
+\newcommand{\AlgShort}{\textsf{Alg}}
+\newcommand{\NatShort}{\textsf{Nat}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \headerbox{Words as Topic Distributions}{name=representation,column=1,row=0}{
+Each word in the vocabulary $V$ is mapped to a {\bf probability
+  distribution} over a fixed domain $T$.
+
+\medskip
+We start from a {\bf co-occurrence matrix} $\cM_{|V|\times|T|}$
+  where each row represents a co-occurrence of a word with the set
+  $T$. For $T=V$, this corresponds to the familiar {\em word-to-word}
+  co-occurrence representation.
+
+\medskip
+We chose to use {\bf topic modeling} where $T$ is the set of
+  topics learned over a document corpus by {\em Latent Dirichlet
+    Allocation}. 
+\vspace{0.5em}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \headerbox{The Reader's Model}{name=reader,column=2,row=0}{
+Consider a person reading a text $W=\{w_1,...,w_k\}$. 
+The Reader represents the meaning of each word $w_i$ with a probability
+  distribution $P_{i}$ over a set of topics $T$. 
+The Reader's {\em knowledge} is represented by the matrix
+$\cM_{|V|\times|T|}$. Now, we ask:
+\begin{enumerate}
+\item How should the Reader choose $P_{i}$ given $W$, knowing
+  $\cM_{|V|\times|T|}$?
+\vspace{-1mm}
+\item Given $\cP_{W}=\{P_{1},...,P_{k}\}$, knowing
+  $\cM_{|V|\times|T|}$, how should the Reader measure diversity of $W$?
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\headerbox{Jensen-Shannon Information Diversity}{name=regret,column=1,span=2,below=reader}{
+\begin{multicols}{2}
+\fboxsep=2pt
+\begin{center}\fcolorbox{yellow}{white}{
+\parbox{0.45\textwidth}{
+{\bf Generalized Jensen-Shannon Divergence} for  $\cP=\{P_{1},...,P_{k}\}$
+ and weights $\Sigma d_i=1$ is defined (denoting
+ $M=\sum_{i=1}^kd_iP_i$) as  
+\vspace{-4mm}
+\[D_{JS}(\Sigma d_iP_i) = \sum_{i=1}^k d_i D_{KL}(P_i\|M).\] 
+\vspace{-2mm}
+}}\end{center}
+
+Here, $D_{KL}$ is the Kullback-Leibler divergence. 
+
+We propose using weights
+proportional to the information contained in each distribution. 
+
+\begin{center}\fcolorbox{yellow}{white}{
+\parbox{0.45\textwidth}{
+Let {\bf importance} of $P_i$ with respect to
+prior distribution $P$ be $D_i = D_{KL}(P_i\|P)$. 
+}}
+
+\smallskip
+\fcolorbox{yellow}{white}{
+\parbox{0.45\textwidth}{
+We define the {\bf Jensen-Shannon Information Diversity} of $\cP$ with
+respect to prior $P$ as $\mbox{JSD}_P(\cP)=D_{JS}(\Sigma d_i P_i)$
+where $d_{i}=\frac{D_{i}}{\sum D_{j}}$ are the normalized importances.
+}}\end{center}
+\end{multicols}
+\vspace{0em}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \headerbox{Choosing Word Representations}{name=dms,column=1,below=regret}{
+Given $W=\{w_1,...,w_k\}$, how should the Reader choose $P_{i}$, knowing
+  $\cM_{|V|\times|T|}$?
+
+\medskip
+{\bf Intuition:} We can use the row of $\cM_{|V|\times|T|}$ that
+corresponds to $w_i$, normalized to a distribution.
+
+\medskip
+We improve on this approach in the following {\bf three steps}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \headerbox{2. Fixing Sample Size Bias}{name=logloss,column=2,below=regret}{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\fboxsep=2pt
+{\bf Problem:} Some of the row vectors in $\cM$ may not have
+  enough data points to properly estimate the topic distribution.
+\vspace{-5mm}\begin{center}\fcolorbox{yellow}{white}{
+\parbox{0.95\textwidth}{
+We use {\bf Bayesian smoothing} with prior topic distribution $\tilde{P}$:
+\vspace{-4mm}
+\begin{equation*}
+\widehat{P}_i=\frac{\alpha \tilde{P}+ \mu_i \tilde{P}_i}{\alpha+\mu_i}.
+\end{equation*}
+\vspace{-4mm}
+}}\end{center}
+\vspace{-1mm}
+Here, $\mu_i$ is the frequency of word $w_i$ in the LDA corpus,
+and $\alpha$ is the prior strength.
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \headerbox{3. Conditioning on the Context}{name=mlogloss,column=2,below=logloss}{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\fboxsep=2pt
+ {\bf Problem:} The word $w_i$ has a specific meaning inside of
+   $W=\{w_1,...,w_k\}$, that can be significantly different than its
+   meaning out of context. 
+
+\vspace{-5mm}\begin{center}\fcolorbox{yellow}{white}{
+\parbox{0.95\textwidth}{
+We adjust $P_i$ using the {\bf context distribution}
+$\widehat{P}_{W_{\bar{i}}}=\Sigma d_j\widehat{P}_j$ based on the
+remaining words in $W$. Finally, we apply smoothing again:
+\vspace{-3mm}
+\[\widehat{P}^{W_{\bar{i}}}_{i}(t)\propto \beta \widehat{P}_{i}\!(t)
++\frac{\widehat{P}_{W_{\bar{i}}}(t)}{\tilde{P}(t)}\widehat{P}_{i}(t).\] 
+\vspace{-3mm}
+}}\end{center}
+}
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \headerbox{Example: 2D matrix log loss}{name=2d,column=1,span=2,below=mlogloss}{
+%     \begin{multicols}{2}
+% In $n=2$ dimensions, we can parametrize the prediction and outcome as follows:
+% with  and 
+% The loss becomes
+% \end{multicols}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
+\headerbox{Results: Good Performance on both Data Sets}
+{name=results,column=1,span=2,above=bottom,below=mlogloss}{ 
+\vspace{-1mm}
+\begin{multicols}{2}
+\begin{center}
+{\bf eBay iPhone cases} \quad\quad\quad {\bf NSF abstracts}
+\fcolorbox{yellow}{white}{\includegraphics[width=0.24\textwidth]{figures/phonecases-comparison-kopia.png}
+\includegraphics[width=0.24\textwidth]{figures/nsf-comparison-kopia.png}}
+{\bf Supervised Results}
+\fcolorbox{yellow}{white}{\begin{tabular}{|l|c|c|c|c|}
+\hline
+&precision & recall & f1 & accuracy
+\\ \hline 
+JSD         &$\mathbf{0.714}$&$0.597$&$0.650$& $\mathbf{0.8828}$\\
+RAE             &$0.676$&$\mathbf{0.666}$&$\mathbf{0.671}$&$0.8809$ \\
+LSI             &$0.676$&$0.633$&$0.654$&$0.8778$\\
+\hline
+\end{tabular}}
+\end{center}
+
+\ \\
+We draw an ROC curve by thresholding diversity
+  over labeled examples. As baselines, we use probabilistic diversity 
+  measures with input being an LDA topic distribution for  given
+  example:\\
+1. Shannon Entropy;\\
+2. Shannon Entropy with topic similarities;\\
+3. Rao Diversity (also uses topic similarities).
+
+\bigskip
+We also used the topic vector $\Sigma
+D_i \widehat{P}_{W_{\bar{i}}}$ to train an SVM model on eBay data. We
+compared this against using feature vectors from:\\ 
+1. Recursive Auto-Encoders with Word2Vec;\\
+2. Latent Semantic Indexing (LSI).
+\end{multicols}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\headerbox{1. Capturing Topic Similarity}{name=entropy,column=1,below=dms,above=results}{
+\fboxsep=2pt
+{\bf Problem:} A distributional representation of a word does
+  not capture the relations between topics.
+
+\medskip
+Using the trained topic model, we can generate a {\bf topic similarity matrix}
+  $\cS_{|T|\times|T|}$, where $\cS_{ij}$ indicates
+  the degree of similarity between topics $i$ and $j$. We normalize
+  the rows of $\cS$ to get distributional vectors.
+
+\vspace{-5mm}\begin{center}\fcolorbox{yellow}{white}{
+\parbox{0.95\textwidth}{
+Given $P_i$, we can now consider $\tilde{P_i}=P_i\cS^T$, which
+  essentially diffuses $P_i$ accross similar topics.
+}}\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
+
+
+
+
+
+\end{poster}
+
+\end{document}

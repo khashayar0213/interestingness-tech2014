@@ -404,7 +404,7 @@ population within a universe with species distribution $P$.
 corresponds to $w_i$, normalized to a distribution.
 \item What should the prior $P$ be?
 
-{\bf Intuition:} We can use the average of all word representation vectors.
+{\bf Intuition: (WRONG)} We can use the average of all word representation vectors.
 \end{itemize}
 \end{frame}
 
@@ -431,7 +431,7 @@ corresponds to $w_i$, normalized to a distribution.
 \item To obtain the appropriate prior as average of the word
   representations, we can simply diffuse the old prior
   $\tilde{P}=P\tilde{S}^T$. 
-\item To choose a good matix $\cS$, we can use the topic model. For
+\item To choose a good matrix $\cS$, we can use the topic model. For
   example, we can apply cosine similarity between topic document
   vectors based on the LDA. 
 \item More appropriate choices of $\cS$ still need to be examined.
@@ -504,8 +504,8 @@ of iPhone cases found on {\em Pinterest} and {\em
   eBay's}.
 \item The final data-set consists of 2179 positive and 9770 negative instances for
 a total of 11,949 instances, with product title used as input. 
-\item The topic model waas trained using Mallet on 2 million product
-  titles, grouped by categories in to 800 documents.
+\item The topic model was trained using Mallet on 2 million product
+  titles, grouped by categories into 800 documents.
 \end{itemize}
 \item NSF proposal abstracts (61,902 total, 200-300 words each).
 \begin{itemize}
