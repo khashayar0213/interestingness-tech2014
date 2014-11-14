@@ -9,6 +9,7 @@
 \usepackage{multirow}
 \usepackage{bm}
 \usepackage{booktabs}
+\usepackage{colortbl}
 
 \usepackage{graphicx}
 \usepackage{multicol}
@@ -173,7 +174,7 @@ browsing them and clicking on the ads.
 {\bf Example: Interesting iPhone cases}
 \vspace{1mm}
 
-\fcolorbox{yellow}{white}{\includegraphics[width=0.95\textwidth]{figures/interesting.png}}
+\fcolorbox{reddishyellow}{white}{\includegraphics[width=0.95\textwidth]{figures/interesting.png}}
 \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
  }
@@ -190,7 +191,7 @@ We can identify those topics from the words appearing in the
   product title (usually 10-12 words).
 
 \begin{multicols}{2}
-\begin{center}\fcolorbox{yellow}{white}{\includegraphics[width=25mm]{figures/eyeshadow-iphone-case.jpg}}
+\begin{center}\fcolorbox{reddishyellow}{white}{\includegraphics[width=25mm]{figures/eyeshadow-iphone-case.jpg}}
 \end{center}
 
 \textcolor{red}{{\bf Eyeshadow}} 
@@ -198,7 +199,7 @@ Palettes for \textcolor{red}{{\bf iPhone}} 6 case
 \end{multicols}
 
 \begin{multicols}{2}
-\begin{center}\fcolorbox{yellow}{white}{\includegraphics[width=25mm]{figures/horn-iphone-speaker.jpg}} 
+\begin{center}\fcolorbox{reddishyellow}{white}{\includegraphics[width=25mm]{figures/horn-iphone-speaker.jpg}} 
 \end{center}
 
 White Silicone \textcolor{red}{{\bf Horn}} Stand Speaker for
@@ -206,13 +207,13 @@ White Silicone \textcolor{red}{{\bf Horn}} Stand Speaker for
 \end{multicols}
 
 \begin{multicols}{2}
-\begin{center}\fcolorbox{yellow}{white}{\includegraphics[width=25mm]{figures/geeky-clock.jpg}}
+\begin{center}\fcolorbox{reddishyellow}{white}{\includegraphics[width=25mm]{figures/geeky-clock.jpg}}
 \end{center}
 
 \textcolor{red}{{\bf Equation}} Wall \textcolor{red}{{\bf
       Clock}} Gifts for Math Gurus
 \end{multicols}
-\vspace{0.5em}
+\vspace{0.0em}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
  }
 
@@ -246,46 +247,59 @@ To get labeled data, we had to generate $5000$ artificial
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \headerbox{Words as Topic Distributions}{name=representation,column=1,row=0}{
-Each word in the vocabulary $V$ is mapped to a {\bf probability
-  distribution} over a fixed domain $T$.
+\setlength{\arrayrulewidth}{2pt} 
+\arrayrulecolor{reddishyellow}
+\begin{center}
+\begin{tabular}{c|ccc}
+\rowcolor{yellow} \cellcolor{lightyellow}
+$\cM$& {\it Phones} & {\it Computers} & {\it Movies}\\
+\hline
+\rowcolor{white} \cellcolor{yellow} {\bf iPhone} & 111 & 5 & 1\\
+\rowcolor{white} \cellcolor{yellow} {\bf Apple} & 80 & 50 & 0\\
+\rowcolor{white} \cellcolor{yellow} {\bf Batman} & 7 & 0 & 65\\
+\rowcolor{white} \cellcolor{yellow} {\bf New} & 325 & 240 & 165\\
+\rowcolor{white} \cellcolor{yellow} {\bf Esoteric} & 0 & 0 & 1
+\end{tabular}
+\end{center}
 
-\medskip
-We start from a {\bf co-occurrence matrix} $\cM_{|V|\times|T|}$
-  where each row represents a co-occurrence of a word with the set
-  $T$. For $T=V$, this corresponds to the familiar {\em word-to-word}
-  co-occurrence representation.
+Each word $w_i\in V$ is mapped to a {\bf probability distribution} $P_i$ over topics
+$T$, using $\cM$.
 
-\medskip
-We chose to use {\bf topic modeling} where $T$ is the set of
-  topics learned over a document corpus by {\em Latent Dirichlet
-    Allocation}. 
-\vspace{0.5em}
+% \medskip
+% We start from a {\bf co-occurrence matrix} $\cM_{|V|\times|T|}$
+%   where each row represents a co-occurrence of a word with the set
+%   $T$. For $T=V$, this corresponds to the familiar {\em word-to-word}
+%   co-occurrence representation.
+
+ \medskip
+ To obtain $\cM$, we use a {\bf topic model} trained with {\em Latent Dirichlet Allocation}. 
+ \vspace{0.4em}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \headerbox{The Reader's Model}{name=reader,column=2,row=0}{
-Consider a person reading a text $W=\{w_1,...,w_k\}$. 
-The Reader represents the meaning of each word $w_i$ with a probability
-  distribution $P_{i}$ over a set of topics $T$. 
-The Reader's {\em knowledge} is represented by the matrix
-$\cM_{|V|\times|T|}$. Now, we ask:
-\begin{enumerate}
-\item How should the Reader choose $P_{i}$ given $W$, knowing
-  $\cM_{|V|\times|T|}$?
-\vspace{-1mm}
-\item Given $\cP_{W}=\{P_{1},...,P_{k}\}$, knowing
-  $\cM_{|V|\times|T|}$, how should the Reader measure diversity of $W$?
-\end{enumerate}
+% Consider a person reading a text $W=\{w_1,...,w_k\}$. 
+% The Reader represents the meaning of each word $w_i$ with a probability
+%   distribution $P_{i}$ over a set of topics $T$. 
+% The Reader's {\em knowledge} is represented by the matrix
+% $\cM_{|V|\times|T|}$. Now, we ask:
+\begin{center}\fcolorbox{reddishyellow}{white}{\includegraphics[width=0.95\textwidth]{figures/Books-2-icon-wide.png}}
+\end{center}
+\vspace{-2mm}
+1. Reader chooses $P_{i}$'s for text $W$, knowing $\cM$.
+
+\medskip
+2. Having $\cP_{W}=\{P_{1},...,P_{k}\}$, Reader estimates the diversity of $W$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\headerbox{Jensen-Shannon Information Diversity}{name=regret,column=1,span=2,below=reader}{
+\headerbox{Jensen-Shannon Information Diversity}{name=regret,column=1,span=2,below=representation}{
 \begin{multicols}{2}
 \fboxsep=2pt
-\begin{center}\fcolorbox{yellow}{white}{
+\begin{center}\fcolorbox{reddishyellow}{white}{
 \parbox{0.45\textwidth}{
 {\bf Generalized Jensen-Shannon Divergence} for  $\cP=\{P_{1},...,P_{k}\}$
  and weights $\Sigma d_i=1$ is defined (denoting
@@ -300,14 +314,14 @@ Here, $D_{KL}$ is the Kullback-Leibler divergence.
 We propose using weights
 proportional to the information contained in each distribution. 
 
-\begin{center}\fcolorbox{yellow}{white}{
+\begin{center}\fcolorbox{reddishyellow}{white}{
 \parbox{0.45\textwidth}{
 Let {\bf importance} of $P_i$ with respect to
 prior distribution $P$ be $D_i = D_{KL}(P_i\|P)$. 
 }}
 
 \smallskip
-\fcolorbox{yellow}{white}{
+\fcolorbox{reddishyellow}{white}{
 \parbox{0.45\textwidth}{
 We define the {\bf Jensen-Shannon Information Diversity} of $\cP$ with
 respect to prior $P$ as $\mbox{JSD}_P(\cP)=D_{JS}(\Sigma d_i P_i)$
@@ -342,7 +356,7 @@ We improve on this approach in the following {\bf three steps}.
 \fboxsep=2pt
 {\bf Problem:} Some of the row vectors in $\cM$ may not have
   enough data points to properly estimate the topic distribution.
-\vspace{-5mm}\begin{center}\fcolorbox{yellow}{white}{
+\vspace{-5mm}\begin{center}\fcolorbox{reddishyellow}{white}{
 \parbox{0.95\textwidth}{
 We use {\bf Bayesian smoothing} with prior topic distribution $\tilde{P}$:
 \vspace{-4mm}
@@ -364,7 +378,7 @@ and $\alpha$ is the prior strength.
    $W=\{w_1,...,w_k\}$, that can be significantly different than its
    meaning out of context. 
 
-\vspace{-5mm}\begin{center}\fcolorbox{yellow}{white}{
+\vspace{-5mm}\begin{center}\fcolorbox{reddishyellow}{white}{
 \parbox{0.95\textwidth}{
 We adjust $P_i$ using the {\bf context distribution}
 $\widehat{P}_{W_{\bar{i}}}=\Sigma d_j\widehat{P}_j$ based on the
@@ -397,10 +411,10 @@ remaining words in $W$. Finally, we apply smoothing again:
 \begin{multicols}{2}
 \begin{center}
 {\bf eBay iPhone cases} \quad\quad\quad {\bf NSF abstracts}
-\fcolorbox{yellow}{white}{\includegraphics[width=0.24\textwidth]{figures/phonecases-comparison-kopia.png}
+\fcolorbox{reddishyellow}{white}{\includegraphics[width=0.24\textwidth]{figures/phonecases-comparison-kopia.png}
 \includegraphics[width=0.24\textwidth]{figures/nsf-comparison-kopia.png}}
 {\bf Supervised Results}
-\fcolorbox{yellow}{white}{\begin{tabular}{|l|c|c|c|c|}
+\fcolorbox{reddishyellow}{white}{\begin{tabular}{|l|c|c|c|c|}
 \hline
 &precision & recall & f1 & accuracy
 \\ \hline 
@@ -420,7 +434,7 @@ We draw an ROC curve by thresholding diversity
 2. Shannon Entropy with topic similarities;\\
 3. Rao Diversity (also uses topic similarities).
 
-\bigskip
+\vspace{3.5em}
 We also used the topic vector $\Sigma
 D_i \widehat{P}_{W_{\bar{i}}}$ to train an SVM model on eBay data. We
 compared this against using feature vectors from:\\ 
@@ -443,7 +457,7 @@ Using the trained topic model, we can generate a {\bf topic similarity matrix}
   the degree of similarity between topics $i$ and $j$. We normalize
   the rows of $\cS$ to get distributional vectors.
 
-\vspace{-5mm}\begin{center}\fcolorbox{yellow}{white}{
+\vspace{-5mm}\begin{center}\fcolorbox{reddishyellow}{white}{
 \parbox{0.95\textwidth}{
 Given $P_i$, we can now consider $\tilde{P_i}=P_i\cS^T$, which
   essentially diffuses $P_i$ accross similar topics.

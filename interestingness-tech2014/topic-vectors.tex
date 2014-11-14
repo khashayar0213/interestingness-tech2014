@@ -1,0 +1,60 @@
+\subsection{Explaining Topic Similarities}
+Using a topic distribution for describing an entity has a certain
+shortcoming. Namely, such a representation seems to imply that the
+topics - used as atomic events in the distribution - are independent
+from each other. In practice, that assumption is far from true. In
+fact, even for the best topic model one can find a pair of topics that
+are closely related. Those interrelations between topics are
+properties that represent useful information about the model, and yet
+may be completely ignored in a distributional representation of
+topics. For example, if a word $w$ has topic distribution $P_w$
+concentrated on some topic $t$, then it will 
+not peak at all other topics that are very similar to
+topic $t$. In this case, topic correlations would not be reflected in
+the distribution. 
+
+If we look at a topic distribution as a vector of coefficients $p$, then
+the topics represent a basis $t_1,...,t_T$ in some hypothetical vector space $\cH$. In
+this case, $p$ corresponds to a weighted combination of the basis
+vectors $\Sigma p_i t_i$, in other words, a point on the convex hull of the basis.
+Suppose that $\cH$ is a Hiblert space (i.e. has a scalar
+product). Now, the correlation between two topics can be represented
+by the dot product of the corresponding basis vectors (we assume those
+are unit vectors).We propose a following alternative representation
+of a point on the convex hull.
+
+\bed
+Let $p\in\rr^T$ be a distributional vector. Denote $x=\sum p_i
+t_i\in\cH$. Let $\widehat{p}\in\rr^T$ be defined so that
+\[\widehat{p}_i = \langle x,t_i\rangle.\]
+We will call $\widehat{p}$ the dot-product representation of $p$.
+\eed
+
+Notice, that if the considered topic basis is orthonormal, then both
+representations are identical. Consider the Gram matrix
+$\cS_{ij}=\langle t_i,t_j\rangle$ of all possible dot products between
+basis vectors. If the basis is orthonormal, this is simply the identity
+matrix. Moreover, no matter which basis we choose, matrix $\cS$ is the
+only information we need to translate $p$ to $\widehat{p}$.
+
+\bep
+Observe that for any distributional vector $p\in\rr^T$, any Hilbert space $\cH$ and a set of
+vectors $t_1,...,t_T\in\cH$, we have 
+\[\widehat{p} = p\cS.\]
+\eep
+
+The dot-product representation allows us to incorporate the topic
+similarity information into a vector representation. Moreover, we do
+not need to directly manipulate the space $\cH$ to obtain it, except
+computing pairwise topic correlations $\cS_{ij}$. However,
+$\widehat{p}$ is not a distributional vector. Not only is it not
+properly normalized, it may contain negative coefficients. To
+alleviate that, we can add an additional condition that all of the
+dot-products $S_{ij}$ are non-negative. A simple example satisfying
+this constraint is if $\cH=\rr^n$ and the basis vectors have only
+positive coefficients. For instance, if the topics are
+themselves represented by distributions, then each $\cS_{ij}$
+corresponds to the cosine similarity between the pair of
+distributions.
+
+\subsection{Word2Vec}
