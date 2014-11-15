@@ -41,6 +41,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setlength{\columnsep}{0.7em}
 \setlength{\columnseprule}{0mm}
+\setlength{\arrayrulewidth}{2pt} 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -72,6 +73,8 @@
 \definecolor{darkYellow}{cmyk}{0,0,1.0,0.5}
 \definecolor{darkSilver}{cmyk}{0,0,0,0.1}
 
+
+\definecolor{brightyellow}{cmyk}{0,0,0.7,0.0}
 \definecolor{lightyellow}{cmyk}{0,0,0.3,0.0}
 \definecolor{lighteryellow}{cmyk}{0,0,0.1,0.0}
 \definecolor{lightestyellow}{cmyk}{0,0,0.05,0.0}
@@ -247,7 +250,7 @@ To get labeled data, we had to generate $5000$ artificial
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \headerbox{Words as Topic Distributions}{name=representation,column=1,row=0}{
-\setlength{\arrayrulewidth}{2pt} 
+%\setlength{\arrayrulewidth}{2pt} 
 \arrayrulecolor{reddishyellow}
 \begin{center}
 \begin{tabular}{c|ccc}
@@ -333,16 +336,19 @@ where $d_{i}=\frac{D_{i}}{\sum D_{j}}$ are the normalized importances.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Choosing Word Representations}{name=dms,column=1,below=regret}{
-Given $W=\{w_1,...,w_k\}$, how should the Reader choose $P_{i}$, knowing
-  $\cM_{|V|\times|T|}$?
+  \headerbox{JSD Example: Two Gaussians}{name=dms,column=1,below=regret}{
+\begin{center}\fcolorbox{reddishyellow}{white}{\includegraphics[width=0.95\textwidth]{figures/DiversityCombined.jpg}}
+\end{center}
 
-\medskip
-{\bf Intuition:} We can use the row of $\cM_{|V|\times|T|}$ that
-corresponds to $w_i$, normalized to a distribution.
+% Given $W=\{w_1,...,w_k\}$, how should the Reader choose $P_{i}$, knowing
+%   $\cM_{|V|\times|T|}$?
 
-\medskip
-We improve on this approach in the following {\bf three steps}.
+% \medskip
+% {\bf Intuition:} We can use the row of $\cM_{|V|\times|T|}$ that
+% corresponds to $w_i$, normalized to a distribution.
+
+% \medskip
+% We improve on this approach in the following {\bf three steps}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 }
 
@@ -351,7 +357,7 @@ We improve on this approach in the following {\bf three steps}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{2. Fixing Sample Size Bias}{name=logloss,column=2,below=regret}{
+  \headerbox{1. Fixing Sample Size Bias}{name=logloss,column=2,below=regret}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \fboxsep=2pt
 {\bf Problem:} Some of the row vectors in $\cM$ may not have
@@ -413,16 +419,17 @@ remaining words in $W$. Finally, we apply smoothing again:
 {\bf eBay iPhone cases} \quad\quad\quad {\bf NSF abstracts}
 \fcolorbox{reddishyellow}{white}{\includegraphics[width=0.24\textwidth]{figures/phonecases-comparison-kopia.png}
 \includegraphics[width=0.24\textwidth]{figures/nsf-comparison-kopia.png}}
+
+\vspace{1mm}
 {\bf Supervised Results}
-\fcolorbox{reddishyellow}{white}{\begin{tabular}{|l|c|c|c|c|}
-\hline
-&precision & recall & f1 & accuracy
-\\ \hline 
-JSD         &$\mathbf{0.714}$&$0.597$&$0.650$& $\mathbf{0.8828}$\\
-RAE             &$0.676$&$\mathbf{0.666}$&$\mathbf{0.671}$&$0.8809$ \\
-LSI             &$0.676$&$0.633$&$0.654$&$0.8778$\\
-\hline
-\end{tabular}}
+\begin{tabular}{l|c|c|c|c}
+\rowcolor{yellow} \cellcolor{lightyellow}
+&{\it Precision} & {\it Recall} & {\it F1} & {\it Accuracy}\\ 
+\hline 
+\rowcolor{white} \cellcolor{yellow}{\bf JSD}         &$\mathbf{0.714}$&$0.597$&$0.650$& $\mathbf{0.8828}$\\
+\rowcolor{white} \cellcolor{yellow}{\bf RAE}             &$0.676$&$\mathbf{0.666}$&$\mathbf{0.671}$&$0.8809$ \\
+\rowcolor{white} \cellcolor{yellow}{\bf LSI}             &$0.676$&$0.633$&$0.654$&$0.8778$\\
+\end{tabular}
 \end{center}
 
 \ \\
@@ -446,20 +453,36 @@ compared this against using feature vectors from:\\
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\headerbox{1. Capturing Topic Similarity}{name=entropy,column=1,below=dms,above=results}{
+\headerbox{2. Capturing Topic Similarity}{name=entropy,column=1,below=dms,above=results}{
 \fboxsep=2pt
-{\bf Problem:} A distributional representation of a word does
-  not capture the relations between topics.
+% {\bf Problem:} A distributional representation of a word does
+%   not capture the relations between topics.
 
-\medskip
-Using the trained topic model, we can generate a {\bf topic similarity matrix}
-  $\cS_{|T|\times|T|}$, where $\cS_{ij}$ indicates
-  the degree of similarity between topics $i$ and $j$. We normalize
-  the rows of $\cS$ to get distributional vectors.
+% \medskip
+% Using the trained topic model, we can generate a {\bf topic similarity matrix}
+%   $\cS_{|T|\times|T|}$, where $\cS_{ij}$ indicates
+%   the degree of similarity between topics $i$ and $j$. We normalize
+%   the rows of $\cS$ to get distributional vectors.
+
+\begin{center}
+\begin{tabular}{c|ccc}
+\rowcolor{yellow} \cellcolor{lightyellow}
+$\cS$& {\it Phones} & {\it Computers} & {\it Movies}\\
+\hline
+\rowcolor{white} \cellcolor{yellow} {\it Phones} & \cellcolor{brightyellow} 0.7 & \cellcolor{lightyellow} 0.25 & 0.05\\
+\hline
+\rowcolor{white} \cellcolor{yellow} {\it Computers} & \cellcolor{lightyellow} 0.15 & \cellcolor{brightyellow} 0.8 & 0.05\\
+\hline
+\rowcolor{white} \cellcolor{yellow} {\it Movies} & 0.025 & 0.025 & \cellcolor{brightyellow} 0.95 
+\end{tabular}
+\end{center}
+
+{\bf Problem:} Capture relations between topics.
+
 
 \vspace{-5mm}\begin{center}\fcolorbox{reddishyellow}{white}{
 \parbox{0.95\textwidth}{
-Given $P_i$, we can now consider $\tilde{P_i}=P_i\cS^T$, which
+Given $P_i$, we take $\tilde{P_i}=P_i\cS^T$, which
   essentially diffuses $P_i$ accross similar topics.
 }}\end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
