@@ -59,3 +59,77 @@ distributions.
 
 \subsection{Word2Vec Topics}
 
+Word2Vec is another form of word representations, which uses Euclidean
+vectors that are not probability distributions. We ask whether
+it is possible to derive a topic model from a set of such
+representations. Suppose, for instance, that we want to find $k$
+topics that are most representative of the provided vocabulary
+represented as word vectors in $\rr^d$. It is logical to assume that
+each topic be also represented as a vector in $\rr^d$. A question
+arises, how do we represent each word as a topic distribution in this
+scenario. Recall, that the central probability function modeled by the
+word-embeddings is defined as follows. Given a set of words $w\in\cW$
+and a set of contexts $c\in\cC$ (the sets can be identical), we look
+for embeddings $v_c,v_w\in\rr^d$ for the words and the contexts
+that best model the conditional probability  
+\[p(c|w) = \frac{\e^{v_c\cdot v_w}}{\sum_{c'\in\cC}\e^{v_c'\cdot v_w}}.\]
+Take a hypothetical set of topic vectors $v_{t_1},...,v_{t_k}\in\rr^d$. We can
+describe them in the above model by their context probability
+distributions $p(\cdot|t_i)$. We can now use a simple generative topic
+model to describe this setting. Namely, suppose we are given a global
+topic distribution $p(t)$. Next, imagine we generate a large amount of
+text through the following process:
+\begin{enumerate}
+\item Draw a topic $t$ from the topic distribution $p(\cdot)$.
+\item Draw a context $c$ from the distribution $p(\cdot|t)$.
+\end{enumerate}
+
+We can now use the Bayes rule to describe the topic distributions for
+each context $c$:
+
+\[p(t_i|c)\propto p(t_i)\cdot p(c|t_i) = p(t_i)\cdot
+\frac{\e^{v_c\cdot v_{t_i}}}{Z_{v_{t_i}}},\]
+
+where $Z_{v_{t_i}}=\sum_{c'\in\cC}\e^{v_c'\cdot v_{t_i}}$ is the normalization factor
+from the previous equation. Now, if we select the global topic
+distribution to be $p(t_i)\propto Z_i$, then this simplifies to:
+
+\[p(t_i|c)=\frac{\e^{v_c\cdot v_{t_i}}}{\sum_{j=1}^k\e^{v_c\cdot
+    v_{t_j}}}.\]
+
+Having obtained the set of topic distributions for each $c\in\cC$, as
+well as a prior topic distribution $p(t)$, we ask what is the best
+choice of topic vectors $t_i$, so that those distributions bring the
+most information about the vocabulary. How do we measure that
+information? For instance, how much information is contained in a
+single distribution $p(\cdot|c)$, for a fixed $c$? We
+can use the KL-Divergence to compare it to the prior $p(\cdot)$. In
+other words, we compute $D_{KL}(p(\cdot|c)\|p(\cdot))$. Now, we want to
+combine this into a single measure for the set of all $c\in\cC$. For
+this, we can use the Jensen-Shannon Diversity:
+\[D_{JS}(\Sigma d_c p(\cdot|c)) = \sum_{c\in\cC}d_c D_{KL}(p(\cdot|c)\|\Sigma d_c p(\cdot|c)),\]
+which would simply be a weighted average of the KL divergences of
+conditional probabilities from the prior, which is itself derived as a
+mixture of the conditional probabilities. Naturally, we can
+probabilistically derive the prior as such a mixture as follows:
+$p(\cdot)=\sum_{c\in\cC}p(c) p(\cdot|c)$.
+This suggests that we should use the marginal probability of context
+$c$ as the corresponding weight $d_c$. We compute this as
+\[p(c)=\frac{\sum_{j=1}^k\e^{v_c\cdot v_{t_j}}}{\sum_{j=1}^k Z_{t_j}}.\]
+
+Through this analysis, we claim that a good set of topic vectors can
+be derived by maximizing the mixture diversity $D_{JS}(\Sigma
+p(c)p(\cdot|c))$. 
+
+% Combining the intuitions from the above section with the
+% probabilistic interpretation of Word2Vec, we arrive at the following
+% definition. 
+
+% \bed
+% Let $t_1,...,t_k\in\rr^n$ be the topic vectors. Let $w\in\rr^n$ be a
+% word vector. Then, a {\bf topic distribution} $P_w$ of $w$ is defined as
+% \[ P_w(i)\propto \exp(\langle w,t_i\rangle).\]
+% \eed
+
+% TODO: We need to find out whether this definition can be somehow
+% properly derived from the Word2Vec probabilistic model.
