@@ -41,7 +41,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setlength{\columnsep}{0.7em}
 \setlength{\columnseprule}{0mm}
-\setlength{\arrayrulewidth}{2pt} 
+\setlength{\arrayrulewidth}{1pt} 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -158,7 +158,7 @@ Khashayar Rohanimanesh
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \fboxsep=0mm%padding thickness
-\fboxrule=2pt%border thickness
+\fboxrule=1pt%border thickness
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \headerbox{Finding Interesting Products}{name=related,column=0,row=0}{
@@ -257,11 +257,11 @@ To get labeled data, we had to generate $5000$ artificial
 \rowcolor{yellow} \cellcolor{lightyellow}
 $\cM$& {\it Phones} & {\it Computers} & {\it Movies}\\
 \hline
-\rowcolor{white} \cellcolor{yellow} {\bf iPhone} & 111 & 5 & 1\\
-\rowcolor{white} \cellcolor{yellow} {\bf Apple} & 80 & 50 & 0\\
-\rowcolor{white} \cellcolor{yellow} {\bf Batman} & 7 & 0 & 65\\
-\rowcolor{white} \cellcolor{yellow} {\bf New} & 325 & 240 & 165\\
-\rowcolor{white} \cellcolor{yellow} {\bf Esoteric} & 0 & 0 & 1
+\rowcolor{lightestyellow} \cellcolor{yellow} {\bf iPhone} & 111 & 5 & 1\\
+\rowcolor{lightestyellow} \cellcolor{yellow} {\bf Apple} & 80 & 50 & 0\\
+\rowcolor{lightestyellow} \cellcolor{yellow} {\bf Batman} & 7 & 0 & 65\\
+\rowcolor{lightestyellow} \cellcolor{yellow} {\bf New} & 325 & 240 & 165\\
+\rowcolor{lightestyellow} \cellcolor{yellow} {\bf Esoteric} & 0 & 0 & 1
 \end{tabular}
 \end{center}
 
@@ -302,7 +302,7 @@ $T$, using $\cM$.
 \headerbox{Jensen-Shannon Information Diversity}{name=regret,column=1,span=2,below=representation}{
 \begin{multicols}{2}
 \fboxsep=2pt
-\begin{center}\fcolorbox{reddishyellow}{white}{
+\begin{center}\fcolorbox{reddishyellow}{lightestyellow}{
 \parbox{0.45\textwidth}{
 {\bf Generalized Jensen-Shannon Divergence} for  $\cP=\{P_{1},...,P_{k}\}$
  and weights $\Sigma d_i=1$ is defined (denoting
@@ -317,14 +317,14 @@ Here, $D_{KL}$ is the Kullback-Leibler divergence.
 We propose using weights
 proportional to the information contained in each distribution. 
 
-\begin{center}\fcolorbox{reddishyellow}{white}{
+\begin{center}\fcolorbox{reddishyellow}{lightestyellow}{
 \parbox{0.45\textwidth}{
 Let {\bf importance} of $P_i$ with respect to
 prior distribution $P$ be $D_i = D_{KL}(P_i\|P)$. 
 }}
 
 \smallskip
-\fcolorbox{reddishyellow}{white}{
+\fcolorbox{reddishyellow}{lightestyellow}{
 \parbox{0.45\textwidth}{
 We define the {\bf Jensen-Shannon Information Diversity} of $\cP$ with
 respect to prior $P$ as $\mbox{JSD}_P(\cP)=D_{JS}(\Sigma d_i P_i)$
@@ -362,7 +362,7 @@ where $d_{i}=\frac{D_{i}}{\sum D_{j}}$ are the normalized importances.
 \fboxsep=2pt
 {\bf Problem:} Some of the row vectors in $\cM$ may not have
   enough data points to properly estimate the topic distribution.
-\vspace{-5mm}\begin{center}\fcolorbox{reddishyellow}{white}{
+\vspace{-2mm}\begin{center}\fcolorbox{reddishyellow}{lightestyellow}{
 \parbox{0.95\textwidth}{
 We use {\bf Bayesian smoothing} with prior topic distribution $\tilde{P}$:
 \vspace{-4mm}
@@ -384,7 +384,7 @@ and $\alpha$ is the prior strength.
    $W=\{w_1,...,w_k\}$, that can be significantly different than its
    meaning out of context. 
 
-\vspace{-5mm}\begin{center}\fcolorbox{reddishyellow}{white}{
+\vspace{-2mm}\begin{center}\fcolorbox{reddishyellow}{lightestyellow}{
 \parbox{0.95\textwidth}{
 We adjust $P_i$ using the {\bf context distribution}
 $\widehat{P}_{W_{\bar{i}}}=\Sigma d_j\widehat{P}_j$ based on the
@@ -420,15 +420,15 @@ remaining words in $W$. Finally, we apply smoothing again:
 \fcolorbox{reddishyellow}{white}{\includegraphics[width=0.24\textwidth]{figures/phonecases-comparison-kopia.png}
 \includegraphics[width=0.24\textwidth]{figures/nsf-comparison-kopia.png}}
 
-\vspace{1mm}
+\vspace{2mm}
 {\bf Supervised Results}
 \begin{tabular}{l|c|c|c|c}
 \rowcolor{yellow} \cellcolor{lightyellow}
 &{\it Precision} & {\it Recall} & {\it F1} & {\it Accuracy}\\ 
 \hline 
-\rowcolor{white} \cellcolor{yellow}{\bf JSD}         &$\mathbf{0.714}$&$0.597$&$0.650$& $\mathbf{0.8828}$\\
-\rowcolor{white} \cellcolor{yellow}{\bf RAE}             &$0.676$&$\mathbf{0.666}$&$\mathbf{0.671}$&$0.8809$ \\
-\rowcolor{white} \cellcolor{yellow}{\bf LSI}             &$0.676$&$0.633$&$0.654$&$0.8778$\\
+\rowcolor{lightestyellow} \cellcolor{yellow}{\bf JSD}         &$\mathbf{0.714}$&$0.597$&$0.650$& $\mathbf{0.8828}$\\
+\rowcolor{lightestyellow} \cellcolor{yellow}{\bf RAE}             &$0.676$&$\mathbf{0.666}$&$\mathbf{0.671}$&$0.8809$ \\
+\rowcolor{lightestyellow} \cellcolor{yellow}{\bf LSI}             &$0.676$&$0.633$&$0.654$&$0.8778$\\
 \end{tabular}
 \end{center}
 
@@ -469,18 +469,18 @@ compared this against using feature vectors from:\\
 \rowcolor{yellow} \cellcolor{lightyellow}
 $\cS$& {\it Phones} & {\it Computers} & {\it Movies}\\
 \hline
-\rowcolor{white} \cellcolor{yellow} {\it Phones} & \cellcolor{brightyellow} 0.7 & \cellcolor{lightyellow} 0.25 & 0.05\\
+\rowcolor{lightestyellow} \cellcolor{yellow} {\it Phones} & \cellcolor{brightyellow} 0.7 & \cellcolor{lightyellow} 0.25 & 0.05\\
 \hline
-\rowcolor{white} \cellcolor{yellow} {\it Computers} & \cellcolor{lightyellow} 0.15 & \cellcolor{brightyellow} 0.8 & 0.05\\
+\rowcolor{lightestyellow} \cellcolor{yellow} {\it Computers} & \cellcolor{lightyellow} 0.15 & \cellcolor{brightyellow} 0.8 & 0.05\\
 \hline
-\rowcolor{white} \cellcolor{yellow} {\it Movies} & 0.025 & 0.025 & \cellcolor{brightyellow} 0.95 
+\rowcolor{lightestyellow} \cellcolor{yellow} {\it Movies} & 0.025 & 0.025 & \cellcolor{brightyellow} 0.95 
 \end{tabular}
 \end{center}
 
 {\bf Problem:} Capture relations between topics.
 
 
-\vspace{-5mm}\begin{center}\fcolorbox{reddishyellow}{white}{
+\vspace{-2mm}\begin{center}\fcolorbox{reddishyellow}{lightestyellow}{
 \parbox{0.95\textwidth}{
 Given $P_i$, we take $\tilde{P_i}=P_i\cS^T$, which
   essentially diffuses $P_i$ accross similar topics.
