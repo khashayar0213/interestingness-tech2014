@@ -1,0 +1,68 @@
+\subsection{Datasets}
+\label{sec:datasets}
+{\bf Write a more in depth discussion of the datasets and the
+  experiments. }
+We used the following two datasets in our experiments: (1) Interesting iPhone cases:
+for generating the ground truth data we hired workers from {\em Amazon Mechanical Turk (AMT)} to label a collection
+of nearly 20,000 iPhone cases on {\em eBay}. The details of this step is beyond the scope of this paper, however we used insights from
+interesting iPhone cases found on {\em Pinterest} and {\em eBay's} user behavior data in order to generate a balanced data-set. 
+We then pulled our final dataset from the annotated by selecting only those instances where the annotators all labeled it as
+positive (i.e., interesting) or negative (i.e., uninteresting). The final data-set consists of 2179 positive and 9770 negative instances for
+a total of 11,949 instances. For each instance, the product title of
+the corresponding {\em eBay} listing was used as the input. In this case we are
+dealing with very short text snippets, usually 10 to 12 words each. To
+train a topic model, we used a larger, more broader set of about
+2 million product titles, grouped based on {\em eBay} categorical information into about 8,000
+documents of approximately 200 titles each; (2) {\em NSF}
+abstracts: for the second dataset we used a set of 61,902 National Science Foundation
+Scholarship proposal abstracts (see~\cite{bache:2013} for more details) to evaluate how our diversity measure
+compares to other methods on larger pieces of text. We used this set
+for training a topic model, however to get labeled data, we had to
+generate artificial examples, by randomly mixing pairs of abstracts that we
+could expect to be either similar (small diversity) or very different
+(high diversity) and labeling them accordingly. We generated 5,000 of
+those examples with positive and negative labels evenly represented. For both datasets, we used the Mallet LDA implementation and learned a separate topic model with $400$ topics.
+
+\subsection{Baselines}
+\label{sec:baselines}
+{\bf More information about the baselines. Particularly, the entropy
+  with topic similarity is essentially also a new approach and works
+  well. 
+
+Add the DPP baseline (expected sample size, because detereminant is
+unstable). Discussion probably
+should include the fact that it is correlated with the document
+length, which has more impact with eBay dataset. Include plots of ROC
+curves with them.
+
+More info about the auto-encoders and word2vec method.}
+
+We present two sets of results. First, we present
+ROC curves comparing different entropic measures of topic diversity in an unsupervised setting 
+(labeled data is only used for generating the curves). Figures~\ref{fig:phonecases-comparison} and \ref{fig:nsf-comparison}
+compare our diversity metric using both topic similarity and context
+conditioning (labeled by {\em JSD-Sim-Con}) with a few baselines;
+namely LDA topic entropy, LDA topic entropy using topic similarity
+(labeled by {\em Entropy-Sim}), {\em Rao diversity}
+(see~\cite{bache:2013} for details). 
+
+\subsection{Results}
+\label{sec:results}
+In either case it can be observed
+that our diversity metric outperforms the other baselines with an AUC
+around $0.73$. Moreover, for the {\em eBay} dataset the other measures
+give poor results. This can be explained as follows: since the
+text snippets are short, the LDA may yield a poor topic inference for such short text and as a result all measures using topic inference would perform poorly. Figures~\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown} show the gains we obtain by applying topic similarity and context conditioning techniques (steps 4 and 5) that we discussed in Section~\ref{sec:topic-diversity}. However, their degree of effects is different for each
+dataset.  In the second set of results, we used the unnormalized vector of mixture topic
+distribution (described in Definition~\ref{mixture}) computed over
+{\em eBay} product titles in a supervised classification
+setting. Table~\ref{tab:classification-results} shows
+the performance of the SVM classifier using our proposed mixture topic
+distribution as features and compares it to two different baselines, namely, SVM using
+{\em Latent Semantic Indexing (LSI)} features (by forming a
+document-term matrix and performing SVD), and a deep learning approach
+using the {\em recursive auto-encoders (RAE)} framework described
+in~\cite{Socher:2011:SRA:2145432.2145450}. These results are averaged
+over five different cross-validation splits using $0.6$ for training
+and $0.4$ for testing. Our proposed approach shows a higher precision
+and a marginally higher accuracy compared to the baselines.

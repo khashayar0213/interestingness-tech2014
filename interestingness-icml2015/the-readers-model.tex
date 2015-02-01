@@ -1,0 +1,156 @@
+
+The above generative model matches well with a standard framework for
+text analysis, where we map a text dataset onto a matrix of
+word-context co-occurrences. Specifically, we consider a matrix $\Mb$,
+with cell $m_{i,j}$ containing the number of times that the word $w_i\in V$ 
+occurred in context of, or was assigned to, $t_j\in T$. The context may
+in this case correspond to a document, another word, or a topic
+from a trained LDA topic model. In fact, this last example will be our main
+focus here, since this approach works best when the size of the
+context set is not too large (we will address this issue later). The
+analogy goes as follows: each word in our vocabulary 
+represents a group of its own occurrences in the data. The labels are
+the trained LDA topics. The universe
+is of course the set of all word occurrences in our data - each
+labeled with a vocabulary term and a topic. We imagine an entity
+called Reader, that has observed all of this data, trying to learn the
+language. First, the Reader computes a word distribution $P_t$ for each
+topic $t$, simply as the normalized columns of matrix $\Mb$, and also
+the overall topic distribution $P$ across the entire dataset of 
+co-occurrences. This information represents a generative model of the
+data, as in the previous section. Next, the question is what should be
+the Reader's topic distribution conditioned on a certain word? This
+essentially corresponds to a row of matrix $\Mb$. However, we propose
+a more flexible definition. First, it uses Bayesian prior
+information that the Reader might have, to address the issue of words
+that are underrepresented in the data. Second, it considers that an
+interpretation of a word may vary with context.
+
+\bed
+Given a set of topic word distributions $\{P_t\}_{t\in T}$, a context topic
+distribution $P_c$, and a prior topic distribution $\widehat{P}$ for a word $w_i$,
+we define the posterior topic distribution for $w_i$ as
+\[P(t|w_i,\widehat{P},P_c) \propto P_t(w_i)\cdot P_c(t) + \alpha
+\widehat{P}(t),\]
+where $\alpha$ is the parameter that specifies the strength of the prior.
+\eed
+This definition has a nice interpretation in our model: it corresponds
+to regenerating our data using $P_c$ in place of $P$ as the
+universe distribution, and computing a MAP topic distribution
+conditioned on $w_i$, with a Dirichlet prior concentrated around
+$\widehat{P}$. The most natural application of this is to simply set
+both $P_c$ and $\widehat{P}$ equal to $P$. Then, $P(t|w_i,P,P)$ is the
+$i$-th row of matrix $\Mb$ normalized, and with added Bayesian
+smoothing. 
+
+The purpose of this model is to provide useful stochastic
+word representations, that could be used in various NLP
+tasks. However, in accordance with the topic of this discussion, we will
+focus on the task of measuring diversity of a given sequence of words
+$S=(w_1,...,w_k)$. We can think of it as a series of word occurrences for
+which only the vocabulary label was given (and not the topic
+label). Assuming no prior context, we can once again use
+$P_i(\,\cdot\,)=P(\,\cdot\,|w_i,P,P)$  as the topic distribution
+obtained as a result 
+of observing word $w_i$. We can measure how much information is gained
+in this observation using KL-divergence, obtaining
+$D_{KL}(P_i\|P)$. Moreover, we can bring in some information about
+relations between words, by computing $P_{ij}(\,\cdot\,) =
+P(\,\cdot\,|w_i,P_i,P_j)$, 
+which describes the topic distribution obtained after observing word
+$w_i$ in the context of word $w_j$ (since they were both in
+$S$). Finally, we define a new series of topic
+distributions for each word, which are based on contexts from all other
+words in the sequence, weighed by their information gain.
+
+{\bf Explain why we use importances instead of frequencies, as the
+  default model would suggest. The importance is ``How many
+  occurrcences does is take to learn the word distribution with
+  context as the prior''} 
+
+\bed
+Given a word $w_i$, its {\bf importance} with respect to a
+prior distribution $P$ is defined as 
+\[D_i = D_{KL}(P_i\|P).\]
+\eed
+
+\bed
+Given a sequence $S=(w_1,...,w_k)$, we define the stochastic
+representation of word $w_i$ in $S$ by 
+\[\widetilde{P}_i(t) = P(t|w_i,P_i,P_i^c),\]
+where
+\[P_i^c = \frac{\sum_{j\neq i} D_jP_j}{\sum_{j\neq i}D_j}.\]
+\eed
+We can now define the notion of diversity here, which is very similar
+to the one proposed in Definition \ref{jspd}.
+
+\bed
+Given a co-occurrence matrix $\Mb$, we define the Jensen-Shannon
+Information Diversity of a sequence 
+$S=(w_1,...,w_k)$ as
+\[\mbox{JSID}_{\Mb}(S)=D_{JS}(\Sigma d_i \widetilde{P}_i),\]
+where 
+\[d_{i}=\frac{D_{KL}(\widetilde{P}_i\|P_i^c)}{\sum D_{KL}(\widetilde{P}_i\|P_i^c)}.\]
+\eed
+
+Notice, that we use different weights than were proposed for the
+population diversity (we use surprise instead of perplexity). To
+best observe the difference, let us see what happens when a given word
+provides no information gain (the divergence from context distribution
+is zero). In the above definition, we would put no weight on that
+word, since it is irrelevant to the meaning of sequence $S$. On the
+other hand, using perplexity means that all weights have to be
+non-zero, which makes more sense in the population
+setting. Unfortunately, the
+use of different weights for the information diversity prevents us
+from obtaining the generalization from Proposition
+\ref{generalization}. However, it is easy to see that JSID is still a
+generalization of Shannon entropy in a more narrow sense, because it
+can be interpreted as mutual information. 
+
+{\bf Discuss the benefits of doing the context stuff and the smoothing}
+
+{\bf (4) Sample size bias problem:}  note that 
+when we normalize the rows of the matrix $\cM$ to obtain a word-to-topic distributional model, the normalization factor 
+for every word is simply the word count. Thus for a word $w$ which occurs very rarely
+in the entire corpus $\cC$, the topic distribution will be artificially skewed and is inaccurate simply because we do not have enough data points to estimate its true word-to-topic distribution.
+Now, if for this corpus it happens that the prior topic distribution
+is close to uniform, it will give a very high importance to the word
+$w$ when measuring the information diversity as described in
+Section~\ref{sec:information-diversity}.
+One way to alleviate this
+problem is to use the relative sample size (e.g., word count) to
+smooth the distribution obtained by normalizing the rows of matrix
+$\cM$. A natural choice for the smoothing distribution would in this
+case be simply the prior distribution mentioned above. Applying {\em Laplace smoothing}
+we get:
+\begin{equation}
+\widehat{P}_w=\frac{\alpha \tilde{P}+ \mu_w \tilde{P}_w}{\alpha+\mu_w}
+\end{equation}
+where $\mu_w$ is the frequency of word $w$ in D, and $P_w$ is the
+topic assignment distribution obtained from the word-topic matrix,
+while $\alpha$ is the parameter that specifies the strength of the
+prior.\\
+{\bf (5) Conditioning on context words:} we propose a final enhancement to the word-topic
+distributions. Suppose, the set of words $W=\{w_1,...,w_k\}$
+represents a text snippet that we want to analyze. The word $w_i$ has
+a specific meaning inside of $W$, that can be significantly different
+than its meaning out of context. Denote
+$W_{\bar{i}}=W-\{w_i\}$ as the set of all words in $W$ except
+$w_i$. By $P_{W_{\bar{i}}}$, we denote the mixture distribution for $W_{\bar{i}}$ (Definition \ref{mixture}) and we use $\tilde{P}_{W_{\bar{i}}}$ when it is smoothed using Laplace smoothing method. We
+propose the following definition of context-dependent word-topic
+distribution:
+\bed
+Let $\tilde{P},\widehat{P}_{w_i}, \tilde{P}_{W_{\bar{i}}}$ be the topic prior, general
+topic distribution for $w_i$, and the context distribution,
+respectively. Then, the context-dependent distribution is
+\begin{equation*}
+P^{W_{\bar{i}}}_{w_i}(t)\propto \frac{\tilde{P}_{W_{\bar{i}}}(t)}{\tilde{P}(t)}\widehat{P}_{w_i}(t)
+\end{equation*}
+\eed
+There is a probabilistic explanation that we have left out for 
+lack of space. However this can be intuitively understood as follows:
+we can think of $\frac{\tilde{P}_{W_{\bar{i}}}(t)}{\tilde{P}(t)}$ as a weight
+that further reshapes the smoothed word-to-topic distribution $\widehat{P}_{w_i}(t)$
+to take into account the context. In our experiments we also smooth this distribution
+using {\em Laplacian} smoothing.
