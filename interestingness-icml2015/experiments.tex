@@ -1,7 +1,6 @@
 \subsection{Datasets}
 \label{sec:datasets}
-{\bf Write a more in depth discussion of the datasets and the
-  experiments. }
+{\bf Write a more in depth discussion of the datasets and the  experiments. }
 We used the following two datasets in our experiments: (1) Interesting iPhone cases:
 for generating the ground truth data we hired workers from {\em Amazon Mechanical Turk (AMT)} to label a collection
 of nearly 20,000 iPhone cases on {\em eBay}. The details of this step is beyond the scope of this paper, however we used insights from
@@ -45,6 +44,46 @@ conditioning (labeled by {\em JSD-Sim-Con}) with a few baselines;
 namely LDA topic entropy, LDA topic entropy using topic similarity
 (labeled by {\em Entropy-Sim}), {\em Rao diversity}
 (see~\cite{bache:2013} for details). 
+
+% \begin{figure}
+%         \centering
+%         \begin{subfigure}[b]{0.24\textwidth}
+%                 \centering
+%                 \includegraphics[width=36mm]{figures/phonecases-comparison-new.eps}
+%                \caption{eBay (baseline)}
+%                 \label{fig:phonecases-comparison}
+%         \end{subfigure}%\qquad
+%               ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+%           %(or a blank line to force the subfigure onto a new line)
+%         \begin{subfigure}[b]{0.24\textwidth}
+%                 \centering
+%                 \includegraphics[width=36mm]{figures/phonecases-breakdown-new.eps}
+%                 \caption{eBay (JSD)}
+%                 \label{fig:phonecases-breakdown}
+%         \end{subfigure}\nobreak
+%               ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+%           %(or a blank line to force the subfigure onto a new line)
+%         \begin{subfigure}[b]{0.24\textwidth}
+%                 \centering
+%                 \includegraphics[width=36mm]{figures/nsf-comparison-new.eps}
+%                 \caption{NSF (baseline)}
+%                 \label{fig:nsf-comparison}
+%         \end{subfigure}%\qquad
+%         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+%           %(or a blank line to force the subfigure onto a new line)
+%         \begin{subfigure}[b]{0.24\textwidth}
+%         	        \centering
+%                 \includegraphics[width=36mm]{figures/nsf-breakdown-new.eps}
+%                \caption{NSF (JSD)}
+%                 \label{fig:nsf-breakdown}
+%         \end{subfigure}
+%        \caption{ROC curves presenting the results of experiments on
+%          the eBay dataset (a,b) and NSF proposal dataset (c,d). The
+%          comparison plots (a,c) show the results for our approach (JSD-Sim-Con)
+%          against other methods, while the plots (b,d)
+%          show different variations of our approach. }\label{fig:roc-curves}
+% \end{figure}
+
 
 \subsection{Results}
 \label{sec:results}

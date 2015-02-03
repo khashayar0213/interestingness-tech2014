@@ -1,28 +1,40 @@
-Using a topic distribution for describing an entity (e.g., a word, as in
-the above section) has a certain
-shortcoming. Namely, such a representation seems to imply that the
-topics - used as atomic events in the distribution - are independent
-from each other. In practice, that assumption is far from true. In
-fact, even for the best topic model one can find a pair of topics that
-are closely related. Those interrelations between topics are
-properties that represent useful information about the model, and yet
-may be completely ignored in a distributional representation of
-topics. For example, if a word $w$ has topic distribution $P_w$
-concentrated on some topic $t$, then it will 
+In this section, we will discuss the process of obtaining labeled
+data and propose a postprocessing transformation which helps to
+address a common shortcoming. Using a label distribution for
+describing an entity (e.g., a word, as in 
+the above section) seems to imply that the
+labels - used as atomic events in the distribution - are independent
+from each other. In practice, that assumption is far from true. For
+the sake of concreteness, let us focus on the type of labeling that will be used for
+the experimental results - topic models. Therefore, from here on out, we will
+refer to labels as {\em topics}. It is easy to observe
+manually, that even for the best topic model one can find a pair of
+topics that are closely related and a pair that is much more
+distant. Those interrelations between topics are 
+properties that represent useful information about the model that is
+possible to infer from the data, and yet
+may be completely ignored in distributional representations of words. 
+For example, we may find a word $w$ that has topic distribution $P_w$
+concentrated on a single topic $t$, but it does 
 not peak at all other topics that are very similar to
 topic $t$. In this case, topic correlations would not be reflected in
-the distribution. 
+the distribution. This shortcoming was observed in \cite{bache:2013},
+also in the context of measuring text diversity. We propose a more
+general solution to this problem.
 
-If we look at a topic distribution as a vector of coefficients $p$, then
-we could think of the topics as representing a basis $t_1,...,t_T$ in
-some hypothetical vector space $\cH$. In 
-this case, $p$ corresponds to a weighted combination of the basis
-vectors $\Sigma p_i t_i$, in other words, a point on the convex hull of the basis.
+Let $p$ be a row vector (corresponding to some word $w$)  from the
+word-topic occurrence matrix $\cM_{|V|\times|T|}$ obtained from an LDA
+model. We could think of the topics as representing a basis
+$t_1,...,t_T$ in some hypothetical vector space $\cH$. In 
+this case, $p$ corresponds to a linear combination of the basis
+vectors, $\Sigma p_i t_i$. In other words, for every occurrence of
+word $w$ labeled with $i$-th topic, we add basis vector $t_i$ to the
+complete representation of $w$ in space $\cH$.
 Suppose that $\cH$ is a Hiblert space (i.e. has a scalar
 product). Now, the correlation between two topics can be represented
 by the dot product of the corresponding basis vectors (we assume those
 are unit vectors). We can consider a following alternative representation
-of a point on the convex hull.
+of a point in $\cH$:
 
 \bed
 Let $p\in\rr^T$ be a vector. Denote $x=\sum_{i=1}^T p_i
@@ -32,89 +44,58 @@ We will call $\widehat{p}$ the dot-product representation of $p$.
 \eed
 
 Notice, that if the considered topic basis is orthonormal, then both
-representations are identical. Consider the Gram matrix
+representations $p$ and $\widehat{p}$ are identical. Consider the Gram matrix
 $\Sbb=\{\langle t_i,t_j\rangle\}_{i,j}$ of all possible dot products between
 basis vectors. If the basis is orthonormal, this is simply the identity
 matrix. Moreover, no matter which basis we choose, matrix $\Sbb$ is the
 only information we need to translate $p$ to $\widehat{p}$.
 
 \ber
-For any distributional vector $p\in\rr^T$ (coefficients
-sum to $1$), any Hilbert space $\cH$ and a set of
+For any vector $p\in\rr^T$, any Hilbert space $\cH$ and a set of
 vectors $t_1,...,t_T\in\cH$, we have 
-\[\widehat{p} = p\Sbb.\]
+\[\widehat{p} = p\Sbb,\]
+where $\Sbb=\{\langle t_i,t_j\rangle\}_{i,j}$ is the Gram matrix.
 \eer
 
 The dot-product representation allows us to incorporate the topic
 similarity information into a vector representation. Moreover, we do
 not need to directly manipulate the space $\cH$ to obtain it, except
-computing pairwise topic correlations $s_{ij}$. However,
-$\widehat{p}$ is not a probability distribution. Not only is it not
-properly normalized, it may contain negative coefficients. To
-alleviate that, we can add an additional condition that all of the
-dot-products $s_{ij}$ are non-negative. A simple example satisfying
-this constraint is if $\cH=\rr^n$ and the basis vectors have only
-positive coefficients. For instance, if the topics are
-themselves represented by probability distributions, then each $s_{ij}$
-is related to taking cosine similarity between the pair of
-distributions. 
-We can naturally introduce topic similarities into our text model. We
-first define the topic similarity matrix $\Sbb$ 
-where the $i^{th}$ row of $\Sbb$ gives the topic similarity vector for
-the $i^{th}$ topic (non-negative, e.g., cosine similarity between
-topics). We further assume that each row has been normalized 
-and hence can be thought of as a topic similarity distribution. Using
-$\Sbb$ we replace the probability distribution for word $w_i$ with $P'_i=P_i\Sbb^T$which essentially diffuses the initial distribution to
-one where  all topics similar to some topic $t$ are well
-represented. Similarly, we can use $\Sbb$ to reflect the topic
-similarity in the context distribution as $P' = P\Sbb^T$. The
-stochastic interpretation here is that we draw a topic $t$ from the
-original distribution, then we draw a second topic $t'$ from the
-topic similarity distribution corresponding to $t$. Finally, we look
-at the distribution of $t'$ as a random variable. We can redo
-all of the calculations from previous section with those updated
-distributions. To illustrate the benefit of this modification for
+computing pairwise topic correlations $s_{ij}$. Once we compute matrix
+$\Sbb$, we can transform our data matrix into this new form using simple
+matrix multiplication $\cM'=\cM\cdot \Sbb$. Since the co-occurrence matrix
+must have nonnegative coefficients, we will require that the matrix
+$\Sbb$ also has to be element-wise nonnegative (which it would not
+have to be, in general). The new data matrix $\cM'$ can be interpreted
+as follows: for each original word-topic co-occurrence, we also add to
+the matrix some {\em fractional} co-occurrences of the same word with
+other topics, based on their similarity to the main topic.
+
+To obtain a topic similarity matrix, all we need is to write
+the topics as nonnegative vectors in a common space. When the topics
+come from an LDA model, there is two standard ways to do that: a
+distribution over words, or a distribution over documents. Following
+the analysis in \cite{bache:2013}, we used the document distributions,
+with cosine similarity as a measure of correlation. However, we use the
+topic similarities in a different way, that can not only make this
+technique applicable to any task relying on distributional word
+representations, but also outperforms the aforementioned one for
+measuring diversity.
+
+To illustrate the benefit of introducing topic similarities for
 measuring diversity, consider a simple case where we have a pair of words
-$S=(w_1,w_2)$, with stochastic representations $P_1,P_2$, each having
-singleton support on one topic. Clearly, if those topics match, we
-have no diversity, and if they don't, we get the diversity
-corresponding to the entropy of a uniform distribution over two
-elements. Notice, that without introducing topic similarity this is
+$S=(w_1,w_2)$, with distributional representations $P_1,P_2$, each having
+singleton support on one topic (topic similarities not
+applied). Clearly, if those topics match, we 
+have no diversity, and if they don't, we get relatively high diversity
+(assuming uniform weights of the mixture, it would be $\log 2$). Notice, that without introducing topic similarity this is
 independent of which pair of topics we are looking at. It could, for
 instance, be ``Mathematics'' and ``Physics'' (closely related), or
 ``Mathematics'' and ``Literature'' (further apart).  Applying the
 topic similarity matrix allows for this distinction to be clear and properly
-reflected in the results.
+reflected in the results, because the weight from the main topic has
+to be redistributed among similar ones, making the distributions $P_1$
+and $P_2$ more comparable.
 
 {\bf Is this the right interpretation in this context? Should we use a
-  more probabilistic approach?
+  more probabilistic approach? }
 
-Discuss specifically, how it this integrated with the rest of the
-model. }
-% \subsection{Topic Diversity}
-% \label{sec:topic-diversity}
-% In order to apply this model to natural language we first need to build a distributional representation for words. One
-% natural choice for measuring the topic diversity is to use {\sl word-to-topic} distribution. We need to address the following problems:\\
-% {\bf (1) Building word to topic distribution}: We train an
-% LDA~\cite{Blei:2003:LDA:944919.944937} to build a topic model given a
-% document corpus $\cC$. From this LDA topic model we obtain the
-% word-topic-count matrix $\cM$ where $\cM_{ij}$ is the number of
-% assignments of $j$-th topic to word $w_i$ in the corpus. By normalizing the rows of matrix $\cM$ we will obtain
-% a word-topic distribution, where the $i$-th row of the matrix gives the topic distribution for the word $w_i$ (note that word-to-topic distribution as described above is not explicitly defined as a part of the standard LDA model and our approach is one way to approximate it). We also use $T$ to denote the set of topics learned in the LDA model.\\
-% {\bf (2) Obtaining a prior topic distribution:} this is
-% required for computing the information diversity as described in Section~\ref{sec:information-diversity}. We obtain a prior
-%  topic distribution $P$ by computing the proportions of overall topic
-%  assignments. This corresponds to summing up matrix $\cM$ along its
-%  rows and then normalizing the resulting vector.\\
-
-% {\bf (3) Capturing topic similarity:} here we consider the problem first raised in~\cite{bache:2013}. When building a word-to-topic distribution model based on 
-% the word-to-topic co-occurrence matrix, the relationship among topics (i.e, topic similarity ) may be lost. For example, if a word $w$
-% has a topic distribution $P_w$ concentrated on some topic $t$, then it will
-% not necessarily peak at all other topics that are very similar to topic $t$. To address this problem, we first define a topic similarity matrix $\cS_{|T|\times|T|}$
-% where the $i^{th}$ row of $\cS$ gives the topic similarity vector for
-% the $i^{th}$ topic (e.g., cosine similarity between
-% topics~\cite{bache:2013}). We further assume that each row is normalized 
-% and hence can be thought of as a topic similarity distribution. Using $\cS$ we obtain $\tilde{P}_w = P_w\cS^T$ which essentially diffuses the initial distribution to
-% one where  all topics similar to some topic $t$ are well represented. Similarly, we can use $\cS$ to reflect the topic similarity in the prior distribution as $\tilde{P} = P\cS^T$.
-% In Section~\ref{sec:experiments} we will show how this
-% approach enhances the standard entropic measure of diversity.\\
