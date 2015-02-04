@@ -77,7 +77,7 @@ estimate how informative a word is in a given context.
 We define the {\bf importance} of a distribution $\Pb(t|w,\widehat{P},P_c)$ (in 
 the given context) as
 \[D(\Pb(\cdot\,|w,\widehat{P},P_c)) =
-D_{KL}(\Pb(\cdot\,|w,\widehat{P},P_c)\|P_c).\]
+D_{KL}(\Pb(\cdot\,|w,\widehat{P},P_c)\,\|\,P_c).\]
 Given a set of distributions $\cP = \{P_1,...,P_k\}$, obtained from the
 Reader model (possibly with different contexts), having importances
 $D_i=D(P_i)$, the {\bf Informative Mixture} of $\cP$ is defined as
@@ -109,15 +109,22 @@ distributional representation of word $w_i$ in $S$ by
 where $P_S^{w_i}$ is the Informative Mixture of $\{P_{w_j}\}_{j\neq i}$.
 \eed
 
-We can now apply the notion of diversity, by looking at the new
-set of distributional representations.
+This gives us a new set $\cP_S=\{P_{w_1}^S,...,P_{w_k}^S\}$ of
+distributional representations for each word in $S$. Moreover, we can
+use them to obtain a distributional representation of $S$ itself, by
+taking the Informative Mixture $M_{\cP_S}$. As we will show in
+experiments, this can be treated separately as a text embedding in
+supervised learning tasks. In this section, however, we will use it to
+propose a notion of text diversity, based on Definition
+\ref{jsd-definition}. 
 
 \bed
 Given a sequence $S=(w_1,...,w_k)$ and a data model $\cM$, the
-{\bf Jensen-Shannon Text Diversity} will be measured as the
-$D_{JS}(M_{\cP})$ where $\cP=\{P_{w_1}^S,...,P_{w_k}^S\}$ is the set
+{\bf Jensen-Shannon Text Diversity} will be defined as
+\[\textrm{JSD}_{\cM}(S) = D_{JS}(M_{\cP_S}),\] where $\cP_S=\{P_{w_1}^S,...,P_{w_k}^S\}$ is the set
 of context-dependent distributional representations for words in $S$. 
 \eed
+
 
 %  We can measure how much information is gained
 % in this observation using KL-divergence, obtaining

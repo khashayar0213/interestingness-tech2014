@@ -65,7 +65,7 @@ in fact reaches its maximum value. However, as we will see, mutual
 information $I(X;Y)$ provides a proper generalization of diversity. We
 can formulate mutual information in terms of the distributional
 representations of the groups as follows:
-\bep\label{mixture}
+\bed\label{jsd-definition}
 Let $P(Y)=\Sigma d_g P_g$ be the distribution of labels,
 described as a mixture of distributional group representations
 $P_g=P(Y|X=g)$, weighed by $d_g=P(X=g)$. Mutual information between
@@ -74,7 +74,7 @@ $X$ and $Y$ can now be derived as
 where $D_{KL}$ is the Kullback-Leibler divergence.
 We will call it the {\bf Jensen-Shannon diversity} of that
 mixture, and denote by $D_{JS}(\Sigma d_gP_g)$.
-\eep
+\eed
 
 The name refers to the generalized Jensen-Shannon divergence measure, 
 discussed in \cite{FugledeTopsoe}. The above derivation follows easily
