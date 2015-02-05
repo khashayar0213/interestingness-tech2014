@@ -13,7 +13,8 @@ the overall distribution of labels $P(t)$ across the entire dataset of
 co-occurrences. 
 {\bf Do we want to discuss using a prior here? In experiments we don't
   do that.}
-This information represents a hypothetical generative model of the
+This information represents a hypothetical generative model
+$(P,\{P_t\}_{t\in T})$ of the
 data: generate a label $t$ from $P$, then sample a word from $P_t$,
 and repeat to obtain all of the words. 
 
@@ -87,7 +88,18 @@ where
 \eed
 
 Note, that as in the above definition we will continue to use context
-distributions as implicit parameters for brevity of notation.
+distributions as implicit parameters for brevity of notation. 
+
+{\bf Make this to be $\cP_S$ and fix $\cP_S$ to be $\cP_S^c$}
+\bep
+Suppose that a co-occurrence matrix $\cM$ of $N$ words, each labeled
+with one of $T$ possible topics, was generated from the process
+$(P,\{P_t\}_{t\in \cT})$. Moreover, assume that $N\geq ...$ and let
+$w$ be a word such that $P_{t_1}(w)=P_{t_2}(w)=p_w$ for all
+$t_1,t_2\in \cT$. If we use the representations proposed above,
+computed with prior strength $\alpha = ...$, then for any sequence
+$S=(w_1,...,w_k)$, 
+\eep
 
 We now turn to the contexts themselves, and why a fixed distributional
 word representation may not be sufficient for this task. A simple example will
