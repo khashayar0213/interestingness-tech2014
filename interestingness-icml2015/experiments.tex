@@ -112,7 +112,29 @@ that our diversity metric outperforms the other baselines with an AUC
 around $0.73$. Moreover, for the {\em eBay} dataset the other measures
 give poor results. This can be explained as follows: since the
 text snippets are short, the LDA may yield a poor topic inference for such short text and as a result all measures using topic inference would perform poorly. Figures~\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown} show the gains we obtain by applying topic similarity and context conditioning techniques (steps 4 and 5) that we discussed in Section~\ref{sec:topic-diversity}. However, their degree of effects is different for each
-dataset.  In the second set of results, we used the unnormalized vector of mixture topic
+dataset.  
+
+\begin{table*}[t]
+\label{tab:classification-results}
+%\vspace{-4mm}
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+&Precision & Recall & F1 & Accuracy
+\\ \hline 
+JSD Features         &$\mathbf{0.714}\pm 0.015$&$0.597\pm 0.016$&$0.650\pm
+0.014$& $\mathbf{0.8828}\pm 0.0045$\\
+RAE             &$0.676\pm 0.005$&$\mathbf{0.666}\pm 0.030$&$\mathbf{0.671}\pm
+0.013$&$0.8809\pm 0.0020$ \\
+SVD Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
+0.010$&$0.8778\pm 0.0027$\\
+\hline
+\end{tabular}
+\caption{Classification results for the eBay dataset.}
+\end{center}
+\end{table*}
+
+In the second set of results, we used the unnormalized vector of mixture topic
 distribution (described in Definition~\ref{mixture}) computed over
 {\em eBay} product titles in a supervised classification
 setting. Table~\ref{tab:classification-results} shows
