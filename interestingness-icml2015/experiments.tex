@@ -87,6 +87,26 @@ namely LDA topic entropy, LDA topic entropy using topic similarity
 
 \subsection{Results}
 \label{sec:results}
+
+
+\begin{table*}[t]
+\begin{center}
+\begin{tabular}{CC}
+\includegraphics[height=5.5cm]{figures/phonecases-comparison-new.eps}&\includegraphics[height=5.5cm]{figures/phonecases-breakdown-new.eps}\\
+(a) & (b)\\
+\includegraphics[height=5.5cm]{figures/nsf-comparison-new.eps}&\includegraphics[height=5.5cm]{figures/nsf-breakdown-new.eps}\\
+(c) & (d)\\
+\end{tabular}
+\end{center}
+\caption{ROC curves presenting the results of experiments on
+the eBay dataset (a,b) and NSF proposal dataset (c,d). The
+comparison plots (a,c) show the results for our approach (JSD-Sim-Con)
+against other methods, while the plots (b,d)
+show different variations of our approach. }
+\label{fig:roc-curves}
+\end{table*}
+
+
 In either case it can be observed
 that our diversity metric outperforms the other baselines with an AUC
 around $0.73$. Moreover, for the {\em eBay} dataset the other measures
