@@ -37,14 +37,34 @@ curves with them.
 More info about the auto-encoders and word2vec method.}
 
 We present two sets of results. First, we present
-ROC curves comparing different entropic measures of topic diversity in an unsupervised setting 
-(labeled data is only used for generating the curves). Figures~\ref{fig:phonecases-comparison} and \ref{fig:nsf-comparison}
+ROC curves comparing different measures of topic diversity in an unsupervised setting 
+(labeled data is only used for generating the curves). 
+Figures~\ref{fig:phonecases-comparison} and \ref{fig:nsf-comparison}
 compare our diversity metric using both topic similarity and context
 conditioning (labeled by {\em JSD-Sim-Con}) with a few baselines;
 namely LDA topic entropy, LDA topic entropy using topic similarity
-(labeled by {\em Entropy-Sim}), {\em Rao diversity}
-(see~\cite{bache:2013} for details). 
+(labeled by {\em Entropy-Sim}), {\em Rao diversity} and a measure
+based on Determinantal Point Processes. The entropy has
+been previously tested as a measure of document diversity with quite
+underwhelming results in \cite{bache:2013}, where the authors proposed 
+Rao diversity as a solution, which incorporates the topic similarity
+information to provide better accuracy. We asked the question whether
+the poor performance of entropy might be due to an suboptimal choice of
+topic distribution, which led to our topic similarity
+transformation. This technique can be used on any topic distribution
+by simply multiplying it by the topic similarity matrix, and then
+renormalizing. We present the performance of entropy with the topic
+similarity transformation to verify that this approach improves the results not
+only for Jensen-Shannon Divergence, but for other measures as well.
 
+Determinantal Point Processes (DPP) have recently gained popularity as a
+useful tool for diverse sampling, with many applications {\bf citation
+  needed}. We were interested to see if they can also be useful for
+measuring the diversity of a set provided as input. Given a set of
+instances described as feature vectors $U=\{v_i\}_{i=1}^N\subset \rr^T$, DPP defines a
+sampling model for selecting a subset of $S=\{v_{i_j}\}_{j=1}^k$, by
+setting the probability of $S$ to be the determinant of the Gram
+matrix corresponding to those vectors: $P(S) = \det (S^T S)$.
 % \begin{figure}
 %         \centering
 %         \begin{subfigure}[b]{0.24\textwidth}
