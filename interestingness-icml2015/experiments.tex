@@ -22,20 +22,15 @@ could expect to be either similar (small diversity) or very different
 (high diversity) and labeling them accordingly. We generated 5,000 of
 those examples with positive and negative labels evenly represented. For both datasets, we used the Mallet LDA implementation and learned a separate topic model with $400$ topics.
 
-\subsection{Baselines}
+\subsection{Unsupervised Learning}
 \label{sec:baselines}
-{\bf More information about the baselines. Particularly, the entropy
-  with topic similarity is essentially also a new approach and works
-  well. 
-
-Add the DPP baseline (expected sample size, because detereminant is
-unstable). Discussion probably
+{\bf
+Discussion probably
 should include the fact that it is correlated with the document
 length, which has more impact with eBay dataset. Include plots of ROC
 curves with them.
 
-More info about the auto-encoders and word2vec method.}
-
+}
 We present two sets of results. First, we present
 ROC curves comparing different measures of topic diversity in an unsupervised setting 
 (labeled data is only used for generating the curves). 
@@ -56,6 +51,9 @@ by simply multiplying it by the topic similarity matrix, and then
 renormalizing. We present the performance of entropy with the topic
 similarity transformation to verify that this approach improves the results not
 only for Jensen-Shannon Divergence, but for other measures as well.
+Both for the entropy and Rao diversity, we generated topic
+distributions by inferring them for each instance, based on the LDA
+model, using the standard functionality of Mallet.
 
 Determinantal Point Processes (DPP) have recently gained popularity as a
 useful tool for diverse sampling, with many applications {\bf citation
@@ -63,51 +61,29 @@ useful tool for diverse sampling, with many applications {\bf citation
 measuring the diversity of a set provided as input. Given a set of
 instances described as feature vectors $U=\{v_i\}_{i=1}^N\subset \rr^T$, DPP defines a
 sampling model for selecting a subset of $S=\{v_{i_j}\}_{j=1}^k$, by
-setting the probability of $S$ to be the determinant of the Gram
-matrix corresponding to those vectors: $P(S) = \det (S^T S)$.
-% \begin{figure}
-%         \centering
-%         \begin{subfigure}[b]{0.24\textwidth}
-%                 \centering
-%                 \includegraphics[width=36mm]{figures/phonecases-comparison-new.eps}
-%                \caption{eBay (baseline)}
-%                 \label{fig:phonecases-comparison}
-%         \end{subfigure}%\qquad
-%               ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-%           %(or a blank line to force the subfigure onto a new line)
-%         \begin{subfigure}[b]{0.24\textwidth}
-%                 \centering
-%                 \includegraphics[width=36mm]{figures/phonecases-breakdown-new.eps}
-%                 \caption{eBay (JSD)}
-%                 \label{fig:phonecases-breakdown}
-%         \end{subfigure}\nobreak
-%               ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-%           %(or a blank line to force the subfigure onto a new line)
-%         \begin{subfigure}[b]{0.24\textwidth}
-%                 \centering
-%                 \includegraphics[width=36mm]{figures/nsf-comparison-new.eps}
-%                 \caption{NSF (baseline)}
-%                 \label{fig:nsf-comparison}
-%         \end{subfigure}%\qquad
-%         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-%           %(or a blank line to force the subfigure onto a new line)
-%         \begin{subfigure}[b]{0.24\textwidth}
-%         	        \centering
-%                 \includegraphics[width=36mm]{figures/nsf-breakdown-new.eps}
-%                \caption{NSF (JSD)}
-%                 \label{fig:nsf-breakdown}
-%         \end{subfigure}
-%        \caption{ROC curves presenting the results of experiments on
-%          the eBay dataset (a,b) and NSF proposal dataset (c,d). The
-%          comparison plots (a,c) show the results for our approach (JSD-Sim-Con)
-%          against other methods, while the plots (b,d)
-%          show different variations of our approach. }\label{fig:roc-curves}
-% \end{figure}
-
-
-\subsection{Results}
-\label{sec:results}
-
+setting the probability of $S$ proportional to the determinant of the
+Gram matrix corresponding to those vectors. One might therefore
+consider this determinant to be a good measure of set diversity,
+because, intuitively, a more diverse set should have a higher
+probability. The problem with this, however, is that determinants are
+computationally unstable and very sensitive to local changes. For
+example, if any two instances happen to have identical vector
+representations, that immediately forces that determinant to $0$, even
+though a set may be otherwise very diverse. We decided to use
+another measure derived from a DPP. Instead of looking at a set $S$
+(in our case, a set of words) as a sample from a larger set, we can
+imagine sampling from $S$ itself. In that case, the average size of
+the samples tells us how many significantly different words there are
+in the given text. Fortunately, the expected sample size can be
+computed from the eigenvalues of the aforementioned Gram matrix, as
+discussed in {\bf citation needed}. Two aspects of the feature
+vectors are relevant for the DPP. The length of the vector represents
+the relevance of the corresponding word, while the direction is
+responsible for determining the pairwise similarities. For the
+direction, we used the distributional representations from the
+Reader's model. For the vector lengths, we tried two versions: all
+unit lengths (e.i. no preference), and using the importance values from
+Definition {\bf IMPORTANCE DEFINITION}.
 
 \begin{table*}[t]
 \begin{center}
@@ -127,12 +103,10 @@ show different variations of our approach. }
 \end{table*}
 
 
-In either case it can be observed
-that our diversity metric outperforms the other baselines with an AUC
-around $0.73$. Moreover, for the {\em eBay} dataset the other measures
-give poor results. This can be explained as follows: since the
-text snippets are short, the LDA may yield a poor topic inference for such short text and as a result all measures using topic inference would perform poorly. Figures~\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown} show the gains we obtain by applying topic similarity and context conditioning techniques (steps 4 and 5) that we discussed in Section~\ref{sec:topic-diversity}. However, their degree of effects is different for each
-dataset.  
+\subsection{Text Embeddings}
+\label{sec:text-embeddings}
+
+{\bf More info about the auto-encoders and word2vec method.}
 
 \begin{table*}[t]
 \label{tab:classification-results}
@@ -153,6 +127,14 @@ SVD Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
 \caption{Classification results for the eBay dataset.}
 \end{center}
 \end{table*}
+
+In either case it can be observed
+that our diversity metric outperforms the other baselines with an AUC
+around $0.73$. Moreover, for the {\em eBay} dataset the other measures
+give poor results. This can be explained as follows: since the
+text snippets are short, the LDA may yield a poor topic inference for such short text and as a result all measures using topic inference would perform poorly. Figures~\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown} show the gains we obtain by applying topic similarity and context conditioning techniques (steps 4 and 5) that we discussed in Section~\ref{sec:topic-diversity}. However, their degree of effects is different for each
+dataset.  
+
 
 In the second set of results, we used the unnormalized vector of mixture topic
 distribution (described in Definition~\ref{mixture}) computed over
