@@ -35,8 +35,9 @@ data using $P_c$ in place of $P$ as the overall context
 distribution (obtaining a different co-occurrence matrix $\cM'$), and
 estimating the MAP label distribution for $w$ again.
 \bep\label{map}
-Given a set of word distributions $\{\tilde{P}_t\}_{t\in T}$ for each label, a context
-distribution $P_c$, and a prior label distribution $\widehat{P}$ for a word $w$,
+Given a set of word distributions $\{\tilde{P}_t\}_{t\in T}$ for each
+context, a context
+distribution $P_c$, and a prior context distribution $\widehat{P}$ for a word $w$,
 the MAP context distribution for $w$ in the above model will be
 \[\Pb(t|w,\widehat{P},P_c) \propto \tilde{P}_t(w)\cdot P_c(t) + \alpha
 \widehat{P}(t),\]
@@ -49,7 +50,7 @@ where $\alpha$ is the parameter that specifies the strength of the prior.
 % distribution conditioned on $w$, with a Dirichlet prior concentrated around
 % $\widehat{P}$.
 The most basic application of this is to simply set
-both $P_c$ and $\widehat{P}$ equal to $\tilde{P}$ (i.e. there is no context
+both $P_c$ and $\widehat{P}$ equal to $\tilde{P}$ (i.e. there is no extrenal context
 information). Then, $P(t|w,\tilde{P},\tilde{P})$ is the
 normalized $i$-th row of matrix $\cM$, with added Bayesian
 smoothing. These will be the general distributional word
