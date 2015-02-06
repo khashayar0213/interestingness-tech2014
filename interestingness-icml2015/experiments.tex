@@ -85,6 +85,13 @@ Reader's model. For the vector lengths, we tried two versions: all
 unit lengths (e.i. no preference), and using the importance values from
 Definition {\bf IMPORTANCE DEFINITION}.
 
+In either case it can be observed
+that our diversity metric outperforms the other baselines with an AUC
+around $0.73$. Moreover, for the {\em eBay} dataset the other measures
+give poor results. This can be explained as follows: since the
+text snippets are short, the LDA may yield a poor topic inference for such short text and as a result all measures using topic inference would perform poorly. Figures~\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown} show the gains we obtain by applying topic similarity and context conditioning techniques (steps 4 and 5) that we discussed in Section~\ref{sec:topic-diversity}. However, their degree of effects is different for each
+dataset.  
+
 \begin{table*}[t]
 \begin{center}
 \begin{tabular}{CC}
@@ -127,13 +134,6 @@ SVD Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
 \caption{Classification results for the eBay dataset.}
 \end{center}
 \end{table*}
-
-In either case it can be observed
-that our diversity metric outperforms the other baselines with an AUC
-around $0.73$. Moreover, for the {\em eBay} dataset the other measures
-give poor results. This can be explained as follows: since the
-text snippets are short, the LDA may yield a poor topic inference for such short text and as a result all measures using topic inference would perform poorly. Figures~\ref{fig:phonecases-breakdown} and \ref{fig:nsf-breakdown} show the gains we obtain by applying topic similarity and context conditioning techniques (steps 4 and 5) that we discussed in Section~\ref{sec:topic-diversity}. However, their degree of effects is different for each
-dataset.  
 
 
 In the second set of results, we used the unnormalized vector of mixture topic
