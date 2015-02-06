@@ -1,13 +1,12 @@
-In this section, we will discuss the process of obtaining labeled
+In this section, we will discuss the process of obtaining word-context
 data and propose a postprocessing transformation which helps to
-address a common shortcoming. Using a label distribution for
-describing an entity (e.g., a word, as in 
-the above section) seems to imply that the
-labels - used as atomic events in the distribution - are independent
+address a common shortcoming. Using a context distribution for
+describing a word seems to imply that the
+contexts - used as atomic events in the distribution - are independent
 from each other. In practice, that assumption is far from true. For
 the sake of concreteness, let us focus on the type of labeling that will be used for
 the experimental results - topic models. Therefore, from here on out, we will
-refer to labels as {\em topics}. It is easy to observe
+refer to contexts as {\em topics}. It is easy to observe
 manually, that even for the best topic model one can find a pair of
 topics that are closely related and a pair that is much more
 distant. Those interrelations between topics are 
@@ -95,9 +94,6 @@ topic similarity matrix allows for this distinction to be clear and properly
 reflected in the results, because the weight from the main topic has
 to be redistributed among similar ones, making the distributions $P_1$
 and $P_2$ more comparable.
-
-{\bf Is this the right interpretation in this context? Should we use a
-  more probabilistic approach? }
   
   
   \begin{table*}[t]

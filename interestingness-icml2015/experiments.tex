@@ -76,7 +76,7 @@ responsible for determining the pairwise similarities. For the
 direction, we used the distributional representations from the
 Reader's model. For the vector lengths, we tried two versions: all
 unit lengths (e.i. no preference), and using the importance values from
-Definition {\bf IMPORTANCE DEFINITION}. One drawback of the expected
+Definition \ref{mixture}. One drawback of the expected
 DPP sample size is that it is correlated with the length of a
 document. However, with,in each of our datasets, the instances have roughly
 similar length.
@@ -112,8 +112,6 @@ the irrelevant words.
 \subsection{Text Embeddings}
 \label{sec:text-embeddings}
 
-{\bf More info about the auto-encoders and word2vec method.}
-
 \begin{table*}[t]
 \label{tab:classification-results}
 %\vspace{-4mm}
@@ -135,7 +133,7 @@ SVD Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
 \end{table*}
 
 
-In the second set of results, we used the unnormalized vector of mixture topic
+In the second set of results, we used an unnormalized version of the Informative Mixture
 distribution (described in Definition~\ref{mixture}) computed over
 {\em eBay} product titles in a supervised classification
 setting for both datasets described in Section~\ref{sec:datasets}. We also used two 
@@ -146,7 +144,7 @@ distributions. There is a nice connection between RAEs and text diversity: start
 
 Table~\ref{tab:classification-results} shows
 the performance of the SVM classifier using our proposed mixture topic
-distribution as features and compares it to these different baselines .
+distribution as features and compares it to these different baselines.
 These results are averaged over five different cross-validation splits using $0.6$ for training
 and $0.4$ for testing. Our proposed approach shows a higher precision
 and a marginally higher accuracy compared to the baselines.
