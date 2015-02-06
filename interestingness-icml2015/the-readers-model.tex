@@ -6,36 +6,39 @@ with a text corpus, which can be converted into a word-context
 co-occurrence matrix $\cM_{|V|\times|T|}$. 
 We imagine an entity
 called Reader, that has observed all of this data, trying to learn the
-language through Bayesian reasoning. First, the Reader estimates the
-distributions of words $P_t(w)$ conditioned on each 
-label $t$, corresponding to the columns of matrix $\Mb$, and also
-the overall distribution of labels $P(t)$ across the entire dataset of 
-co-occurrences. 
-{\bf Do we want to discuss using a prior here? In experiments we don't
-  do that.}
-This information represents a hypothetical generative model
-$(P,\{P_t\}_{t\in T})$ of the
-data: generate a label $t$ from $P$, then sample a word from $P_t$,
-and repeat to obtain all of the words. 
+language from context assignments.
+%  First, the Reader estimates the
+% distributions of words $P_t(w)$ conditioned on each 
+% label $t$, corresponding to the columns of matrix $\Mb$, and also
+% the overall distribution of labels $P(t)$ across the entire dataset of 
+% co-occurrences. 
+% {\bf Do we want to discuss using a prior here? In experiments we don't
+%   do that.}
+We use a simple generative model $(P,\{P_t\}_{t\in T})$ of the corpus: 
+generate a context $t$ from a context distribution $P$, then sample a
+word from the word distribution $P_t$,
+and repeat to obtain all of the words. We let the Reader estimate
+those distributions by maximum likelihood, obtaining the estimated
+model $(\tilde{P},\{\tilde{P}_t\}_{t\in T})$.
 
 Next, the question is what should be  
 the Reader's distributional representation of a certain word? This
-essentially corresponds to a row of matrix $\Mb$. A reasonable choice
-would be to estimate the MAP label distribution conditioned on a word
+essentially corresponds to a row of matrix $\cM$. A reasonable choice
+would be to estimate the MAP context distribution conditioned on a word
 $w$ using the appropriate row of $\cM$ and a Dirichlet prior centered
-around $P$. However, we propose
+around $\tilde{P}$. However, we propose
 a more flexible definition, in which one can obtain a different
 distributional representation for the same word, depending on the
-context. Suppose that we are given such context in the form of a label
+context. Suppose that we are given such context in the form of a context
 distribution $P_c$. As a thought experiment, consider regenerating our
-label data using $P_c$ in place of $P$ as the overall label
-distribution (obtaining a different co-occurrence matrix $\cM$), and
+data using $P_c$ in place of $P$ as the overall context
+distribution (obtaining a different co-occurrence matrix $\cM'$), and
 estimating the MAP label distribution for $w$ again.
 \bep\label{map}
-Given a set of word distributions $\{P_t\}_{t\in T}$ for each label, a context label
+Given a set of word distributions $\{\tilde{P}_t\}_{t\in T}$ for each label, a context
 distribution $P_c$, and a prior label distribution $\widehat{P}$ for a word $w$,
-given above model the MAP label distribution for $w$ will be
-\[\Pb(t|w,\widehat{P},P_c) \propto P_t(w)\cdot P_c(t) + \alpha
+the MAP context distribution for $w$ in the above model will be
+\[\Pb(t|w,\widehat{P},P_c) \propto \tilde{P}_t(w)\cdot P_c(t) + \alpha
 \widehat{P}(t),\]
 where $\alpha$ is the parameter that specifies the strength of the prior.
 \eep
@@ -46,11 +49,11 @@ where $\alpha$ is the parameter that specifies the strength of the prior.
 % distribution conditioned on $w$, with a Dirichlet prior concentrated around
 % $\widehat{P}$.
 The most basic application of this is to simply set
-both $P_c$ and $\widehat{P}$ equal to $P$ (i.e. there is no context
-information). Then, $P(t|w,P,P)$ is the
+both $P_c$ and $\widehat{P}$ equal to $\tilde{P}$ (i.e. there is no context
+information). Then, $P(t|w,\tilde{P},\tilde{P})$ is the
 normalized $i$-th row of matrix $\cM$, with added Bayesian
 smoothing. These will be the general distributional word
-representations, denoted $P_w$. 
+representations, denoted $\tilde{P}_w$. 
 
 The purpose of this model is to provide useful distributional
 word representations, that could be applied in various NLP
@@ -58,15 +61,14 @@ problems. However, in accordance with the main topic of discussion, we will
 focus on the task of measuring diversity of a given sequence of words
 $S=(w_1,...,w_k)$. Naturally, we aim to use Jensen-Shannon Diversity
 and it seems logical to apply it to some mixture of the set of
-distributions $\{P_{w_1},...,P_{w_k}\}$. How do we choose the weights
+distributions $\cP_S=\{\tilde{P}_{w_1},...,\tilde{P}_{w_k}\}$. How do we choose the weights
 for the mixture? Following the general model from previous section, we
-are tempted to use the frequencies of each of the words in our labeled data,
-which corresponds to the group sizes from Section
-\ref{sec:information-diversity}. However, that would not 
+are tempted to use the frequencies of each of the words in our
+corpus. However, that would not  
 necessarily match well with the Reader model. Suppose that in our
-data, the word $w_i$ is very common, but it is not well captured by any of
-the labels, and so its label distribution very close to the overall
-label distribution $P$, making it uninformative. For example, in our
+corpus, word $w_i$ is very common, but it is not well captured by any of
+the contexts, and so its context distribution is very close to the overall
+context distribution $P$, making it uninformative. For example, in our
 experiments the labels come from a topic model, where a stop word may
 behave in such a fashion. Of course, that is why stop words are
 generally removed from data before topic modeling, but we cannot
@@ -88,9 +90,8 @@ where
 \eed
 
 Note, that as in the above definition we will continue to use context
-distributions as implicit parameters for brevity of notation. 
+distributions $P_c$ as implicit parameters for brevity of notation.  
 
-{\bf Make this to be $\cP_S$ and fix $\cP_S$ to be $\cP_S^c$}
 % \bep
 % Suppose that $\cM$ was generated from the process
 % $(P,\{P_t\}_{t\in \cT})$, with $N$ total words. Moreover,
@@ -180,27 +181,28 @@ distributions as implicit parameters for brevity of notation.
 We now turn to the contexts themselves, and why a fixed distributional
 word representation may not be sufficient for this task. A simple example will
 help us illustrate this. Consider a word $w_i$ that has
-two separate meanings. In one case, it is always assigned label $t_1$,
-while in the other - label $t_2$. The general distributional
+two separate meanings. In one case, it is always assigned context $t_1$,
+while in the other - context $t_2$. The general distributional
 representation of $w_i$ will put significant weight on both $t_1$ and
 $t_2$, even though in each specific occurrence, $w_i$ represents only one
-or the other. A context label distribution $P_c$ could help disambiguate
+or the other. A context distribution $P_c$ could help disambiguate
 the meaning of $w$. In our case, the context of $w_i$ will be composed of
 all other words in the sequence $S$, because in our experiments we
-focus on short to medium length pieces of text. Otherwise, a context
+focus on short to medium length pieces of text. Otherwise, a moving
 window of fixed length may be a more appropriate choice.
 
 \bed
 Given a sequence $S=(w_1,...,w_k)$, we define the context-dependent
 distributional representation of word $w_i$ in $S$ by 
-\[P_{w_i}^S(t) = P(t|w_i,P_{w_i},P_S^{w_i}),\]
-where $P_S^{w_i}$ is the Informative Mixture of $\{P_{w_j}\}_{j\neq i}$.
+\[\tilde{P}_{w_i}^S(t) = P(t|w_i,\tilde{P}_{w_i},\tilde{P}_S^{w_i}),\]
+where $\tilde{P}_S^{w_i}$ is the Informative Mixture of
+$\{\tilde{P}_{w_j}\}_{j\neq i}$. 
 \eed
 
-This gives us a new set $\cP_S=\{P_{w_1}^S,...,P_{w_k}^S\}$ of
+This gives us a new set $\cP_S^c=\{\tilde{P}_{w_1}^S,...,\tilde{P}_{w_k}^S\}$ of
 distributional representations for each word in $S$. Moreover, we can
 use them to obtain a distributional representation of $S$ itself, by
-taking the Informative Mixture $M_{\cP_S}$. As we will show in
+taking the Informative Mixture $M_{\cP_S^c}$. As we will show in
 experiments, this can be treated separately as a text embedding in
 supervised learning tasks. In this section, however, we will use it to
 propose a notion of text diversity, based on Definition
@@ -209,7 +211,7 @@ propose a notion of text diversity, based on Definition
 \bed
 Given a sequence $S=(w_1,...,w_k)$ and a data model $\cM$, the
 {\bf Jensen-Shannon Text Diversity} will be defined as
-\[\textrm{JSD}_{\cM}(S) = D_{JS}(M_{\cP_S}),\] where $\cP_S=\{P_{w_1}^S,...,P_{w_k}^S\}$ is the set
+\[\textrm{JSD}_{\cM}(S) = D_{JS}(M_{\cP_S^c}),\] where $\cP^c_S=\{P_{w_1}^S,...,P_{w_k}^S\}$ is the set
 of context-dependent distributional representations for words in $S$. 
 \eed
 
@@ -224,8 +226,6 @@ of context-dependent distributional representations for words in $S$.
 % $S$). Finally, we define a new series of topic
 % distributions for each word, which are based on contexts from all other
 % words in the sequence, weighed by their information gain.
-
-{\bf Prove that if we add a word $w$ for which $P_{t_i}(w)\sim P_{t_j}(w)$ , then it will not affect the result, no matter how many times it appeared in the data.} 
 
 
 
