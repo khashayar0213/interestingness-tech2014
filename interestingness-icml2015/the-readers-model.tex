@@ -33,7 +33,7 @@ context. Suppose that we are given such context in the form of a context
 distribution $P_c$. As a thought experiment, consider regenerating our
 data using $P_c$ in place of $P$ as the overall context
 distribution (obtaining a different co-occurrence matrix $\cM'$), and
-estimating the MAP label distribution for $w$ again.
+estimating the MAP context distribution for $w$ again.
 \bep\label{map}
 Given a set of word distributions $\{\tilde{P}_t\}_{t\in T}$ for each
 context, a context
@@ -50,7 +50,7 @@ where $\alpha$ is the parameter that specifies the strength of the prior.
 % distribution conditioned on $w$, with a Dirichlet prior concentrated around
 % $\widehat{P}$.
 The most basic application of this is to simply set
-both $P_c$ and $\widehat{P}$ equal to $\tilde{P}$ (i.e. there is no extrenal context
+both $P_c$ and $\widehat{P}$ equal to $\tilde{P}$ (i.e. there is no external context
 information). Then, $P(t|w,\tilde{P},\tilde{P})$ is the
 normalized $i$-th row of matrix $\cM$, with added Bayesian
 smoothing. These will be the general distributional word
@@ -60,17 +60,17 @@ The purpose of this model is to provide useful distributional
 word representations, that could be applied in various NLP
 problems. However, in accordance with the main topic of discussion, we will
 focus on the task of measuring diversity of a given sequence of words
-$S=(w_1,...,w_k)$. Naturally, we aim to use Jensen-Shannon Diversity
+$S=(w_1,...,w_k)$. Naturally, we aim to use Jensen-Shannon diversity
 and it seems logical to apply it to some mixture of the set of
 distributions $\cP_S=\{\tilde{P}_{w_1},...,\tilde{P}_{w_k}\}$. How do we choose the weights
 for the mixture? Following the general model from previous section, we
 are tempted to use the frequencies of each of the words in our
 corpus. However, that would not  
-necessarily match well with the Reader model. Suppose that in our
+necessarily match well with the Reader's model. Suppose that in our
 corpus, word $w_i$ is very common, but it is not well captured by any of
 the contexts, and so its context distribution is very close to the overall
 context distribution $P$, making it uninformative. For example, in our
-experiments the labels come from a topic model, where a stop word may
+experiments the contexts come from a topic model, where a stop word may
 behave in such a fashion. Of course, that is why stop words are
 generally removed from data before topic modeling, but we cannot
 expect to filter out every word that might exhibit such behavior. With
@@ -83,7 +83,7 @@ the given context) as
 \[D(\Pb(\cdot\,|w,\widehat{P},P_c)) =
 D_{KL}(\Pb(\cdot\,|w,\widehat{P},P_c)\,\|\,P_c).\]
 Given a set of distributions $\cP = \{P_1,...,P_k\}$, obtained from the
-Reader model (possibly with different contexts), having importances
+Reader's model (possibly with different contexts), having importances
 $D_i=D(P_i)$, the {\bf Informative Mixture} of $\cP$ is defined as
 \[M_{\cP} = \Sigma d_i P_i,\]
 where

@@ -4,7 +4,7 @@ address a common shortcoming. Using a context distribution for
 describing a word seems to imply that the
 contexts - used as atomic events in the distribution - are independent
 from each other. In practice, that assumption is far from true. For
-the sake of concreteness, let us focus on the type of labeling that will be used for
+the sake of concreteness, let us focus on the type of data that will be used for
 the experimental results - topic models. Therefore, from here on out, we will
 refer to contexts as {\em topics}. It is easy to observe
 manually, that even for the best topic model one can find a pair of
@@ -22,16 +22,16 @@ also in the context of measuring text diversity. We propose a more
 general solution to this problem.
 
 Let $p$ be a row vector (corresponding to some word $w$)  from the
-word-topic occurrence matrix $\cM_{|V|\times|T|}$ obtained from an LDA
+word-topic co-occurrence matrix $\cM_{|V|\times|T|}$ obtained from an LDA
 model. We could think of the topics as representing a basis
 $t_1,...,t_T$ in some hypothetical vector space $\cH$. In 
 this case, $p$ corresponds to a linear combination of the basis
 vectors, $\Sigma p_i t_i$. In other words, for every occurrence of
-word $w$ labeled with $i$-th topic, we add basis vector $t_i$ to the
+word $w$ assigned with $i$-th topic, we add basis vector $t_i$ to the
 complete representation of $w$ in space $\cH$.
-Suppose that $\cH$ is a Hiblert space (i.e. has a scalar
+Suppose that $\cH$ is a Hiblert space (i.e. has an inner
 product). Now, the correlation between two topics can be represented
-by the dot product of the corresponding basis vectors (we assume those
+by the inner-product of the corresponding basis vectors (we assume those
 are unit vectors). We can consider a following alternative representation
 of a point in $\cH$:
 
@@ -39,12 +39,12 @@ of a point in $\cH$:
 Let $p\in\rr^T$ be a vector. Denote $x=\sum_{i=1}^T p_i
 t_i\in\cH$. Let $\widehat{p}\in\rr^T$ be defined so that
 \[\widehat{p}_i = \langle x,t_i\rangle.\]
-We will call $\widehat{p}$ the dot-product representation of $p$.
+We will call $\widehat{p}$ the inner-product representation of $p$.
 \eed
 
 Notice, that if the considered topic basis is orthonormal, then both
 representations $p$ and $\widehat{p}$ are identical. Consider the Gram matrix
-$\Sbb=\{\langle t_i,t_j\rangle\}_{i,j}$ of all possible dot products between
+$\Sbb=\{\langle t_i,t_j\rangle\}_{i,j}$ of all possible inner-products between
 basis vectors. If the basis is orthonormal, this is simply the identity
 matrix. Moreover, no matter which basis we choose, matrix $\Sbb$ is the
 only information we need to translate $p$ to $\widehat{p}$.
@@ -56,14 +56,14 @@ vectors $t_1,...,t_T\in\cH$, we have
 where $\Sbb=\{\langle t_i,t_j\rangle\}_{i,j}$ is the Gram matrix.
 \eer
 
-The dot-product representation allows us to incorporate the topic
+The inner-product representation allows us to incorporate the topic
 similarity information into a vector representation. Moreover, we do
 not need to directly manipulate the space $\cH$ to obtain it, except
 computing pairwise topic correlations $s_{ij}$. Once we compute matrix
-$\Sbb$, we can transform our data matrix into this new form using simple
+$\Sbb$, we can transform our data matrix into this new form using
 matrix multiplication $\cM'=\cM\cdot \Sbb$. Since the co-occurrence matrix
 must have nonnegative coefficients, we will require that the matrix
-$\Sbb$ also has to be element-wise nonnegative (which it would not
+$\Sbb$ also be element-wise nonnegative (which it would not
 have to be, in general). The new data matrix $\cM'$ can be interpreted
 as follows: for each original word-topic co-occurrence, we also add to
 the matrix some {\em fractional} co-occurrences of the same word with
@@ -95,21 +95,60 @@ reflected in the results, because the weight from the main topic has
 to be redistributed among similar ones, making the distributions $P_1$
 and $P_2$ more comparable.
   
+\begin{figure*}[t!]
+  \centering
+  \begin{subfigure}
+(a)\hspace{-1mm}
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/phonecases-comparison-new.eps}
+    % \caption{}
+\hspace{4mm}
+  \end{subfigure}%
+  ~
+  \begin{subfigure}
+(b) \hspace{-1mm}
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/phonecases-breakdown-new.eps}
+%    \caption{}
+  \end{subfigure}
   
-  \begin{table*}[t]
-\begin{center}
-\begin{tabular}{CC}
-\includegraphics[height=6.5cm]{figures/phonecases-comparison-new.eps}&\includegraphics[height=6.5cm]{figures/phonecases-breakdown-new.eps}\\
-(a) & (b)\\
-\includegraphics[height=6.5cm]{figures/nsf-comparison-new.eps}&\includegraphics[height=6.5cm]{figures/nsf-breakdown-new.eps}\\
-(c) & (d)\\
-\end{tabular}
-\end{center}
-\caption{ROC curves presenting the results of experiments on
-the eBay dataset (a,b) and NSF proposal dataset (c,d). The
-comparison plots (a,c) show the results for our approach (JSD-Sim-Con)
-against other methods, while the plots (b,d)
-show different variations of our approach. }
+  \begin{subfigure}
+(c) \hspace{-1mm}
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/nsf-comparison-new.eps}
+ %   \caption{}
+\hspace{4mm}
+  \end{subfigure}%
+  ~
+  \begin{subfigure}
+(d) \hspace{-1mm}
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/nsf-breakdown-new.eps}
+ %   \caption{}
+  \end{subfigure}
+
+  \caption{ROC curves presenting the results of experiments on
+ the eBay dataset (a,b) and NSF proposal dataset (c,d). The
+ comparison plots (a,c) show the results for our approach (JSD-Sim-Con)
+ against other methods, while the plots (b,d)
+ show different variations of our approach. }
 \label{fig:roc-curves}
-\end{table*}
+\end{figure*}
+
+%   \begin{table*}[t]
+% \begin{center}
+% \begin{tabular}{CC}
+% \includegraphics[height=6.5cm]{figures/phonecases-comparison-new.eps}&\includegraphics[height=6.5cm]{figures/phonecases-breakdown-new.eps}\\
+% (a) & (b)\\
+% \includegraphics[height=6.5cm]{figures/nsf-comparison-new.eps}&\includegraphics[height=6.5cm]{figures/nsf-breakdown-new.eps}\\
+% (c) & (d)\\
+% \end{tabular}
+% \end{center}
+% \caption{ROC curves presenting the results of experiments on
+% the eBay dataset (a,b) and NSF proposal dataset (c,d). The
+% comparison plots (a,c) show the results for our approach (JSD-Sim-Con)
+% against other methods, while the plots (b,d)
+% show different variations of our approach. }
+% \label{fig:roc-curves}
+% \end{table*}
 

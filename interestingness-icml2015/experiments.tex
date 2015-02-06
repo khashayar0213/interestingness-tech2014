@@ -1,26 +1,53 @@
 \subsection{Datasets}
 \label{sec:datasets}
-{\bf Write a more in depth discussion of the datasets and the  experiments. }
-We used the following two datasets in our experiments: (1) Interesting iPhone cases:
-for generating the ground truth data we hired workers from {\em Amazon Mechanical Turk (AMT)} to label a collection
-of nearly 20,000 iPhone cases on {\em eBay}. The details of this step is beyond the scope of this paper, however we used insights from
-interesting iPhone cases found on {\em Pinterest} and {\em eBay's} user behavior data in order to generate a balanced data-set. 
-We then pulled our final dataset from the annotated by selecting only those instances where the annotators all labeled it as
-positive (i.e., interesting) or negative (i.e., uninteresting). The final data-set consists of 2179 positive and 9770 negative instances for
-a total of 11,949 instances. For each instance, the product title of
+We used the following two datasets in our experiments: 
+
+{\bf Interesting iPhone cases}.
+For generating the ground truth data we hired workers from {\em Amazon Mechanical Turk (AMT)} to label a collection
+of nearly 20,000 iPhone cases on {\em eBay}. We used insights from 
+interesting iPhone cases found on {\em Pinterest} and {\em eBay's}
+user behavior data in order to generate a balanced data-set.  
+We then pulled our final dataset from the annotated by selecting only
+those instances where the annotators all labeled it as 
+positive (i.e., interesting) or negative (i.e., uninteresting). The
+final data-set consists of 2179 positive and 9770 negative instances
+for a total of 11,949 instances. For each instance, the product title of
 the corresponding {\em eBay} listing was used as the input. In this case we are
 dealing with very short text snippets, usually 10 to 12 words each. To
 train a topic model, we used a larger, more broader set of about
 2 million product titles, grouped based on {\em eBay} categorical information into about 8,000
-documents of approximately 200 titles each; (2) {\em NSF}
-abstracts: for the second dataset we used a set of 61,902 National Science Foundation
-Scholarship proposal abstracts (see~\cite{bache:2013} for more details) to evaluate how our diversity measure
+documents of approximately 200 titles each.
+
+{\bf {\em NSF} abstracts}. For the second dataset we used a set of
+61,902 National Science Foundation 
+Scholarship proposal abstracts (see~\cite{bache:2013} for more
+details) to evaluate how our diversity measure 
 compares to other methods on larger pieces of text. We used this set
 for training a topic model, however to get labeled data, we had to
 generate artificial examples, by randomly mixing pairs of abstracts that we
 could expect to be either similar (small diversity) or very different
-(high diversity) and labeling them accordingly. We generated 5,000 of
+(high diversity), based on the available meta-data, and labeling them accordingly. We generated 5,000 of
 those examples with positive and negative labels evenly represented. For both datasets, we used the Mallet LDA implementation and learned a separate topic model with $400$ topics.
+
+\begin{table*}[t]
+\label{tab:classification-results}
+\vspace{4mm}
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+&Precision & Recall & F1 & Accuracy
+\\ \hline 
+JSD Features         &$\mathbf{0.714}\pm 0.015$&$0.597\pm 0.016$&$0.650\pm
+0.014$& $\mathbf{0.8828}\pm 0.0045$\\
+RAE             &$0.676\pm 0.005$&$\mathbf{0.666}\pm 0.030$&$\mathbf{0.671}\pm
+0.013$&$0.8809\pm 0.0020$ \\
+SVD Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
+0.010$&$0.8778\pm 0.0027$\\
+\hline
+\end{tabular}
+\caption{Classification results for the eBay dataset.}
+\end{center}
+\end{table*}
 
 \subsection{Unsupervised Learning}
 \label{sec:unsupervised-learning}
@@ -49,8 +76,9 @@ distributions by inferring them for each instance, based on the LDA
 model, using the standard functionality from Mallet.
 
 Determinantal Point Processes (DPP) have recently gained popularity as a
-useful tool for sampling diverse subsets, with many applications {\bf citation
-  needed}. We were interested to see if they can also be useful for
+useful tool for sampling diverse subsets, with many applications
+(see~\cite{kulesza:2012} for more details). We were interested to see
+if they can also be useful for 
 measuring the diversity of a set provided as input. Given a set of
 instances described as feature vectors $U=\{v_i\}_{i=1}^N\subset \rr^T$, DPP defines a
 sampling model for selecting a subset of $S=\{v_{i_j}\}_{j=1}^k$, by
@@ -61,7 +89,7 @@ because, intuitively, a more diverse set should have a higher
 probability. The problem with this, however, is that determinants are
 computationally unstable and very sensitive to local changes. For
 example, if any two instances happen to have identical vector
-representations, that immediately forces that determinant to $0$, even
+representations, that immediately forces the determinant to $0$, even
 though a set may be otherwise very diverse. We decided to use
 another measure derived from a DPP. Instead of looking at a set $S$
 (in our case, a set of words) as a sample from a larger set, we can
@@ -69,16 +97,16 @@ imagine sampling from $S$ itself. In that case, the average size of
 the samples tells us how many significantly different words there are
 in the given text. Fortunately, the expected sample size can be
 computed from the eigenvalues of the aforementioned Gram matrix, as
-discussed in {\bf citation needed}. Two aspects of the feature
+discussed in \cite{kulesza:2012}. Two aspects of the feature
 vectors are relevant for the DPP. The length of the vector represents
 the relevance of the corresponding word, while the direction is
 responsible for determining the pairwise similarities. For the
 direction, we used the distributional representations from the
 Reader's model. For the vector lengths, we tried two versions: all
-unit lengths (e.i. no preference), and using the importance values from
+unit lengths (i.e. no preference), and using the importance values from
 Definition \ref{mixture}. One drawback of the expected
 DPP sample size is that it is correlated with the length of a
-document. However, with,in each of our datasets, the instances have roughly
+document. However, within each of our datasets, the instances have roughly
 similar length.
 
 Figures \ref{fig:roc-curves} (a) and (c)
@@ -94,13 +122,18 @@ with the labels for both datasets, although not particularly
 high. Interestingly, for the eBay dataset, unit vector lengths
 performed better, while for NSF, importances gave an improvemet (in
 each case, only the better result was
-plotted). Figures~\ref{fig:roc-curves} (b) and (d) 
+plotted). Another interesting observation is that comparing the
+results for entropy with - and without - topic similarity for the NSF
+dataset, shows that this technique provides as much - if not more -
+improvement as does Rao diversity over regular entropy.
+
+Figures~\ref{fig:roc-curves} (b) and (d)  
 show the gains we obtain by applying topic
 similarity and context conditioning techniques that we
 discussed in Sections~\ref{sec:the-readers-model} and
 \ref{sec:topic-similarities}. Both methods appear to be beneficial,
 significantly improving the AUC. Interestingly, using
-topic-similarities appears to skew the ROC curve towards the upper
+topic similarities appears to skew the ROC curve towards the upper
 right, while context conditioning gives more improvement in the lower
 left corner of the plot. We also measured the difference between using 
 the Informative Mixture and simply taking a uniform mixture of
@@ -111,27 +144,6 @@ the irrelevant words.
 
 \subsection{Text Embeddings}
 \label{sec:text-embeddings}
-
-\begin{table*}[t]
-\label{tab:classification-results}
-%\vspace{-4mm}
-\begin{center}
-\begin{tabular}{|l|c|c|c|c|}
-\hline
-&Precision & Recall & F1 & Accuracy
-\\ \hline 
-JSD Features         &$\mathbf{0.714}\pm 0.015$&$0.597\pm 0.016$&$0.650\pm
-0.014$& $\mathbf{0.8828}\pm 0.0045$\\
-RAE             &$0.676\pm 0.005$&$\mathbf{0.666}\pm 0.030$&$\mathbf{0.671}\pm
-0.013$&$0.8809\pm 0.0020$ \\
-SVD Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
-0.010$&$0.8778\pm 0.0027$\\
-\hline
-\end{tabular}
-\caption{Classification results for the eBay dataset.}
-\end{center}
-\end{table*}
-
 
 In the second set of results, we used an unnormalized version of the Informative Mixture
 distribution (described in Definition~\ref{mixture}) computed over

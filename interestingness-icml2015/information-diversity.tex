@@ -11,16 +11,16 @@ over a vocabulary $V$ maps a word in the vocabulary to a
 probability distribution over a fixed set of contexts $T$  (for a brief review
 see~\cite{Turian10wordrepresentations}). Often we start by a
 co-occurrence matrix $\cM_{|V|\times|T|}$ where each row represents a
-co-occurrence of a word with the labels.
-For example if we chose $T=V$ then we obtain the familiar {\sl
+co-occurrence of a word with the contexts.
+For example, if we chose $T=V$ then we obtain the familiar {\sl
   word-to-word} co-occurrence representation which counts the number 
 of times two words co-occurred in a document corpus. Another choice is
 to use the set of topics learned over a document 
 corpus by {\sl Latent Dirichlet Allocation}
 (LDA)~\cite{Blei:2003:LDA:944919.944937} as the context. The rows of
 $\cM_{|V|\times|T|}$ 
-can then  benormalized in order to obtain a probability distribution over
-the labels.
+can then  be normalized in order to obtain a probability distribution over
+the contexts.
 %  We will use the notation $P_w$ to represent 
 % the probability distribution over the context  given a word $w$. We
 % also use the notation $W=\{w_1,...,w_k\}$ for a bag of word
@@ -55,30 +55,30 @@ context distribution for the vocabulary, weighed by the frequencies of
 each word in the dataset, and measure the entropy, thus obtaining the
 diversity of words in the vocabulary, with respect to the given corpus. Consider a word $w$
 sampled uniformly from the data. Let $X$ and $Y$ denote the random
-variables correspoding to the 
+variables corresponding to the 
 appropriate vocabulary term and the assigned context,
 respectively. If, as we temporarily assumed,
 each vocabulary term has one uniquely assigned context, then $H(Y|X)=0$, so entropic diversity of the
-assignment, $H(Y)$, will be trivially equal to the mutual information between $X$
+assignment, $H(Y)$, will be equal to the mutual information between $X$
 and $Y$: 
 \[I(X;Y) = H(Y) - H(Y|X) =H(Y).\]
 If we break the simplifying assumption, $H(Y)$ is no longer a
 reasonable metric, because if all of the words had contexts assigned
 uniformly at random, then their distributional representations would be
-identical, so there would be no diversity between them, but $H(Y)$
-in fact reaches its maximum value. However, as we will see, mutual
+identical, so there would be no diversity between them, even though $H(Y)$
+reached its maximum value. On the other hand, as we will see, mutual
 information $I(X;Y)$ provides a proper generalization of diversity in
 this case. Moreover, we can formulate mutual information in terms of the
 distributional representations of the words as follows:
 \bed\label{jsd-definition}
-Let $P(Y)=\Sigma d_g P_g$ be the distribution of contexts,
+Let $P(Y)=\Sigma d_w P_w$ be the distribution of contexts,
 described as a mixture of distributional word representations
-$P_g=P(Y|X=g)$, weighed by $d_g=P(X=g)$. Mutual information between
+$P_w=P(Y\,|\,X\!=\!w)$, weighed by $d_w=P(X=w)$. Mutual information between
 $X$ and $Y$ can now be derived as
-\[ I(X;Y)= \sum_{g\in G} d_g D_{KL}(P_g\|P),\]
+\[ I(X;Y)= \sum_{w\in V} d_w D_{KL}(P_w\|P),\]
 where $D_{KL}$ is the Kullback-Leibler divergence.
 We will call it the {\bf Jensen-Shannon diversity} of that
-mixture, and denote by $D_{JS}(\Sigma d_gP_g)$.
+mixture, and denote by $D_{JS}(\Sigma d_wP_w)$.
 \eed
 
 The name refers to the generalized Jensen-Shannon divergence measure, 
@@ -90,23 +90,23 @@ suggests certain duality between contexts and words. Let us examine
 some other basic properties of this measure.
 
 \bep\label{jsd-properties}
-Let $M=\Sigma d_g P_g$ be a mixture distribution. Jensen-Shannon
+Let $M=\Sigma d_w P_w$ be a mixture distribution. Jensen-Shannon
 diversity of $M$ satisfies the following properties:
  \begin{enumerate}
-   \item $D_{JS}(\Sigma d_gP_g)\geq 0$ with equality only when all
-     distributions $P_g$ are equal.
-   \item $D_{JS}(\Sigma d_gP_g)\leq H(M)$ with equality when all
-     $P_g$ have singleton support (i.e. $P(t)=1$ for some $t\in T$).
+   \item $D_{JS}(\Sigma d_wP_w)\geq 0$ with equality only when all
+     distributions $P_w$ are equal.
+   \item $D_{JS}(\Sigma d_wP_w)\leq H(M)$ with equality when all
+     $P_w$ have singleton support (i.e. $P(t)=1$ for some $t\in T$).
  \end{enumerate}
 \eep
 The second property tells us that maximizing this measure means
-pushing all distributions $P_g$ to the corners of the simplex and
+pushing all distributions $P_w$ to the corners of the simplex and
 therefore minimizing their uncertainty.
 From this (and the earlier discussion), it follows that Jensen-Shannon
 diversity can be seen as a direct generalization of entropic
 diversity, when replacing fixed context assignments 
 with distributional ones. 
-Another known interpretation of Jensen-Shannon Diversity from
+Another known interpretation of Jensen-Shannon diversity from
 statistical point of view is that it is the expected KL-divergence
 between the posterior distribution $P(Y|X)$ and the prior distribution
 $P(Y)$. It represents the average number of bits of information
