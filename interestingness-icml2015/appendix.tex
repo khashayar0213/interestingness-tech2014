@@ -1,0 +1,180 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% ICML 2015 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Use the following line _only_ if you're still using LaTeX 2.09.
+%\documentstyle[icml2015,epsf,natbib]{article}
+% If you rely on Latex2e packages, like most moden people use this:
+\documentclass{article}
+
+% use Times
+\usepackage{times}
+% For figures
+\usepackage{graphicx} % more modern
+%\usepackage{epsfig} % less modern
+\usepackage{subfigure} 
+%\usepackage{caption}
+%\usepackage{subcaption}
+
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{verbatim}
+
+% For citations
+\usepackage{natbib}
+
+% For algorithms
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\usepackage{array}
+\newcolumntype{L}{>{\centering\arraybackslash}m{4.5cm}}
+\newcolumntype{C}{>{\centering\arraybackslash}m{6.5cm}}
+\usepackage{lipsum}
+
+% As of 2011, we use the hyperref package to produce hyperlinks in the
+% resulting PDF.  If this breaks your system, please commend out the
+% following usepackage line and replace \usepackage{icml2015} with
+% \usepackage[nohyperref]{icml2015} above.
+\usepackage{hyperref}
+
+% Packages hyperref and algorithmic misbehave sometimes.  We can fix
+% this with the following command.
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Employ the following version of the ``usepackage'' statement for
+% submitting the draft version of the paper for review.  This will set
+% the note in the first column to ``Under review.  Do not distribute.''
+\usepackage{icml2015stylefiles/icml2015} 
+
+% Employ this version of the ``usepackage'' statement after the paper has
+% been accepted, when creating the final version.  This will set the
+% note in the first column to ``Proceedings of the...''
+%\usepackage[accepted]{icml2015}
+
+\input{../defs}
+
+\newtheorem{theoreme}{Theorem} %[section]
+\newtheorem{proposition}[theoreme]{Proposition}
+\newtheorem{lemma}[theoreme]{Lemma}
+\newtheorem{definition}[theoreme]{Definition}
+\newtheorem{corollary}[theoreme]{Corollary}
+\newtheorem{remark}[theoreme]{Remark}
+\newtheorem{example}[theoreme]{Example}
+\newtheorem{examples}[theoreme]{Examples}
+%\newtheorem{conjecture}[theoreme]{Conjecture}
+\newtheorem{conjecture}{Conjecture}
+
+
+
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{An Information Theoretic Model of Text Interestingness}
+
+\begin{document} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bep
+Suppose that $\cM$ was generated from the process
+$(P,\{P_t\}_{t\in \cT})$, with $N$ total words. Moreover,
+assume that $N\geq ...$ and let 
+$w$ be a word such that \[P_{t_1}(w)=P_{t_2}(w)=p_w>0\] for all
+$t_1,t_2\in \cT$. If we use prior strength $\alpha = .../\delta^3$, then with
+probability $1-\zeta$ (over the generation of $\cM$), every
+sequence $S=(w_1,...,w_k,w)$ has the property that 
+\[D_{JS}(M_{\cP_{S'}})-...\leq D_{JS}(M_{\cP_S})\leq
+D_{JS}(M_{\cP_{S'}})+...,\]
+where $S' = (w_1,...,w_k)$.
+\eep
+\proof
+Notice that in the given process, the topic distribution conditioned
+on the word $w$ is equal to the overall topic distribution $P$,
+because
+\[\Pb(t|w) \propto P(t)\cdot P_t(w)=P(t)\cdot p_w\propto P(t),\]
+which means that $w$ is completely uninformative with respect to the
+topics, so, ideally it should have no impact on our diversity measure.
+However, we don't necessarily have a good estimate of this
+distribution from the data. Denote $\tilde{P}$ as the data estimate of
+$P$ and $\tilde{P}_w$ as the estimate of $\Pb(t|w)=P(t)$. We can
+bound the error $\tilde{P}(t)-P(t)$ by looking at each column sum of
+matrix $\cM$ as a binomial random variable, obtaining that with
+probability $1-\epsilon_1$, for any $t\in \cT$ we have 
+\[|\tilde{P}(t)-P(t)| < \delta.\]
+We will denote the random error vector as
+$\tilde{\delta}(t)=\tilde{P}(t)-P(t)$. 
+Let $K_w$ be the number of
+occurrences of word $w$ in the data.
+Since $K_w$ could be very small, bounding $\tilde{P}_w-P(t)$ is more
+problematic. Using Proposition \ref{map}, we can write $\tilde{P}_w$ as
+\begin{align*}
+\tilde{P}_w(t) &= \frac{K_w(P(t)+\tilde{\delta}_w^0(t)) +
+\alpha(P(t)+\tilde{\delta}(t))}{K_w+\alpha} \\
+&= P(t) + \frac{K_w\tilde{\delta}_w^0(t) + \alpha \tilde{\delta}(t)}{K_w + \alpha}. 
+\end{align*}
+Setting $\tilde{\delta}_w(t)=\tilde{P}_w(t)-P(t)$, we have two cases:
+\begin{enumerate}
+\item If $K_w>\alpha\delta_w$, then with probability $1-\epsilon_2$ we can bound
+$\tilde{\delta}_w^0(t)$, obtaining
+\[|\tilde{\delta}_w(t)|\leq\max(|\tilde{\delta}_w^0(t)|,|\tilde{\delta}(t)|)
+< \delta_w.\] 
+\item Otherwise, the prior strength $\alpha$ dominates, so we have
+\[|\tilde{\delta}_w(t)|\leq\max(|\tilde{\delta}_w|,|\tilde{\delta}(t)|) < \delta_w.\]
+\end{enumerate}
+Next, we have to bound the importance of word $w$. From the definition
+of KL-Divergence, we obtain the bound
+\begin{align*}
+D_w &= D_{KL}(\tilde{P}_w\,\|\,\tilde{P})=
+D_{KL}(P+\tilde{\delta}_w\,\|\, P+\tilde{\delta}) \\
+&\leq
+(\delta_w+\delta)\frac{T\delta_w+1}{p-\delta}.
+\end{align*}
+Now, we are ready to bound the diversity. Setting 
+$d_w = D_w/(\sum_{v\in S}D_v)$, we have (compensation identity cite) 
+\begin{align*}
+D_{JS}(M_{\cP_S})&=(1-d_w)(D_{JS}(M_{\cP_{S'}}) +
+D_{KL}(M_{\cP_{S'}}\|M_{\cP_S})) \\
+&+ d_wD_{KL}(\tilde{P}_w\,\|\,M_{\cP_{S'}}).
+\end{align*}
+Note that the mixture distributions are related as follows:
+\begin{align*}
+M_{\cP_S} = (1-d_w)M_{\cP_{S'}} + d_w \tilde{P}_w
+\end{align*}
+Two cases:
+\begin{enumerate}
+\item If $d_w<\delta_2$, then the lower bound is
+\begin{align*}
+D_{JS}(M_{\cP_S})&\geq (1-d_w)D_{JS}(M_{\cP_{S'}})\\
+&>D_{JS}(M_{\cP_{S'}}) - \delta_2\log(T) 
+\end{align*}
+To show the upper bound we use two inequalities:
+\begin{align*}
+D_{KL}(M_{\cP_{S'}}\|M_{\cP_S})& = \sum_t
+M_{\cP_{S'}}(t)\log\frac{M_{\cP_{S'}}}{M_{\cP_S}} \\ 
+&\leq \sum_t M_{\cP_{S'}}(t)\log\frac{1}{1-d_w} \\
+&= \log\frac{1}{1-d_w},\\
+d_w D_{KL}(\tilde{P}_w\|M_{\cP_{S'}})&=d_w\sum_t
+\tilde{P}_w(t)\log\frac{\tilde{P}_w}{ M_{\cP_{S'}}}  \\
+&\leq d_w \sum_t \tilde{P}_w \log\frac{1}{d_w} =d_w\log\frac{1}{d_w}.
+\end{align*}
+Combining the above inequalities, we get:
+\begin{align*}
+D_{JS}(M_{\cP_S})&\leq D_{JS}(M_{\cP_{S'}}) + H(\delta_2)
+\end{align*}
+\item If $d_w\geq \delta_2$, then (compensation identity again) 
+\begin{align*}
+D_{JS}(M_{\cP_S})&= \sum_{v\in
+S}d_vD_{KL}(\tilde{P}_v\|M_{\cP_S})\\
+&= \sum_{v\in S} d_v D_{KL}(\tilde{P}_v\|\tilde{P}) -
+D_{KL}(\tilde{P}\|M_{\cP_S})\\
+&\leq \sum_{v\in S} D_v=\frac{D_w}{d_w}\leq \frac{D_w}{\delta_2}.
+\end{align*}
+The same holds for $S'$. So, we get both bounds.
+\end{enumerate}
+\qed
+
+\end{document}

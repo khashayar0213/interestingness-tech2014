@@ -3,11 +3,10 @@
 \beamer@subsectionintoc {1}{1}{Problem Statement}{2}{0}{1}
 \beamer@subsectionintoc {1}{2}{Hypothesis}{5}{0}{1}
 \beamer@subsectionintoc {1}{3}{Model Assumptions}{7}{0}{1}
-\beamer@sectionintoc {2}{The Observer's Model}{9}{0}{2}
-\beamer@subsectionintoc {2}{1}{Information Diversity}{9}{0}{2}
-\beamer@subsectionintoc {2}{2}{Population Diversity (digression)}{13}{0}{2}
-\beamer@subsectionintoc {2}{3}{Text Diversity}{18}{0}{2}
-\beamer@sectionintoc {3}{Experiments}{24}{0}{3}
-\beamer@subsectionintoc {3}{1}{Unsupervised Evaluation}{25}{0}{3}
-\beamer@subsectionintoc {3}{2}{Supervised Evaluation}{28}{0}{3}
-\beamer@subsectionintoc {3}{3}{Conclusions}{30}{0}{3}
+\beamer@sectionintoc {2}{The Reader's Model}{10}{0}{2}
+\beamer@subsectionintoc {2}{1}{Information Diversity}{10}{0}{2}
+\beamer@subsectionintoc {2}{2}{Text Diversity}{14}{0}{2}
+\beamer@sectionintoc {3}{Experiments}{21}{0}{3}
+\beamer@subsectionintoc {3}{1}{Unsupervised Evaluation}{22}{0}{3}
+\beamer@subsectionintoc {3}{2}{Supervised Evaluation}{25}{0}{3}
+\beamer@subsectionintoc {3}{3}{Conclusions}{27}{0}{3}

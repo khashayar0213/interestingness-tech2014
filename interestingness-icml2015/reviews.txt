@@ -1,0 +1,67 @@
+Overall Rating	Strong reject
+Reviewer confidence	Reviewer is knowledgeable
+Detailed comments for the authors
+	This paper proposes to measure the 'interestingness' of text based on the diversity of the language (i.e. semantically different concepts appear in the same text), and proposes this with a metric based on Jensen Shannon divergence.
+
+I had issues with the paper:
+
+1. I found the paper extremely confusing. I got lost as early as section 3.2 when defining JS diversity. It talks about the mutual information between a vocabulary term and its context, but I can't figure out exactly what these random variables are (what values do they take; and what formally is a 'context'?), which makes the rest very difficult to understand. I think the writing could be much improved. Maybe I'm missing something.
+
+2. It wasn't clear to me which aspects of the proposed model are novel and which draw from prior work. Is JS diversity a metric that the authors invented for this paper, or has it been used before? This wasn't clear - if the authors can clarify in their response, I'll take that into consideration.
+
+3. A satisfactory definition of 'interestingness' isn't provided, so the goal of the paper seems shaky to me, and the experiments seem circular. The NSF dataset in particular is not convincing because the interesting/non-interesting instances were synthetically created by combining similar/dissimilar documents, so of course a metric of diversity is going to capture this.
+
+
+
+
+Masked Reviewer ID:	Assigned_Reviewer_2
+Review:	
+Question	 
+Overall Rating	Weak reject
+Reviewer confidence	Reviewer is knowledgeable
+Detailed comments for the authors
+	The paper presented an information theoretic approach for measuring text interestingness, where interestingness was approximated using topic diversity. A Jensen-Shannon divergence measure was proposed and a set of enhancements to the base model were described to capture the word importance and sample biases.
+
+The paper is tackling an interesting problem. Although text interestingness is not well defined in literature, applications such as identifying innovative eBay products based on the title descriptions seem to be useful. 
+
+The paper would be stronger if the presentation could be improved. In many places (e.g., section 4), the descriptions stay on such a high-level that it is difficult to figure out the model details. When describing enhancement to the base model, it would be helpful to first provide some motivating examples. 
+
+I'm not sure if I'm fully convinced by several of the assumptions: first, the paper emphasizes that text diversity is a good proxy for interestingness. It seems easy to come up with counter examples by randomly mixing topics. Second, it seems okay to infer the word meanings or word senses based on context, but not the reverse. It seems confusing to infer distributional representation for contexts and assume they are independent of each other.
+
+When Amazon turkers annotate the iPhone dataset, did they make decisions solely based on the product titles, or did they also use product images?
+
+The paper refers back to the work of (Bache et al., 2013) for several times. It might help to explicitly list the major differences between this work and those of (Bache et al., 2013), perhaps at the beginning of this paper.
+
+
+
+
+Masked Reviewer ID:	Assigned_Reviewer_3
+Review:	
+Question	 
+Overall Rating	Strong reject
+Reviewer confidence	Reviewer is knowledgeable
+Detailed comments for the authors
+	This is an extremely badly written, obfuscated paper.
+To assess novelty of an article, authors basically employ mutual information
+between words and their contexts like topics, and it reduces to an weighted
+Kullback-Leibler divergence by a simple calculation. Essentially, this measures
+a difference between prior topic distribution and posterior topic distribution.
+
+In the experiments, authors argue that this simple measure outperforms
+Rao metric for text diversity, but I think the setting is artificial and
+problematic. In the experiments, authors created artificial documents that
+are (a) mix of similar documents or b) mix of distant documents, and computes
+performance to differentiate between them.
+In this case, the posterior topic distribution of (a) would rather flat but
+that of (b) would have two peaks, having low entropy that helps to discriminate
+between them.
+However, the essential point of measuring topic diversity is, as argued in
+Bache (2013) that this paper refers, not only the difference between topic
+distribution (or compared to default), but whether its composition is really
+novel or trivial. For example, a topic composition of medical topic and
+mechanical topic is rather ordinary in a medical domain, but a composition of
+medical and cosmic topic (if any) is startling and novel. While authors
+shortly notice topic correlations in section 6.2, it is not persuading because
+it is the most essential point of argument in this line of research, and at
+least, the siginificance of just a mere divergence cannot be read off from a
+very confusing and obfuscated arguments of this paper.
