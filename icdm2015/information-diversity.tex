@@ -1,0 +1,114 @@
+\subsection{Distributional Representations}
+\label{sec:distributional-representations}
+Analyzing textual data often leads to a common general framework,
+where we obtain a significant collection of text with each word
+occurrence tagged with one (or several) among a set of
+contexts. Moreover, naturally, every word occurrence can be mapped to a
+vocabulary term (barring ambiguities). So, each word in the vocabulary
+corresponds to a group of its occurrences, which leads to a
+distribution over the set of contexts. A distributional representation
+over a vocabulary $V$ maps a word in the vocabulary to a  
+probability distribution over a fixed set of contexts $T$  (for a brief review
+see~\cite{Turian10wordrepresentations}). Often we start by a
+co-occurrence matrix $\cM_{|V|\times|T|}$ where each row represents a
+co-occurrence of a word with the contexts.
+For example, if we chose $T=V$ then we obtain the familiar {\sl
+  word-to-word} co-occurrence representation which counts the number 
+of times two words co-occurred in a document corpus. Another choice is
+to use the set of topics learned over a document 
+corpus by {\sl Latent Dirichlet Allocation}
+(LDA)~\cite{Blei:2003:LDA:944919.944937} as the context. The rows of
+$\cM_{|V|\times|T|}$ 
+can then  be normalized in order to obtain a probability distribution over
+the contexts.
+%  We will use the notation $P_w$ to represent 
+% the probability distribution over the context  given a word $w$. We
+% also use the notation $W=\{w_1,...,w_k\}$ for a bag of word
+% representation of a text snippet. Given a word distributional
+% representation, $\cP_{W}=\{P_{w_ 1},...,P_{w_k}\}$ denotes the set
+% of probability distributions over the context for the words 
+% in the text snippet.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Jensen-Shannon Diversity}
+\label{sec:jensen-shannon-divergence}
+We pose the following question: what is the right model of diversity
+in text, with respect to the above framework? % Notice, however, that we
+% need not restrict ourselves to text, because the way our
+% distributional model is formulated can be applied to any set of
+% labeled elements partitioned into groups (each group corresponding to
+% a vocabulary word). Suppose we have a set $S$ of elements divided into
+% a collection $G$ of groups, by a function $g:S\rightarrow
+% G$. Additionally, each element has a label assigned with
+% $f:S\rightarrow T$. What is the diversity between the groups?
+Our starting point is the notion of Shannon 
+entropy, generally considered as a well-founded measure of diversity 
+for a collection of elements represented by a
+distribution. Here, the collection consists of words, and each word
+appears many times in the data, so it provides
+finer information about the context assignments. Assume, for the sake
+of argument, that every occurrence of the same word had the same
+context assigned to it in a given corpus - in which case we could 
+uniquely identify a vocabulary term with a single context. We could then naturally obtain a
+context distribution for the vocabulary, weighed by the frequencies of
+each word in the dataset, and measure the entropy, thus obtaining the
+diversity of words in the vocabulary, with respect to the given corpus. Consider a word $w$
+sampled uniformly from the data. Let $X$ and $Y$ denote the random
+variables corresponding to the 
+appropriate vocabulary term and the assigned context,
+respectively. If, as we temporarily assumed,
+each vocabulary term has one uniquely assigned context, then $H(Y|X)=0$, so entropic diversity of the
+assignment, $H(Y)$, will be equal to the mutual information between $X$
+and $Y$: 
+\[I(X;Y) = H(Y) - H(Y|X) =H(Y).\]
+If we break the simplifying assumption, $H(Y)$ is no longer a
+reasonable metric, because if all of the words had contexts assigned
+uniformly at random, then their distributional representations would be
+identical, so there would be no diversity between them, even though $H(Y)$
+reached its maximum value. On the other hand, as we will see, mutual
+information $I(X;Y)$ provides a proper generalization of diversity in
+this case. Moreover, we can formulate mutual information in terms of the
+distributional representations of the words as follows:
+\bed\label{jsd-definition}
+Let $P(Y)=\Sigma d_w P_w$ be the distribution of contexts,
+described as a mixture of distributional word representations
+$P_w=P(Y\,|\,X\!=\!w)$, weighed by $d_w=P(X=w)$. Mutual information between
+$X$ and $Y$ can now be derived as
+\[ I(X;Y)= \sum_{w\in V} d_w D_{KL}(P_w\|P),\]
+where $D_{KL}$ is the Kullback-Leibler divergence.
+We will call it the {\bf Jensen-Shannon diversity} of that
+mixture, and denote by $D_{JS}(\Sigma d_wP_w)$.
+\eed
+
+The name refers to the generalized Jensen-Shannon divergence measure, 
+discussed in \cite{FugledeTopsoe}. The above derivation follows easily
+from the corresponding definitions of KL-divergence and mutual
+information. Note, that mutual information is symmetric with respect
+to $X$ and $Y$, even though their roles in our model are not. This
+suggests certain duality between contexts and words. Let us examine
+some other basic properties of this measure.
+
+\bep\label{jsd-properties}
+Let $M=\Sigma d_w P_w$ be a mixture distribution. Jensen-Shannon
+diversity of $M$ satisfies the following properties:
+ \begin{enumerate}
+   \item $D_{JS}(\Sigma d_wP_w)\geq 0$ with equality only when all
+     distributions $P_w$ are equal.
+   \item $D_{JS}(\Sigma d_wP_w)\leq H(M)$ with equality when all
+     $P_w$ have singleton support (i.e. $P(t)=1$ for some $t\in T$).
+ \end{enumerate}
+\eep
+The second property tells us that maximizing this measure means
+pushing all distributions $P_w$ to the corners of the simplex and
+therefore minimizing their uncertainty.
+From this (and the earlier discussion), it follows that Jensen-Shannon
+diversity can be seen as a direct generalization of entropic
+diversity, when replacing fixed context assignments 
+with distributional ones. 
+Another known interpretation of Jensen-Shannon diversity from
+statistical point of view is that it is the expected KL-divergence
+between the posterior distribution $P(Y|X)$ and the prior distribution
+$P(Y)$. It represents the average number of bits of information
+learned about the context of a word from knowing its distributional
+representation.
