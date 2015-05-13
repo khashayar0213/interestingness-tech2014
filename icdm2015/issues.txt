@@ -1,0 +1,25 @@
+Clarify why we use diversity to measure interestingness, and when
+could this be problematic?
+
+Clearly state, how our paper is different from (Bache et al., 2013),
+and what is novel.
+
+We should probably switch from "contexts" to "topics" everywhere.
+
+Get rid of the Reader's Model or at least drastically simplify the
+language.
+
+Simplify the explanation of Information diversity. We can just discuss
+it using the concrete example we have in the paper.
+
+Expand the Experiments section with more details about data collection
+and preprocessing.
+
+Explain the role of NSF dataset as just to verify that our measure
+gets diversity right (not interestingness in this case).
+
+Carefully discuss the problem that is solved by topic similarities.
+
+On the ICDM website, they strongly encourage making the data available
+online (anonymously on dropbox) for the submission. Can we do that?
+(Probably not)
