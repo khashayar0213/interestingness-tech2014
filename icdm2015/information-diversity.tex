@@ -11,16 +11,21 @@ over a vocabulary $V$ maps a word in the vocabulary to a
 probability distribution over a fixed set of contexts $T$  (for a brief review
 see~\cite{Turian10wordrepresentations}). Often we start by a
 co-occurrence matrix $\cM_{|V|\times|T|}$ where each row represents a
-co-occurrence of a word with the contexts.
+co-occurrence of a word with the contexts. The rows of $\cM_{|V|\times|T|}$ 
+can then  be normalized in order to obtain a probability distribution over
+the contexts.
 For example, if we chose $T=V$ then we obtain the familiar {\sl
   word-to-word} co-occurrence representation which counts the number 
 of times two words co-occurred in a document corpus. Another choice is
 to use the set of topics learned over a document 
 corpus by {\sl Latent Dirichlet Allocation}
-(LDA)~\cite{Blei:2003:LDA:944919.944937} as the context. The rows of
-$\cM_{|V|\times|T|}$ 
-can then  be normalized in order to obtain a probability distribution over
-the contexts.
+(LDA)~\cite{Blei:2003:LDA:944919.944937} as the contexts. It has the
+advantage of allowing us to select the appropriate dimensionality of
+the representations by choosing the number of topics to learn. Since
+this is the direction we take in this paper, for the sake
+of clarity, from now on we will refer to the
+word representations as topic distributions. 
+
 %  We will use the notation $P_w$ to represent 
 % the probability distribution over the context  given a word $w$. We
 % also use the notation $W=\{w_1,...,w_k\}$ for a bag of word
@@ -33,8 +38,25 @@ the contexts.
 
 \subsection{Jensen-Shannon Diversity}
 \label{sec:jensen-shannon-divergence}
-We pose the following question: what is the right model of diversity
-in text, with respect to the above framework? % Notice, however, that we
+% Why diversity?
+The goal of our work is to discover interestingness in text. However,
+this is a vague term that can have very different meanings in different
+domains. We aim to show that in at least one important domain of
+e-commerce, measuring text diversity can be used as a good proxy for 
+product interestingness. This does not mean that any diverse text is
+expected to be interesting, but rather that a high diversity score in
+a product is a good indicator of interestingness. However, we found
+that none of the existing 
+document diversity measures worked well in this setting. We believe
+that the primary reason for this is that the amount of useful textual
+data for each product is often too small to be treated as a document. 
+In this section, we propose a new way of measuring diversity, that is
+based on mutual information, and can be seen as a generalization of
+Shannon entropy. This approach turns out to be effective even for
+analyzing very short pieces of text.
+
+% We pose the following question: what is the right model of diversity
+% in text, with respect to the above framework? % Notice, however, that we
 % need not restrict ourselves to text, because the way our
 % distributional model is formulated can be applied to any set of
 % labeled elements partitioned into groups (each group corresponding to
@@ -42,73 +64,118 @@ in text, with respect to the above framework? % Notice, however, that we
 % a collection $G$ of groups, by a function $g:S\rightarrow
 % G$. Additionally, each element has a label assigned with
 % $f:S\rightarrow T$. What is the diversity between the groups?
-Our starting point is the notion of Shannon 
-entropy, generally considered as a well-founded measure of diversity 
-for a collection of elements represented by a
-distribution. Here, the collection consists of words, and each word
-appears many times in the data, so it provides
-finer information about the context assignments. Assume, for the sake
-of argument, that every occurrence of the same word had the same
-context assigned to it in a given corpus - in which case we could 
-uniquely identify a vocabulary term with a single context. We could then naturally obtain a
-context distribution for the vocabulary, weighed by the frequencies of
-each word in the dataset, and measure the entropy, thus obtaining the
-diversity of words in the vocabulary, with respect to the given corpus. Consider a word $w$
-sampled uniformly from the data. Let $X$ and $Y$ denote the random
-variables corresponding to the 
-appropriate vocabulary term and the assigned context,
-respectively. If, as we temporarily assumed,
-each vocabulary term has one uniquely assigned context, then $H(Y|X)=0$, so entropic diversity of the
-assignment, $H(Y)$, will be equal to the mutual information between $X$
-and $Y$: 
-\[I(X;Y) = H(Y) - H(Y|X) =H(Y).\]
-If we break the simplifying assumption, $H(Y)$ is no longer a
-reasonable metric, because if all of the words had contexts assigned
-uniformly at random, then their distributional representations would be
-identical, so there would be no diversity between them, even though $H(Y)$
-reached its maximum value. On the other hand, as we will see, mutual
-information $I(X;Y)$ provides a proper generalization of diversity in
-this case. Moreover, we can formulate mutual information in terms of the
-distributional representations of the words as follows:
-\bed\label{jsd-definition}
-Let $P(Y)=\Sigma d_w P_w$ be the distribution of contexts,
-described as a mixture of distributional word representations
-$P_w=P(Y\,|\,X\!=\!w)$, weighed by $d_w=P(X=w)$. Mutual information between
-$X$ and $Y$ can now be derived as
-\[ I(X;Y)= \sum_{w\in V} d_w D_{KL}(P_w\|P),\]
-where $D_{KL}$ is the Kullback-Leibler divergence.
-We will call it the {\bf Jensen-Shannon diversity} of that
-mixture, and denote by $D_{JS}(\Sigma d_wP_w)$.
-\eed
+% Our starting point is the notion of Shannon 
+% entropy, generally considered as a well-founded measure of diversity 
+% for a collection of elements represented by a
+% distribution. Here, the collection consists of words, and each word
+% appears many times in the data, so it provides
+% finer information about the context assignments. Assume, for the sake
+% of argument, that every occurrence of the same word had the same
+% context assigned to it in a given corpus - in which case we could 
+% uniquely identify a vocabulary term with a single context. We could then naturally obtain a
+% context distribution for the vocabulary, weighed by the frequencies of
+% each word in the dataset, and measure the entropy, thus obtaining the
+% diversity of words in the vocabulary, with respect to the given corpus. Consider a word $w$
+% sampled uniformly from the data. Let $X$ and $Y$ denote the random
+% variables corresponding to the 
+% appropriate vocabulary term and the assigned context,
+% respectively. If, as we temporarily assumed,
+% each vocabulary term has one uniquely assigned context, then $H(Y|X)=0$, so entropic diversity of the
+% assignment, $H(Y)$, will be equal to the mutual information between $X$
+% and $Y$: 
+% \[I(X;Y) = H(Y) - H(Y|X) =H(Y).\]
+% If we break the simplifying assumption, $H(Y)$ is no longer a
+% reasonable metric, because if all of the words had contexts assigned
+% uniformly at random, then their distributional representations would be
+% identical, so there would be no diversity between them, even though $H(Y)$
+% reached its maximum value. On the other hand, as we will see, mutual
+% information $I(X;Y)$ provides a proper generalization of diversity in
+% this case. Moreover, we can formulate mutual information in terms of the
+% distributional representations of the words as follows:
 
-The name refers to the generalized Jensen-Shannon divergence measure, 
-discussed in \cite{FugledeTopsoe}. The above derivation follows easily
-from the corresponding definitions of KL-divergence and mutual
-information. Note, that mutual information is symmetric with respect
-to $X$ and $Y$, even though their roles in our model are not. This
-suggests certain duality between contexts and words. Let us examine
-some other basic properties of this measure.
+Given a distributional representation over a vocabulary $V$ and
+topic set $T$, with $P_w$ giving a topic distribution corresponding to the
+word $w$, we will measure information diversity
+for a text snippet $W=\{w_1,...,w_k\}$ and its 
+distributional representation $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$. To
+that end, we use a measure of divergence between probability
+distributions, discussed in \cite{FugledeTopsoe}, which is a
+generalization of Jensen-Shannon Divergence.
+
+\bed\label{diversity}
+Let $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$ be a set of
+distributions. Moreover, suppose that we assigned a weight $d_{w_i}$ to
+each distribution $P_{w_i}$, so that $\sum_{i=1}^kd_{w_i}=1$.
+{\em Generalized Jensen-Shannon Divergence} of the mixture
+$\Sigma d_{w_i}P_{w_i}$ is defined as
+$$D_{JS}(\Sigma d_{w_i}P_{w_i})=\sum_{i=1}^k
+d_{w_i}D_{KL}(P_{w_i}\|M),$$
+where $M=\sum_{i=1}^kd_{w_i} P_{w_i}$ is the weighted average of the
+distributions. 
+\eed
+% \bed\label{jsd-definition}
+% Let $P(Y)=\Sigma d_w P_w$ be the distribution of contexts,
+% described as a mixture of distributional word representations
+% $P_w=P(Y\,|\,X\!=\!w)$, weighed by $d_w=P(X=w)$. Mutual information between
+% $X$ and $Y$ can now be derived as
+% \[ I(X;Y)= \sum_{w\in V} d_w D_{KL}(P_w\|P),\]
+% where $D_{KL}$ is the Kullback-Leibler divergence.
+% We will call it the {\bf Jensen-Shannon diversity} of that
+% mixture, and denote by $D_{JS}(\Sigma d_wP_w)$.
+% \eed
+
+Here, $D_{KL}$ corresponds to Kullback-Leibler Divergence.
+Note, that to compute the above quantity we need not only the
+distributional representations, but also a set of weights assigned to
+each of them. Intuitively, the weight $d_{w_i}$ should describe how
+important the word $w_i$ is in describing the content of the text. In
+the following sections, we will return to the issue of selecting the
+right weights, since it is tied to the choice of distributions
+themselves. In the remainder of this section, we will examine the
+basic properties of Generalized Jensen-Shannon Divergence (JSD) in the
+context of measuring diversity. 
+
+Interestingly, JSD can be defined as mutual information if we
+interpret the object $\Sigma d_{w_i}P_{w_i}$ in a generative mixture
+model setting. To that end, we define a multinomial distribution
+$\mu$ over the words from $W$, based on the weights $d_{w_i}$. This
+simple generative model first samples a word $w_\xi$ from $\mu$, then samples a
+topic from the corresponding topic distribution $P_{w_\xi}$:
+\begin{align*}
+\xi &\sim \mu=\textrm{Mult}(d_{w_1},d_{w_2},\dots,d_{w_k}),\\
+t &\sim P_{w_\xi}.
+\end{align*}
+
+We can now reformulate JSD in this model as the mutual information
+between $\xi$ and $t$, through a straight-forward calculation.
+\bep
+Following the above notation, Generalized Jensen-Shannon Divergence
+can be defined as
+\[D_{JS}(\Sigma d_{w_i}P_{w_i})= I(\xi,t),\]
+where $I(\xi,t)$ corresponds to the mutual information.
+\eep
+
+Based on this definition, JSD represents the average number of bits of
+information learned about the topic of a word from knowing its
+distributional representation. Also note, that mutual information is
+symmetric with respect to $\xi$ and $t$, even though their roles in
+our model are not. Let us examine some other basic properties of this
+measure. 
 
 \bep\label{jsd-properties}
-Let $M=\Sigma d_w P_w$ be a mixture distribution. Jensen-Shannon
-diversity of $M$ satisfies the following properties:
+Let $M=\Sigma d_{w_i} P_{w_i}$ be a mixture distribution. Jensen-Shannon
+Divergence of $M$ satisfies the following properties:
  \begin{enumerate}
-   \item $D_{JS}(\Sigma d_wP_w)\geq 0$ with equality only when all
-     distributions $P_w$ are equal.
-   \item $D_{JS}(\Sigma d_wP_w)\leq H(M)$ with equality when all
-     $P_w$ have singleton support (i.e. $P(t)=1$ for some $t\in T$).
+   \item $D_{JS}(\Sigma d_{w_i}P_{w_i})\geq 0$ with equality only when all
+     distributions $P_{w_i}$ are equal.
+   \item $D_{JS}(\Sigma d_{w_i}P_{w_i})\leq H(M)$ with equality when all
+     $P_{w_i}$ have singleton support (i.e. $P(t)=1$ for some $t\in
+     T$). Here, $H(M)$ is Shannon entropy.
  \end{enumerate}
 \eep
 The second property tells us that maximizing this measure means
 pushing all distributions $P_w$ to the corners of the simplex and
-therefore minimizing their uncertainty.
-From this (and the earlier discussion), it follows that Jensen-Shannon
-diversity can be seen as a direct generalization of entropic
-diversity, when replacing fixed context assignments 
-with distributional ones. 
-Another known interpretation of Jensen-Shannon diversity from
-statistical point of view is that it is the expected KL-divergence
-between the posterior distribution $P(Y|X)$ and the prior distribution
-$P(Y)$. It represents the average number of bits of information
-learned about the context of a word from knowing its distributional
-representation.
+therefore minimizing their uncertainty. From this, it follows that
+Jensen-Shannon Divergence as a measure of diversity can be seen as a
+direct generalization of Shannon entropy, when replacing fixed topic
+assignments with distributional ones.  
