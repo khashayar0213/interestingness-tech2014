@@ -1,19 +1,41 @@
+The goal of our work is to discover interestingness in text. However,
+this is a vague term that can have very different meanings in different
+domains. We aim to show that in at least one important domain of
+e-commerce, measuring text diversity can be used as a good proxy for 
+product interestingness. This does not mean that any diverse text is
+expected to be interesting, but rather that a high diversity score in
+a product is a good indicator of interestingness. However, we found
+that none of the existing 
+document diversity measures worked well in this setting. We believe
+that the primary reason for this is that the amount of useful textual
+data for each product is often too small to be treated as a document. 
+In this section, we propose a new way of measuring diversity, that is
+based on mutual information, and can be seen as a generalization of
+Shannon entropy. This approach turns out to be effective even for
+analyzing very short pieces of text. 
+
+
 \subsection{Distributional Representations}
 \label{sec:distributional-representations}
-Analyzing textual data often leads to a common general framework,
+As described later in this section, the proposed diversity measure
+is set in an information-theoretic framework. To apply it in the text
+setting we have to construct distributional representations that
+preserve the relevant content of the data in a way that is compatible
+with that model.
+This can be achieved through a common general model,
 where we obtain a significant collection of text with each word
-occurrence tagged with one (or several) among a set of
+occurrence tagged with one among a set of
 contexts. Moreover, naturally, every word occurrence can be mapped to a
 vocabulary term (barring ambiguities). So, each word in the vocabulary
 corresponds to a group of its occurrences, which leads to a
 distribution over the set of contexts. A distributional representation
 over a vocabulary $V$ maps a word in the vocabulary to a  
 probability distribution over a fixed set of contexts $T$  (for a brief review
-see~\cite{Turian10wordrepresentations}). Often we start by a
+see~\cite{Turian10wordrepresentations}). Often we start with a
 co-occurrence matrix $\cM_{|V|\times|T|}$ where each row represents a
-co-occurrence of a word with the contexts. The rows of $\cM_{|V|\times|T|}$ 
-can then  be normalized in order to obtain a probability distribution over
-the contexts.
+collection of co-occurrence counts of a word with the contexts. The
+rows of $\cM_{|V|\times|T|}$ can then  be normalized in order to
+obtain a probability distribution over the contexts.
 For example, if we chose $T=V$ then we obtain the familiar {\sl
   word-to-word} co-occurrence representation which counts the number 
 of times two words co-occurred in a document corpus. Another choice is
@@ -39,21 +61,6 @@ word representations as topic distributions.
 \subsection{Jensen-Shannon Diversity}
 \label{sec:jensen-shannon-divergence}
 % Why diversity?
-The goal of our work is to discover interestingness in text. However,
-this is a vague term that can have very different meanings in different
-domains. We aim to show that in at least one important domain of
-e-commerce, measuring text diversity can be used as a good proxy for 
-product interestingness. This does not mean that any diverse text is
-expected to be interesting, but rather that a high diversity score in
-a product is a good indicator of interestingness. However, we found
-that none of the existing 
-document diversity measures worked well in this setting. We believe
-that the primary reason for this is that the amount of useful textual
-data for each product is often too small to be treated as a document. 
-In this section, we propose a new way of measuring diversity, that is
-based on mutual information, and can be seen as a generalization of
-Shannon entropy. This approach turns out to be effective even for
-analyzing very short pieces of text.
 
 % We pose the following question: what is the right model of diversity
 % in text, with respect to the above framework? % Notice, however, that we
@@ -93,10 +100,12 @@ analyzing very short pieces of text.
 % this case. Moreover, we can formulate mutual information in terms of the
 % distributional representations of the words as follows:
 
-Given a distributional representation over a vocabulary $V$ and
+For the remainder of this section, we assume that the
+textual data has already been transformed into topic distributions.
+We are given a distributional representation over a vocabulary $V$ and
 topic set $T$, with $P_w$ giving a topic distribution corresponding to the
-word $w$, we will measure information diversity
-for a text snippet $W=\{w_1,...,w_k\}$ and its 
+word $w$. We will measure information diversity
+for a text snippet $W=\{w_1,...,w_k\}$ by analyzing its 
 distributional representation $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$. To
 that end, we use a measure of divergence between probability
 distributions, discussed in \cite{FugledeTopsoe}, which is a
@@ -131,7 +140,7 @@ each of them. Intuitively, the weight $d_{w_i}$ should describe how
 important the word $w_i$ is in describing the content of the text. In
 the following sections, we will return to the issue of selecting the
 right weights, since it is tied to the choice of distributions
-themselves. In the remainder of this section, we will examine the
+themselves. The rest of this section is dedicated to the examination of the
 basic properties of Generalized Jensen-Shannon Divergence (JSD) in the
 context of measuring diversity. 
 
