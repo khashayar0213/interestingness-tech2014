@@ -1,99 +1,153 @@
-In this section, we will discuss the process of obtaining word-context
-data and propose a postprocessing transformation which helps to
-address a common shortcoming. Using a context distribution for
-describing a word seems to imply that the
-contexts - used as atomic events in the distribution - are independent
-from each other. In practice, that assumption is far from true. For
-the sake of concreteness, let us focus on the type of data that will be used for
-the experimental results - topic models. Therefore, from here on out, we will
-refer to contexts as {\em topics}. It is easy to observe
-manually, that even for the best topic model one can find a pair of
-topics that are closely related and a pair that is much more
+In this section, we will discuss the issue of capturing topic
+correlations when using distributional representations. It is easy to
+observe manually, that even for the best topic model one can find a
+pair of topics that are closely related and a pair that is much more
 distant. Those interrelations between topics are 
 properties that represent useful information about the model that is
 possible to infer from the data, and yet
-may be completely ignored in distributional representations of words. 
-For example, we may find a word $w$ that has topic distribution $P_w$
-concentrated on a single topic $t$, but it does 
-not peak at all other topics that are very similar to
-topic $t$. In this case, topic correlations would not be reflected in
-the distribution. This shortcoming was observed in \cite{bache:2013},
-also in the context of measuring text diversity. We propose a more
-general solution to this problem.
+may be lost in distributional representations of words. 
+This shortcoming was observed in \cite{bache:2013},
+also in the context of measuring text diversity. The solution proposed
+there was based on a special kind of diversity measure, Rao Diversity,
+which depends on constructing a set of pairwise distances between the
+topics. This is achieved by computing a topic similarity matrix based on
+the topic model. We propose a more general solution to this problem,
+which is also based on a topic similarity matrix. However, instead of
+applying it directly to a specific diversity measure, we use it to
+transform the distributional representations, thereby incorporating this
+additional information into the model. The main advantage of this
+approach is the flexibility in the choice of diversity measure. In
+particular, \cite{bache:2013} argue that Rao Diversity has a
+significant advantage in measuring document diversity compared to
+Shannon entropy, which does not rely on topic distances. However, our
+experiments show that topic similarity information can be successfully
+incorporated into the distributional representations, so that Shannon
+entropy can outperform Rao Diversity.  Next, we will explain the
+intuition behind our topic-similarity transformation of the
+topic-word-count matrix $\cM$. Afterwards, we will discuss the
+construction of the similarity matrix $\cS$.
 
-Let $p$ be a row vector (corresponding to some word $w$)  from the
-word-topic co-occurrence matrix $\cM_{|V|\times|T|}$ obtained from an LDA
-model. We could think of the topics as representing a basis
-$t_1,...,t_T$ in some hypothetical vector space $\cH$. In 
-this case, $p$ corresponds to a linear combination of the basis
-vectors, $\Sigma p_i t_i$. In other words, for every occurrence of
-word $w$ assigned with $i$-th topic, we add basis vector $t_i$ to the
-complete representation of $w$ in space $\cH$.
-Suppose that $\cH$ is a Hiblert space (i.e. has an inner
-product). Now, the correlation between two topics can be represented
-by the inner-product of the corresponding basis vectors (we assume those
-are unit vectors). We can consider a following alternative representation
-of a point in $\cH$:
+One possible interpretation of pairwise topic similarities is through
+a Markovian transition matrix. Suppose, that $\cS_{|T|\times|T|}$ is
+such a matrix, where $S_{i,j}=\pp_\cS(t_j|t_i)$ is the conditional
+probability of observing topic $t_j$ after topic $t_i$. We are not
+referring to actual observations here, but rather a way of interpreting
+topic similarity in the probabilistic framework. In this context, if
+$\pp(t_j|t_i)$ is high, then the topics should be highly correlated with
+each other. Notice that for this to be valid, the rows of matrix $\cS$
+need to form proper distributions, so they need to be normalized.  
+Given a distributional representation $p_w$ and the transition matrix
+$\cS$, the vector $\tilde{p}_w=p_w \cS^T$ will be a distribution
+corresponding to the variable $X_2$ of a two-node Markov chain
+$(X_1,X_2)$ defined as 
+\begin{align*}
+X_1&\sim p_w,\\
+X_2&\sim \pp_\cS(\,\cdot\,|X_1).
+\end{align*}
 
-\bed
-Let $p\in\rr^T$ be a vector. Denote $x=\sum_{i=1}^T p_i
-t_i\in\cH$. Let $\widehat{p}\in\rr^T$ be defined so that
-\[\widehat{p}_i = \langle x,t_i\rangle.\]
-We will call $\widehat{p}$ the inner-product representation of $p$.
-\eed
+This transformation ensures, in particular, that topics which are
+strongly correlated with each other will get similar weight in any
+distributional representation. Note, that since any topic is the most
+similar to itself, we should naturally expect the largest weights in
+$\cS$ to appear on the diagonal. We can apply topic similarity to all
+of the data directly by transforming the original word-topic-count
+matrix $\cM$, obtaining $\cM_\cS=\cM\cS^T$. So, for each word-topic
+assignment in the LDA model, instead of just adding $1$ to the
+corresponding cell in $\cM$, we diffuse the effect of this assignment
+accross the entire row for the given word.
 
-Notice, that if the considered topic basis is orthonormal, then both
-representations $p$ and $\widehat{p}$ are identical. Consider the Gram matrix
-$\Sbb=\{\langle t_i,t_j\rangle\}_{i,j}$ of all possible inner-products between
-basis vectors. If the basis is orthonormal, this is simply the identity
-matrix. Moreover, no matter which basis we choose, matrix $\Sbb$ is the
-only information we need to translate $p$ to $\widehat{p}$.
+To construct the topic similarity matrix for the LDA model, we
+followed the suggestions provided in \cite{bache:2013}. In addition to
+the word-topic-count matrix $\cM$, the model also provides a
+document-topic-count matrix $\cN_{|D|\times|T|}$, which has for each
+document a row vector describing the number of assignments of
+every topic. Note, that we are referring here to the set of documents
+that was used for training the topic model, which is (or at least can
+be) separate from the collection of texts for which we want to measure
+diversity. To estimate the similarity of topics $t_i$ and $t_j$, we
+compute the cosine similarity between their corresponding columns in
+$\cN$. Denoting $\cN^{(i)},\cN^{(j)}$ as those column vectors, we
+write the cosine similarity as
+\begin{align*}
+s(i,j) = \frac{\langle\cN^{(i)}, \cN^{(j)}\rangle}{\|\cN^{(i)}\|_2\|\cN^{(j)}\|_2},
+\end{align*}
+where $\langle\cdot,\cdot\rangle$ represents a scalar product between
+two vectors. Putting the values $s(i,j)$ into a matrix, we normalize
+the rows to obtain a valid Markovian transition matrix $\cS$.
 
-\ber
-For any vector $p\in\rr^T$, any Hilbert space $\cH$ and a set of
-vectors $t_1,...,t_T\in\cH$, we have 
-\[\widehat{p} = p\Sbb,\]
-where $\Sbb=\{\langle t_i,t_j\rangle\}_{i,j}$ is the Gram matrix.
-\eer
+% Let $p$ be a row vector (corresponding to some word $w$)  from the
+% word-topic co-occurrence matrix $\cM_{|V|\times|T|}$ obtained from an LDA
+% model. We could think of the topics as representing a basis
+% $t_1,...,t_T$ in some hypothetical vector space $\cH$. In 
+% this case, $p$ corresponds to a linear combination of the basis
+% vectors, $\Sigma p_i t_i$. In other words, for every occurrence of
+% word $w$ assigned with $i$-th topic, we add basis vector $t_i$ to the
+% complete representation of $w$ in space $\cH$.
+% Suppose that $\cH$ is a Hiblert space (i.e. has an inner
+% product). Now, the correlation between two topics can be represented
+% by the inner-product of the corresponding basis vectors (we assume those
+% are unit vectors). We can consider a following alternative representation
+% of a point in $\cH$:
 
-The inner-product representation allows us to incorporate the topic
-similarity information into a vector representation. Moreover, we do
-not need to directly manipulate the space $\cH$ to obtain it, except
-computing pairwise topic correlations $s_{ij}$. Once we compute matrix
-$\Sbb$, we can transform our data matrix into this new form using
-matrix multiplication $\cM'=\cM\cdot \Sbb$. Since the co-occurrence matrix
-must have nonnegative coefficients, we will require that the matrix
-$\Sbb$ also be element-wise nonnegative (which it would not
-have to be, in general). The new data matrix $\cM'$ can be interpreted
-as follows: for each original word-topic co-occurrence, we also add to
-the matrix some {\em fractional} co-occurrences of the same word with
-other topics, based on their similarity to the main topic.
+% \bed
+% Let $p\in\rr^T$ be a vector. Denote $x=\sum_{i=1}^T p_i
+% t_i\in\cH$. Let $\widehat{p}\in\rr^T$ be defined so that
+% \[\widehat{p}_i = \langle x,t_i\rangle.\]
+% We will call $\widehat{p}$ the inner-product representation of $p$.
+% \eed
 
-To obtain a topic similarity matrix, all we need is to write
-the topics as nonnegative vectors in a common space. When the topics
-come from an LDA model, there is two standard ways to do that: a
-distribution over words, or a distribution over documents. Following
-the analysis in \cite{bache:2013}, we used the document distributions,
-with cosine similarity as a measure of correlation. However, we use the
-topic similarities in a different way, that can not only make this
-technique applicable to any task relying on distributional word
-representations, but also outperforms the aforementioned one for
-measuring diversity.
+% Notice, that if the considered topic basis is orthonormal, then both
+% representations $p$ and $\widehat{p}$ are identical. Consider the Gram matrix
+% $\Sbb=\{\langle t_i,t_j\rangle\}_{i,j}$ of all possible inner-products between
+% basis vectors. If the basis is orthonormal, this is simply the identity
+% matrix. Moreover, no matter which basis we choose, matrix $\Sbb$ is the
+% only information we need to translate $p$ to $\widehat{p}$.
 
-To illustrate the benefit of introducing topic similarities for
-measuring diversity, consider a simple case where we have a pair of words
-$S=(w_1,w_2)$, with distributional representations $P_1,P_2$, each having
-singleton support on one topic (topic similarities not
-applied). Clearly, if those topics match, we 
-have no diversity, and if they don't, we get relatively high diversity
-(assuming uniform weights of the mixture, it would be $\log 2$). Notice, that without introducing topic similarity this is
-independent of which pair of topics we are looking at. It could, for
-instance, be ``Mathematics'' and ``Physics'' (closely related), or
-``Mathematics'' and ``Literature'' (further apart).  Applying the
-topic similarity matrix allows for this distinction to be clear and properly
-reflected in the results, because the weight from the main topic has
-to be redistributed among similar ones, making the distributions $P_1$
-and $P_2$ more comparable.
+% \ber
+% For any vector $p\in\rr^T$, any Hilbert space $\cH$ and a set of
+% vectors $t_1,...,t_T\in\cH$, we have 
+% \[\widehat{p} = p\Sbb,\]
+% where $\Sbb=\{\langle t_i,t_j\rangle\}_{i,j}$ is the Gram matrix.
+% \eer
+
+% The inner-product representation allows us to incorporate the topic
+% similarity information into a vector representation. Moreover, we do
+% not need to directly manipulate the space $\cH$ to obtain it, except
+% computing pairwise topic correlations $s_{ij}$. Once we compute matrix
+% $\Sbb$, we can transform our data matrix into this new form using
+% matrix multiplication $\cM'=\cM\cdot \Sbb$. Since the co-occurrence matrix
+% must have nonnegative coefficients, we will require that the matrix
+% $\Sbb$ also be element-wise nonnegative (which it would not
+% have to be, in general). The new data matrix $\cM'$ can be interpreted
+% as follows: for each original word-topic co-occurrence, we also add to
+% the matrix some {\em fractional} co-occurrences of the same word with
+% other topics, based on their similarity to the main topic.
+
+% To obtain a topic similarity matrix, all we need is to write
+% the topics as nonnegative vectors in a common space. When the topics
+% come from an LDA model, there is two standard ways to do that: a
+% distribution over words, or a distribution over documents. Following
+% the analysis in \cite{bache:2013}, we used the document distributions,
+% with cosine similarity as a measure of correlation. However, we use the
+% topic similarities in a different way, that can not only make this
+% technique applicable to any task relying on distributional word
+% representations, but also outperforms the aforementioned one for
+% measuring diversity.
+
+% To illustrate the benefit of introducing topic similarities for
+% measuring diversity, consider a simple case where we have a pair of words
+% $S=(w_1,w_2)$, with distributional representations $P_1,P_2$, each having
+% singleton support on one topic (topic similarities not
+% applied). Clearly, if those topics match, we 
+% have no diversity, and if they don't, we get relatively high diversity
+% (assuming uniform weights of the mixture, it would be $\log 2$). Notice, that without introducing topic similarity this is
+% independent of which pair of topics we are looking at. It could, for
+% instance, be ``Mathematics'' and ``Physics'' (closely related), or
+% ``Mathematics'' and ``Literature'' (further apart).  Applying the
+% topic similarity matrix allows for this distinction to be clear and properly
+% reflected in the results, because the weight from the main topic has
+% to be redistributed among similar ones, making the distributions $P_1$
+% and $P_2$ more comparable.
   
 \begin{figure*}[t!]
   \centering
@@ -117,7 +171,7 @@ and $P_2$ more comparable.
     \centering
     \includegraphics[width=0.45\textwidth]{figures/nsf-comparison-new.eps}
  %   \caption{}
-\hspace{4mm}
+\hspace{3mm}
   \end{subfigure}%
   ~
   \begin{subfigure}
