@@ -1,10 +1,35 @@
 \subsection{Datasets}
 \label{sec:datasets}
+
+
+\begin{figure*}
+\begin{center}
+\includegraphics[height=2.5cm]{figures/Pipeline.png}
+\caption{Pipeline for generating interesting eBay products based on Pinterest. Pinterest is first crawled, next the pins will be ranked and filtered based on whether or not they contain useful product information, next a product keyword extractor is applied to a set of highly ranked pins, and finally the extracted keywords are used to find a relevant eBay product.}
+\end{center}
+\label{fig:pinterest-pipeline}
+\end{figure*}
+
 We used the following two datasets in our experiments: 
 
 {\bf Interesting iPhone cases}.
-For generating the ground truth data we hired workers from {\em Amazon Mechanical Turk (AMT)} to label a collection
-of nearly 20,000 iPhone cases on {\em eBay}. We used insights from 
+In this dataset, we generated a collection of interesting (positive) and uninteresting (negative) iPhone cases as follows. For positive generating positive examples, one natural choice was exploiting the data hosted by Pinterest. By definition, it is fair to assume that anyone who pins a product on Pinterest has found it interesting to some degree. The more a pin is engaged by the users, the more interesting is the product to those users. Although Pinterest data is biased by the demographic of its users, it is a publicly available dataset and is a more natural choice compared to collecting interesting products using crowd sourcing such as  {\em Amazon Mechanical Turk (AMT)} where it would be more subject to demographic biases. We built a pipeline for generating interesting eBay products illustrated in Figure~\ref{fig:pinterest-pipeline}.  In the first stage, we periodically crawl pins from Pinterest. In the next stage we filter the pins which do not have rich textual content and then rank the remaining pins using a score computed from the number of {\em repins}, {\em likes}, and {\em comments}. In the next stage, we trained a {\em Conditional Random Field (CRF)} model for extracting product related keywords from a set of highly ranked pins produced in the previous step. The final set of product related keywords  is then used to find a match in the eBay inventory. 
+
+For generating the uninteresting iPhone case dataset (negative examples), we
+hired workers from {\em AMT} to label a collection
+of nearly 20,000 iPhone cases on {\em eBay}.  We then pulled our final dataset from the annotated by selecting only those instances where the annotators all labeled it as uninteresting. 
+
+The final data-set consists of $2179$ positive and $9770$ negative instances
+for a total of $11,949$ instances. For each instance, the product title of
+the corresponding {\em eBay} listing was used as the input. In this case we are
+dealing with very short text snippets, usually 10 to 12 words each. To
+train a topic model, we used a larger, more broader set of about
+$2$ million product titles, grouped based on {\em eBay} categorical information into about $8,000$
+documents of approximately $200$ titles each.
+
+
+%{
+We used insights from 
 interesting iPhone cases found on {\em Pinterest} and {\em eBay's}
 user behavior data in order to generate a balanced data-set.  
 We then pulled our final dataset from the annotated by selecting only
@@ -17,6 +42,7 @@ dealing with very short text snippets, usually 10 to 12 words each. To
 train a topic model, we used a larger, more broader set of about
 2 million product titles, grouped based on {\em eBay} categorical information into about 8,000
 documents of approximately 200 titles each.
+%}
 
 {\bf {\em NSF} abstracts}. For the second dataset we used a set of
 61,902 National Science Foundation 
@@ -126,6 +152,13 @@ plotted). Another interesting observation is that comparing the
 results for entropy with - and without - topic similarity for the NSF
 dataset, shows that this technique provides as much - if not more -
 improvement as does Rao diversity over regular entropy.
+\begin{figure}
+\begin{center}
+\includegraphics[width=5.5cm]{figures/RAE.png}
+\caption{RAE tree learned for the product: {it Black Qi Standard Wireless Charging Charger Receiver Case For iPhone 5 5G}. Note how RAE learns to merge different concepts separately and merges them until very last step into the root node.}
+\end{center}
+\label{fig:rae-example}
+\end{figure}
 
 Figures~\ref{fig:roc-curves} (b) and (d)  
 show the gains we obtain by applying topic
@@ -152,7 +185,7 @@ setting for both datasets described in Section~\ref{sec:datasets}. We also used 
 different baselines for comparison. For the first baseline we used {\em Latent Semantic Indexing (LSI)} features by forming a
 document-term matrix and performing SVD. For the second baseline we used the {\em recursive auto-encoders (RAE)}~\cite{Socher:2011:SRA:2145432.2145450}. RAEs 
 have been shown sucessful for sentence-level prediction of sentiment label
-distributions. There is a nice connection between RAEs and text diversity: starting from the word level, an RAE greedily forms substructures that yield the least reconstruction error  structured in a  binary tree. As a result at the higher levels of the tree we observe the more diverse  substructures. For example, when applying RAE to an example product title "Eyeshadow Palettes foriPhone 6 case" , we can observe that the words \{for, iPhone, 6, case\} are combined into one substructure, while the words \{Eyeshadow, Palettes\} form a different substructure. In other words RAEs inherently respect diversity at higher levels of the RAE tree structure.
+distributions. There is a nice connection between RAEs and text diversity: starting from the word level, an RAE greedily forms substructures that yield the least reconstruction error  structured in a  binary tree. As a result at the higher levels of the tree we observe the more diverse  substructures. This is further illustrated in Figure~\ref{fig:rae-example} where it shows the learned RAE structure for the example product shown in Table~\ref{tab:ebay-interesting-products}(a). When RAE is applied to the product title "Eyeshadow Palettes for iPhone 6 case" , we can observe that the words \{for, iPhone, 6, case\} are combined into one substructure, while the words \{Eyeshadow, Palettes\} form a different substructure. In other words RAEs inherently respect diversity at higher levels of the RAE tree structure.
 
 Table~\ref{tab:classification-results} shows
 the performance of the SVM classifier using our proposed mixture topic
