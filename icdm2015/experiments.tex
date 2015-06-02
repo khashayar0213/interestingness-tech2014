@@ -156,8 +156,8 @@ The Shannon entropy has
 been previously tested as a measure of document diversity with quite
 underwhelming results in \cite{bache:2013}, where the authors proposed 
 Rao diversity as a better solution, which incorporates the topic similarity
-information to provide better accuracy. We asked the question whether
-the poor performance of entropy might be due to a suboptimal choice of
+information to provide better accuracy. We suspected that
+poor performance of entropy might be due to a suboptimal choice of
 topic distribution, which led to our topic similarity
 method. This technique can be used on any topic distribution
 by simply multiplying it by the topic similarity matrix, and then
@@ -211,15 +211,23 @@ around $0.73$. Moreover, for the {\em eBay} dataset the other measures
 give poor results. This can be explained as follows: since the
 text snippets are short, the LDA may yield a poor topic inference for
 such short text and as a result all measures using topic inference
-would perform poorly. The DPP-based measure does have some correlation
+would perform poorly. Our technique only relies on the topic model for
+computing the distributional representations of words, so LDA can be
+trained on a separate dataset and does not have to be affected by the
+length of documents in the test set.
+ The DPP-based measure does have some correlation
 with the labels for both datasets, although not particularly
 high. Interestingly, for the eBay dataset, unit vector lengths
 performed better, while for NSF, importances gave an improvemet (in
 each case, only the better result was
-plotted). Another interesting observation is that comparing the
-results for entropy with - and without - topic similarity for the NSF
-dataset, shows that this technique provides as much - if not more -
-improvement as does Rao diversity over regular entropy.
+plotted). Another interesting observation is that 
+Shannon entropy on the NSF dataset performs much better when applied
+to distributions transformed using topic similarity information. In
+fact, in our experiments it did better than Rao diversity, which also
+used the same topic similarity matrix. This shows that the
+transformation proposed in Section~\ref{sec:topic-similarities} is an
+effective way of incorporating topic similarity information when
+measuring diversity.
 \begin{figure}
 \begin{center}
 \includegraphics[width=5.5cm]{figures/RAE.png}
@@ -230,18 +238,23 @@ improvement as does Rao diversity over regular entropy.
 
 Figures~\ref{fig:roc-curves} (b) and (d)  
 show the gains we obtain by applying topic
-similarity and context conditioning techniques that we
+similarity and context conditioning techniques to our measure, as
 discussed in Sections~\ref{sec:the-readers-model} and
 \ref{sec:topic-similarities}. Both methods appear to be beneficial,
 significantly improving the AUC. Interestingly, using
 topic similarities appears to skew the ROC curve towards the upper
 right, while context conditioning gives more improvement in the lower
-left corner of the plot. We also measured the difference between using 
+left corner of the plot, which suggests that the two enhancements work
+particularly well in conjunction. 
+We also measured the difference between using 
 the Informative Mixture and simply taking a uniform mixture of
-distributional representations. The importances appear to have a
-particularly significant effect for the NSF dataset - probably because
-the larger size of documents makes it necessary to effectively ignore all of
-the irrelevant words.
+distributional representations. The importances from
+Definition~\ref{mixture} do not have much of an effect for the eBay
+dataset, however they make a big difference
+for the NSF proposal abstracts. This is probably because
+the larger the size of the documents, the more important it is to
+have an effective way of keeping all of the irrelevant words from
+diluting the topic distribution. 
 
 \begin{table*}[t]
 \renewcommand{\arraystretch}{1.3}
