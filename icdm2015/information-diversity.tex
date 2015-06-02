@@ -22,6 +22,9 @@ is set in an information-theoretic framework. To apply it in the text
 setting we have to construct distributional representations that
 preserve the relevant content of the data in a way that is compatible
 with that model.
+% To apply it in the text setting we have to construct distributional
+% representations of each word in such a way that will preserve the
+% relevant content of the data.
 This can be achieved through a common general model,
 where we obtain a significant collection of text with each word
 occurrence tagged with one among a set of
@@ -120,7 +123,8 @@ $\Sigma d_{w_i}P_{w_i}$ is defined as
 $$D_{JS}(\Sigma d_{w_i}P_{w_i})=\sum_{i=1}^k
 d_{w_i}D_{KL}(P_{w_i}\|M),$$
 where $M=\sum_{i=1}^kd_{w_i} P_{w_i}$ is the weighted average of the
-distributions. 
+distributions. As a shorthand, we will also write $D_{JS}(M)$, when
+it is clear that $M$ represents a mixture of distributions.
 \eed
 % \bed\label{jsd-definition}
 % Let $P(Y)=\Sigma d_w P_w$ be the distribution of contexts,

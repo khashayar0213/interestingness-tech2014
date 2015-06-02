@@ -12,7 +12,8 @@ extracting topic-distributional representations of words and
 sentences. Even though it is not the main goal of the paper, we were
 interested to see how these representations perform as feature vectors
 in a supervised setting. To that end, we used the eBay product
-data-set again, comparing against other text embedding techniques
+dataset again, comparing against other text embedding techniques.
+
 \subsection{Datasets}
 \label{sec:datasets}
 
@@ -40,7 +41,8 @@ the corresponding {\em eBay} listing was used as the input. In this case we are
 dealing with very short text snippets, usually 10 to 12 words each. To
 train a topic model, we used a larger, more broader set of about
 $2$ million product titles, grouped based on {\em eBay} categorical information into about $8,000$
-documents of approximately $200$ titles each.
+documents of approximately $200$ titles each. We used the Mallet LDA
+implementation to learn a topic model with $400$ topics.
 
 
 %{
@@ -68,7 +70,19 @@ for training a topic model, however to get labeled data, we had to
 generate artificial examples, by randomly mixing pairs of abstracts that we
 could expect to be either similar (small diversity) or very different
 (high diversity), based on the available meta-data, and labeling them accordingly. We generated 5,000 of
-those examples with positive and negative labels evenly represented. For both datasets, we used the Mallet LDA implementation and learned a separate topic model with $400$ topics.
+those examples with positive and negative labels evenly
+represented. For this experiment, we trained a separate topic model with $300$ topics
+based on the original NSF abstracts. To give better intuitions for
+this setting, Table \ref{tab:nsf-examples} presents two example
+abstracts - one, which the model deemed diverse, with score 1.25, and
+a much less diverse one, with score 0.71. Note, that theoretically the
+diversity may be anywhere between $0$ and $\log(|T|)\approx 5.7$, but
+in practice, almost all of the documents fell into the range of $0.6$
+to $1.3$. The table shows top three topics that the model associated
+with each of the two example abstracts. For the more diverse abstract, the
+topics (Linguistics, Design and Decision-Making) are relatively dissimilar,
+while for the less diverse one (Algebraic Geometry, Combinatorics and
+Foundations) they are closely related to each other, hence the lower score.  
 
 \begin{table*}[t]
 \renewcommand{\arraystretch}{1.3}
@@ -230,7 +244,7 @@ the irrelevant words.
 
 \begin{table*}[t]
 \renewcommand{\arraystretch}{1.3}
-\caption{Classification results for the Ebay dataset.}
+\caption{Classification results for the eBay dataset.}
 \label{tab:classification-results}
 %\vspace{4mm}
 \centering
