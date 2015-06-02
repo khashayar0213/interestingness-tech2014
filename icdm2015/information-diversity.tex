@@ -18,18 +18,21 @@ analyzing very short pieces of text.
 \subsection{Distributional Representations}
 \label{sec:distributional-representations}
 As described later in this section, the proposed diversity measure
-is set in an information-theoretic framework. To apply it in the text
-setting we have to construct distributional representations that
-preserve the relevant content of the data in a way that is compatible
-with that model.
-% To apply it in the text setting we have to construct distributional
-% representations of each word in such a way that will preserve the
-% relevant content of the data.
+is set in an information-theoretic framework. 
+% To apply it in the text
+% setting we have to construct distributional representations that
+% preserve the relevant content of the data in a way that is compatible
+% with that model.
+To apply it in the text setting we have to construct distributional
+representations of each word in such a way that will preserve the
+relevant content of the data.
 This can be achieved through a common general model,
 where we obtain a significant collection of text with each word
 occurrence tagged with one among a set of
-contexts. Moreover, naturally, every word occurrence can be mapped to a
-vocabulary term (barring ambiguities). So, each word in the vocabulary
+contexts. 
+% Moreover, naturally, every word occurrence can be mapped to a
+% vocabulary term (barring ambiguities). 
+So, each word in the vocabulary
 corresponds to a group of its occurrences, which leads to a
 distribution over the set of contexts. A distributional representation
 over a vocabulary $V$ maps a word in the vocabulary to a  
