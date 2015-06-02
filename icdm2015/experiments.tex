@@ -29,7 +29,7 @@ dataset again, comparing against other text embedding techniques.
 We used the following two datasets in our experiments: 
 
 {\bf Interesting iPhone cases}.
-In this dataset, we generated a collection of interesting (positive) and uninteresting (negative) iPhone cases as follows. For positive generating positive examples, one natural choice was exploiting the data hosted by Pinterest. By definition, it is fair to assume that anyone who pins a product on Pinterest has found it interesting to some degree. The more a pin is engaged by the users, the more interesting is the product to those users. Although Pinterest data is biased by the demographic of its users, it is a publicly available dataset and is a more natural choice compared to collecting interesting products using crowd sourcing such as  {\em Amazon Mechanical Turk (AMT)} where it would be more subject to demographic biases. We built a pipeline for generating interesting eBay products illustrated in Figure~\ref{fig:pinterest-pipeline}.  In the first stage, we periodically crawl pins from Pinterest. In the next stage we filter the pins which do not have rich textual content and then rank the remaining pins using a score computed from the number of {\em repins}, {\em likes}, and {\em comments}. In the next stage, we trained a {\em Conditional Random Field (CRF)} model for extracting product related keywords from a set of highly ranked pins produced in the previous step. The final set of product related keywords  is then used to find a match in the eBay inventory. 
+In this dataset, we generated a collection of interesting (positive) and uninteresting (negative) iPhone cases as follows. For generating positive examples, one natural choice was exploiting the data hosted by Pinterest. By definition, it is fair to assume that anyone who pins a product on Pinterest has found it interesting to some degree. The more a pin is engaged by the users, the more interesting is the product to those users. Although Pinterest data is biased by the demographic of its users, it is a publicly available dataset and is a more natural choice compared to collecting interesting products using crowd sourcing such as  {\em Amazon Mechanical Turk (AMT)} where it would be more subject to demographic biases. We built a pipeline for generating interesting eBay products illustrated in Figure~\ref{fig:pinterest-pipeline}.  In the first stage, we periodically crawl pins from Pinterest. In the next stage we filter the pins which do not have rich textual content and then rank the remaining pins using a score computed from the number of {\em repins}, {\em likes}, and {\em comments}. In the next stage, we trained a {\em Conditional Random Field (CRF)} model for extracting product related keywords from a set of highly ranked pins produced in the previous step. The final set of product related keywords  is then used to find a match in the eBay inventory. 
 
 For generating the uninteresting iPhone case dataset (negative examples), we
 hired workers from {\em AMT} to label a collection
@@ -46,19 +46,19 @@ implementation to learn a topic model with $400$ topics.
 
 
 %{
-We used insights from 
-interesting iPhone cases found on {\em Pinterest} and {\em eBay's}
-user behavior data in order to generate a balanced data-set.  
-We then pulled our final dataset from the annotated by selecting only
-those instances where the annotators all labeled it as 
-positive (i.e., interesting) or negative (i.e., uninteresting). The
-final data-set consists of 2179 positive and 9770 negative instances
-for a total of 11,949 instances. For each instance, the product title of
-the corresponding {\em eBay} listing was used as the input. In this case we are
-dealing with very short text snippets, usually 10 to 12 words each. To
-train a topic model, we used a larger, more broader set of about
-2 million product titles, grouped based on {\em eBay} categorical information into about 8,000
-documents of approximately 200 titles each.
+% We used insights from 
+% interesting iPhone cases found on {\em Pinterest} and {\em eBay's}
+% user behavior data in order to generate a balanced data-set.  
+% We then pulled our final dataset from the annotated by selecting only
+% those instances where the annotators all labeled it as 
+% positive (i.e., interesting) or negative (i.e., uninteresting). The
+% final data-set consists of 2179 positive and 9770 negative instances
+% for a total of 11,949 instances. For each instance, the product title of
+% the corresponding {\em eBay} listing was used as the input. In this case we are
+% dealing with very short text snippets, usually 10 to 12 words each. To
+% train a topic model, we used a larger, more broader set of about
+% 2 million product titles, grouped based on {\em eBay} categorical information into about 8,000
+% documents of approximately 200 titles each.
 %}
 
 {\bf {\em NSF} abstracts}. For the second dataset we used a set of
@@ -148,8 +148,9 @@ Foundations& theory, understanding, fundamental, framework, general
 
 We evaluated our text diversity model in an unsupervised learning task
 on both datasets.
-We implemented our model by combining the topic similarities with the
-Reader's model (labeled by {\em JSD-Sim-Con}) and compared it against a few
+We implemented our model as described in
+Sections~\ref{sec:information-diversity}-\ref{sec:topic-similarities} (labeled by {\em
+    JSD-Sim-Con}) and compared it against a few 
 baselines: Shannon entropy, Rao Diversity and a measure
 based on Determinantal Point Processes.
 The Shannon entropy has
