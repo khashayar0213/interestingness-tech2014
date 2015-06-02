@@ -1,3 +1,18 @@
+Through the use of experimental results, we aim to prove several
+claims made in this paper. First, we show that in some domains of
+e-commerce measuring text diversity for product titles is a valid
+approach for discovering interesetingness. To that end, we present the
+unsupervised evaluation of diversity scores against human-made
+interestingness labels for products in an eBay data-set of iPhone
+cases. Second, we evaluate our proposed text diversity measure against
+several baselines on the dataset based on NSF grant proposal
+abstracts, to show that our model does in fact measure
+diversity. Finally, as part of our model, we proposed a method for
+extracting topic-distributional representations of words and
+sentences. Even though it is not the main goal of the paper, we were
+interested to see how these representations perform as feature vectors
+in a supervised setting. To that end, we used the eBay product
+data-set again, comparing against other text embedding techniques
 \subsection{Datasets}
 \label{sec:datasets}
 
@@ -65,9 +80,9 @@ those examples with positive and negative labels evenly represented. For both da
 \multicolumn{2}{c}{\bfseries High
   Diversity}&\multicolumn{2}{c}{\bfseries Low Diversity}\\
 \hline\hline
-\multicolumn{2}{c|}{\em Linguistics-Based Preference Information Modeling for Design
-Decision-Making} & \multicolumn{2}{c}{\em Ramsey Theory: Central sets and related
-combinatorially rich sets}\\
+\multicolumn{2}{c|}{{\bf Title}\hfill\quad {\em Linguistics-Based Preference Information Modeling for Design
+Decision-Making}} & \multicolumn{2}{c}{{\bf Title}\hfill\quad {\em Ramsey Theory: Central sets and related
+combinatorially rich sets}}\\
 \hline
 Main Topics & Top 5 words for topic & Main Topics & Top 5 words for topic\\
 \hline
@@ -112,24 +127,6 @@ Foundations& theory, understanding, fundamental, framework, general
 
 % 1160566	07/01/2012	Division of Mathematical Sciences	PROBABILITY; Combinatorics; 	Ramsey Theory: Central sets and related combinatorially rich sets	Ramsey Theory is that part of combinatorics that deals with the question of what sort of homogeneous structures one can expect to find in some one cell of a finite partition of a specified set (or sometimes in any suitably "large" subset). For example, the simplest nontrivial instance of the infinite version of Ramsey's Theorem says that whenever the two-element subsets of the set N of positive integers are finitely colored, there must be some infinite subset of N all of whose two element subsets are the same color. Many years ago, the principal investigator proved that whenever N is finitely colored, there must exist in one color an infinite sequence together with all of its finite sums of distinct terms without repetition. The original proof was elementary, but very complicated. Subsequently, other proofs were found that were less complicated. But in 1975, F. Galvin and S. Glazer showed that this "Finite Sums Theorem" is a completely trivial consequence of the fact that the Stone-Cech compactification of N can be given an algebraic structure extending ordinary addition which makes it a compact right topological semigroup, and therefore has idempotents. Sets with the property that they contain all the finite sums from a sequence are called IP sets. By virtue of the connection discovered above, a set is an IP set if and only if it has an idempotent in its closure in the Stone-Cech compactification of N. Those that have special idempotents which are called "minimal" in their closure are "central" sets. These sets have much stronger properties, many of which are consequences of the Central Sets Theorem. But central sets have a very complicated elementary description. Sets which satisfy the conclusion of the Central Sets Theorem are called "C-sets", and are much easier to describe in an elementary fashion. The proposed investigation of these various algebraically characterized large subsets of N should continue to yield new Ramsey-theoretic results.  A significant portion of the funds in this grant will provide support for graduate students at Howard University, an historically black university. In particular, the grant will provide stipends for three Ph.D. students, two of whom are black Americans, both female. This project will therefore be instrumental in training mathematicians who come from a population that is severely underrepresented within the population of US mathematicians.
 
-\begin{table*}[t]
-\renewcommand{\arraystretch}{1.3}
-\caption{Classification results for the Ebay dataset.}
-\label{tab:classification-results}
-%\vspace{4mm}
-\centering
-\begin{tabular}{l||c|c|c|c}
-&Precision & Recall & F1 & Accuracy
-\\ \hline \hline
-JSD Features         &$\mathbf{0.714}\pm 0.015$&$0.597\pm 0.016$&$0.650\pm
-0.014$& $\mathbf{0.8828}\pm 0.0045$\\
-RAE Features         &$0.676\pm 0.005$&$\mathbf{0.666}\pm 0.030$&$\mathbf{0.671}\pm
-0.013$&$0.8809\pm 0.0020$ \\
-SVD Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
-0.010$&$0.8778\pm 0.0027$\\
-%\hline
-\end{tabular}
-\end{table*}
 
 \subsection{Unsupervised Learning}
 \label{sec:unsupervised-learning}
@@ -230,6 +227,25 @@ distributional representations. The importances appear to have a
 particularly significant effect for the NSF dataset - probably because
 the larger size of documents makes it necessary to effectively ignore all of
 the irrelevant words.
+
+\begin{table*}[t]
+\renewcommand{\arraystretch}{1.3}
+\caption{Classification results for the Ebay dataset.}
+\label{tab:classification-results}
+%\vspace{4mm}
+\centering
+\begin{tabular}{l||c|c|c|c}
+&Precision & Recall & F1 & Accuracy
+\\ \hline \hline
+JSD Features         &$\mathbf{0.714}\pm 0.015$&$0.597\pm 0.016$&$0.650\pm
+0.014$& $\mathbf{0.8828}\pm 0.0045$\\
+RAE Features         &$0.676\pm 0.005$&$\mathbf{0.666}\pm 0.030$&$\mathbf{0.671}\pm
+0.013$&$0.8809\pm 0.0020$ \\
+SVD Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
+0.010$&$0.8778\pm 0.0027$\\
+%\hline
+\end{tabular}
+\end{table*}
 
 \subsection{Text Embeddings}
 \label{sec:text-embeddings}
