@@ -105,10 +105,12 @@ word representations as topic distributions.
 % information $I(X;Y)$ provides a proper generalization of diversity in
 % this case. Moreover, we can formulate mutual information in terms of the
 % distributional representations of the words as follows:
+%For the remainder of this section, we assume that the
+%textual data has already been transformed into topic distributions.
 
-For the remainder of this section, we assume that the
-textual data has already been transformed into topic distributions.
-We are given a distributional representation over a vocabulary $V$ and
+For the remainder of this section, we assume that a topic distributional 
+model for the words in the vocabulary has been learned. More specifically,  
+we are given a distributional representation over a vocabulary $V$ and
 topic set $T$, with $P_w$ giving a topic distribution corresponding to the
 word $w$. We will measure information diversity
 for a text snippet $W=\{w_1,...,w_k\}$ by analyzing its 
@@ -119,8 +121,7 @@ generalization of Jensen-Shannon Divergence.
 
 \bed\label{diversity}
 Let $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$ be a set of
-distributions. Moreover, suppose that we assigned a weight $d_{w_i}$ to
-each distribution $P_{w_i}$, so that $\sum_{i=1}^kd_{w_i}=1$.
+distributions (for example, a set of word topic distribution for the words in a sentence). Moreover, assume $\{d_{w_i}\}$  are a set of importance weights assigned to $\{P_{w_i}\}$, such that $\sum_{i=1}^kd_{w_i}=1$.
 {\em Generalized Jensen-Shannon Divergence} of the mixture
 $\Sigma d_{w_i}P_{w_i}$ is defined as
 $$D_{JS}(\Sigma d_{w_i}P_{w_i})=\sum_{i=1}^k
