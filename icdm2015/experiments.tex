@@ -56,23 +56,79 @@ could expect to be either similar (small diversity) or very different
 those examples with positive and negative labels evenly represented. For both datasets, we used the Mallet LDA implementation and learned a separate topic model with $400$ topics.
 
 \begin{table*}[t]
-\label{tab:classification-results}
-\vspace{4mm}
-\begin{center}
-\begin{tabular}{|l|c|c|c|c|}
+\renewcommand{\arraystretch}{1.3}
+\caption{Example NSF Abstracts.}
+\label{tab:nsf-examples}
+%\vspace{4mm}
+\centering
+\begin{tabular}{r|l|r|l}
+\multicolumn{2}{c}{\bfseries High
+  Diversity}&\multicolumn{2}{c}{\bfseries Low Diversity}\\
+\hline\hline
+\multicolumn{2}{c|}{\em Linguistics-Based Preference Information Modeling for Design
+Decision-Making} & \multicolumn{2}{c}{\em Ramsey Theory: Central sets and related
+combinatorially rich sets}\\
 \hline
+Main Topics & Top 5 words for topic & Main Topics & Top 5 words for topic\\
+\hline
+Linguistics & language, linguistic, english, speakers, words &
+Algebraic Geometry& theory, algebraic, geometry, representation,
+algebra\\
+Design & design, engineering, principles, implementation,
+methodology & Combinatorics & theory, graph, problems, discrete, combinatorial\\
+Decision-Making &decision, making, uncertainty, risk, choice &
+Foundations& theory, understanding, fundamental, framework, general
+\end{tabular}
+\end{table*}
+
+% Three main topics: Language (138), Design (37), Decision-Making (208).
+
+% Language (138): 1912        5659       11148       20337        4655        4784        5091        1044         334        6809
+% language languages linguistic english speakers words word
+% linguistics documentation translation
+% Design (37):        212         162        5031        2667       1790        2781        1791         290         192        1489
+% design engineering designs designing principles implementation
+% methodology objective tools designers
+% Proposal ? (253):         1105         291        5970        5414        5070        5674        3609       15718        2137        2508
+% public award recovery act funded american law reinvestment employ
+% funds 
+% Decision-Making (208)        1063         875         898         874         449         788        3317        3569          32         792
+% decision making decisions uncertainty risk make choice choices
+% research individual
+
+% Algebraic Geometry (41)          8         612          78         611         636      827         820        1347         829          12
+% theory algebraic geometry representation algebra algebras quantum
+% geometric mathematics study
+% Combinatorics (28)           8        1683           7        1660         510        1338        1663          44          45         734
+% theory graph problems graphs discrete combinatorial complexity
+% applications areas set
+% Theory (223)          8         914        2118          77         330         740         151        4049        1983         200
+% theory theoretical theories understanding fundamental framework
+% general string foundations ideas
+
+
+% 0900255	07/01/2009	Division of Civil, Mechanical, and Manufacturing Innovation	ENGINEERING DESIGN AND INNOVAT; 	Linguistics-Based Preference Information Modeling for Design Decision-Making	This award is funded under the American Recovery and Reinvestment Act of 2009 (Public Law 111-5). The objective of this research award is to model the preference information embedded in natural language engineering design texts in order to identify linguistic forms of preference that will form the basis for a decision-making model that supports comparison of computed decisions to actual decisions. One view of the product design process is that it is driven by designers who have preferences for alternatives within a set of possible design choices. Such preference information is implicit within engineering design texts, but can be difficult to extract from unstructured information. The challenge is in linguistically modeling these preferences and mapping them into a mathematical model suitable for supporting design decision-making. Work will identify linguistic forms of preference, produce a comprehensive 'preference lexicon', develop formal mathematical models of preferences, and generate a decision-making model so that computed decisions can be compared with actual decisions to verify their validity.  If successful, this work will have impact across many industries, including product development, automotive, aerospace, and the military, due to the fundamental role of decision-making in the engineering design process. This research is intended to advance fundamental understanding of the language of design, in particular how preferences are expressed. In turn, this will further basic knowledge of the subjective aspects of decision-making and move towards the development of usable, effective decision support methods. The result will be an approach for imputing preference information as well as decision information from unstructured design texts that draws on both design language models and probabilistic extraction. Graduate students will learn about this work through an interdisciplinary, project-based class on decision-making in engineering design. A diverse group of undergraduates will have hands-on research experience with this work the Undergraduate Research Opportunities Program.
+
+
+% 1160566	07/01/2012	Division of Mathematical Sciences	PROBABILITY; Combinatorics; 	Ramsey Theory: Central sets and related combinatorially rich sets	Ramsey Theory is that part of combinatorics that deals with the question of what sort of homogeneous structures one can expect to find in some one cell of a finite partition of a specified set (or sometimes in any suitably "large" subset). For example, the simplest nontrivial instance of the infinite version of Ramsey's Theorem says that whenever the two-element subsets of the set N of positive integers are finitely colored, there must be some infinite subset of N all of whose two element subsets are the same color. Many years ago, the principal investigator proved that whenever N is finitely colored, there must exist in one color an infinite sequence together with all of its finite sums of distinct terms without repetition. The original proof was elementary, but very complicated. Subsequently, other proofs were found that were less complicated. But in 1975, F. Galvin and S. Glazer showed that this "Finite Sums Theorem" is a completely trivial consequence of the fact that the Stone-Cech compactification of N can be given an algebraic structure extending ordinary addition which makes it a compact right topological semigroup, and therefore has idempotents. Sets with the property that they contain all the finite sums from a sequence are called IP sets. By virtue of the connection discovered above, a set is an IP set if and only if it has an idempotent in its closure in the Stone-Cech compactification of N. Those that have special idempotents which are called "minimal" in their closure are "central" sets. These sets have much stronger properties, many of which are consequences of the Central Sets Theorem. But central sets have a very complicated elementary description. Sets which satisfy the conclusion of the Central Sets Theorem are called "C-sets", and are much easier to describe in an elementary fashion. The proposed investigation of these various algebraically characterized large subsets of N should continue to yield new Ramsey-theoretic results.  A significant portion of the funds in this grant will provide support for graduate students at Howard University, an historically black university. In particular, the grant will provide stipends for three Ph.D. students, two of whom are black Americans, both female. This project will therefore be instrumental in training mathematicians who come from a population that is severely underrepresented within the population of US mathematicians.
+
+\begin{table*}[t]
+\renewcommand{\arraystretch}{1.3}
+\caption{Classification results for the Ebay dataset.}
+\label{tab:classification-results}
+%\vspace{4mm}
+\centering
+\begin{tabular}{l||c|c|c|c}
 &Precision & Recall & F1 & Accuracy
-\\ \hline 
+\\ \hline \hline
 JSD Features         &$\mathbf{0.714}\pm 0.015$&$0.597\pm 0.016$&$0.650\pm
 0.014$& $\mathbf{0.8828}\pm 0.0045$\\
-RAE             &$0.676\pm 0.005$&$\mathbf{0.666}\pm 0.030$&$\mathbf{0.671}\pm
+RAE Features         &$0.676\pm 0.005$&$\mathbf{0.666}\pm 0.030$&$\mathbf{0.671}\pm
 0.013$&$0.8809\pm 0.0020$ \\
 SVD Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
 0.010$&$0.8778\pm 0.0027$\\
-\hline
+%\hline
 \end{tabular}
-\caption{Classification results for the eBay dataset.}
-\end{center}
 \end{table*}
 
 \subsection{Unsupervised Learning}
