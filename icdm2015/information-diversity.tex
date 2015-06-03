@@ -1,12 +1,9 @@
-The goal of our work is to discover interestingness in text. However,
-this is a vague term that can have very different meanings in different
-domains. We aim to show that in at least one important domain of
-e-commerce, measuring text diversity can be used as a good proxy for 
-product interestingness. This does not mean that any diverse text is
+The main objective of our work is to discover interestingness in text. However,
+as we mentioned in Section~\ref{sec:introduction}, text interestingness problem is not well defined and has many different facets in different tasks/domains. In this work, we aim to demonstrate that in at least one important domain of e-commerce, text diversity can be used as a good proxy for 
+predicting product interestingness. This does not mean that any diverse text is
 expected to be interesting, but rather that a high diversity score in
 a product is a good indicator of interestingness. However, we found
-that none of the existing 
-document diversity measures worked well in this setting. We believe
+that none of the existing document diversity measures worked well in this setting. We believe
 that the primary reason for this is that the amount of useful textual
 data for each product is often too small to be treated as a document. 
 In this section, we propose a new way of measuring diversity, that is
@@ -43,7 +40,7 @@ For example, if we chose $T=V$ then we obtain the familiar {\sl
 of times two words co-occurred in a document corpus. Another choice is
 to use the set of topics learned over a document 
 corpus by {\sl Latent Dirichlet Allocation}
-(LDA)~\cite{Blei:2003:LDA:944919.944937} as the contexts. It has the
+(LDA)~\cite{Blei:2003:LDA:944919.944937}, as the contexts. In this case, each word is mapped to a probability distribution over the topics discovered by LDA. It has the
 advantage of allowing us to select the appropriate dimensionality of
 the representations by choosing the number of topics to learn. Since
 this is the direction we take in this paper, from now on we will use
