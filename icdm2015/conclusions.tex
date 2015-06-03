@@ -1,21 +1,25 @@
 In this paper we propose an information theoretic approach for
-measuring diversity in text. At the heart of this approach lies a
-topic-distributional model for words, that is based on LDA learned
-over a corpus of documents. We present a set of enhancements to the
-base model for distributional word representations to account for sample
-biases, topic similarity and context-dependence. Moreover, we
-show Jensen-Shannon Divergence to be a valid measure of text
-diversity. Our results in two different real 
-world domains show how this method outperforms the previously
+measuring diversity in text, and show that it can be an effective way
+of discovering interesting products for recommendation. At the heart
+of this approach lies a 
+topic-distributional model for words, that is based on an LDA topic
+model learned over a corpus of documents. We present a set of
+enhancements to the 
+basic word representations, accounting for sample
+biases, topic correlations and context-dependence. Using this framework,
+we show that Jensen-Shannon Divergence is an accurate measure of text
+diversity. We provide experimental results in two different real 
+world domains, for which this method outperforms the previously
 established diversity measures in an unsupervised setting. In
 supervised setting we also show that our proposed approach gives a
 higher precision and a marginally higher accuracy compared to the
-baselines.  
+baselines.
 
 There are many text domains, where finding interesting items is valuable, 
 like, for instance, news articles. Moreover, we believe that Jensen-Shannon 
 divergence could be applied in other fields in context of diversity, for example, 
-to analyze multi-population systems in biology. Finally, a more thorough comparative analysis 
+to analyze multi-population systems in biology. Finally, a more
+thorough comparative analysis  
 is needed to determine the advantages and disadvantages of distributional text 
 representations derived from our model in common NLP tasks, 
 against other word and text embeddings.
