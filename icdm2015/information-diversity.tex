@@ -19,10 +19,6 @@ analyzing very short pieces of text.
 \label{sec:distributional-representations}
 As described later in this section, the proposed diversity measure
 is set in an information-theoretic framework. 
-% To apply it in the text
-% setting we have to construct distributional representations that
-% preserve the relevant content of the data in a way that is compatible
-% with that model.
 To apply it in the text setting we have to construct distributional
 representations of each word in such a way that will preserve the
 relevant content of the data.
@@ -50,9 +46,8 @@ corpus by {\sl Latent Dirichlet Allocation}
 (LDA)~\cite{Blei:2003:LDA:944919.944937} as the contexts. It has the
 advantage of allowing us to select the appropriate dimensionality of
 the representations by choosing the number of topics to learn. Since
-this is the direction we take in this paper, for the sake
-of clarity, from now on we will refer to the
-word representations as topic distributions. 
+this is the direction we take in this paper, from now on we will use
+topic distributions as distributional representations of words.
 
 %  We will use the notation $P_w$ to represent 
 % the probability distribution over the context  given a word $w$. We
@@ -114,10 +109,12 @@ we are given a distributional representation over a vocabulary $V$ and
 topic set $T$, with $P_w$ giving a topic distribution corresponding to the
 word $w$. We will measure information diversity
 for a text snippet $W=\{w_1,...,w_k\}$ by analyzing its 
-distributional representation $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$. To
-that end, we use a measure of divergence between probability
-distributions, discussed in \cite{FugledeTopsoe}, which is a
-generalization of Jensen-Shannon Divergence.
+distributional representation
+$\cP_{W}=\{P_{w_1},...,P_{w_k}\}$. Since we are ignoring the ordering
+of words, this can be viewed as a bag-of-words model. To
+estimate the diversity of $\cP_{W}$, we use a measure of divergence
+between probability distributions, discussed in \cite{FugledeTopsoe},
+which is a generalization of Jensen-Shannon Divergence.
 
 \bed\label{diversity}
 Let $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$ be a set of
@@ -146,7 +143,7 @@ Note, that to compute the above quantity we need not only the
 distributional representations, but also a set of weights assigned to
 each of them. Intuitively, the weight $d_{w_i}$ should describe how
 important the word $w_i$ is in describing the content of the text. In
-the following sections, we will return to the issue of selecting the
+Section~\ref{sec:the-readers-model}, we will return to the issue of selecting the
 right weights, since it is tied to the choice of distributions
 themselves. The rest of this section is dedicated to the examination of the
 basic properties of Generalized Jensen-Shannon Divergence (JSD) in the

@@ -87,13 +87,17 @@ than its meaning out of context. For example, the word {\em mouse} can
 be associated with the topic of computers as well as the topic of
 animals, which are clearly very different. However, in a given
 context, usually there will be no confusion as to which topic is
-most relevant. Suppose that a topic distribution $P_c$ describes the
-topics relevant to the context window of a word $w_i$, while $P_{w_i}$
-is its own topic representation. If a topic $t$ has high weight in
-both of those distributions, then it is relevant to $w_i$ in this
-context. More generally, if distributions $P_c$ and $P_{w_i}$ have
-significant overlap, then those topics are likely to explain the
-text well, and the remaining topics in $P_{w_i}$ should effectively be
+most relevant. We want to define a new context-dependent
+distributional representation of $w_i$ that takes this into account
+(as opposed to the global representation $\widehat{P}_{w_i}$ we have so far).
+We will represent the context information through a topic
+distribution $P_c$, which describes the
+topics relevant to the words in $W$ (excluding the word in question - $w_i$), defined later as a mixture of
+their distributional representations. If a topic $t$ has high weight in
+both distributions $\widehat{P}_{w_i}$ and $P_c$, then it is relevant to $w_i$ in this
+context. More generally, if distributions $P_c$ and $\widehat{P}_{w_i}$ have
+significant overlap, then those shared topics are likely to explain the
+text well, and the remaining topics in $\widehat{P}_{w_i}$ should effectively be
 ignored. If the overlap is minimal, then this indicates unusual
 (diverse) content. To model this intuition, we define the following
 transformation applied to a word representation in a given context.
@@ -107,7 +111,7 @@ transformation applied to a word representation in a given context.
 % propose the following definition of context-dependent word-topic
 % distribution:
 \bed\label{context}
-Let $P_0,\widehat{P}_{w_i}, P_c$ be the topic prior, general
+Let $P_0,\widehat{P}_{w_i}, P_c$ be the topic prior, global
 topic distribution for $w_i$, and the context distribution,
 respectively. Then, the context-dependent distribution is
 \begin{equation*}
@@ -115,11 +119,18 @@ respectively. Then, the context-dependent distribution is
 \end{equation*}
 \eed
 This can be intuitively understood as follows:
-we can think of $\frac{P_c(t)}{P(t)}$ as a weight
+we can think of $\frac{P_c(t)}{P_0(t)}$ as a weight
 that further reshapes the smoothed topic distribution $\widehat{P}_{w_i}(t)$
-to take into account the context. Note, that we apply additional
-smoothing here with parameter $\beta$, to account for the case where
-the word and the context have minimal topic overlap. Naturally, we still
+to take into account the context. The key operation here is the
+element-wise multiplication $P_c(t)\cdot\widehat{P}_{w_i}(t)$, which
+essentially captures the overlapping topics. The prior $P_0$ is there
+to adjust for the overall popularity of each topic - if context
+distribution were equal to the prior, we would expect it to have no effect in
+this transformation, as is the case here. Note, that we apply additional
+Laplace smoothing with parameter $\beta$, to account for the case where
+the word and the context have minimal topic overlap, which is very
+important because that is what generates diversity. In this occurs,
+the transformation effectively reverts to the global representation. Naturally, we still
 have to provide a method for obtaining the context distributions, and
 also connect the entire procedure to the diversity measure discussed in
 Section~\ref{sec:information-diversity}. We will now jointly address
@@ -192,21 +203,27 @@ Divergence, applying it to some mixture of the distributional word
 representations. First, let us look at the global representations
 $\widehat{P}_{w_i}$ (without context-dependence). How do we choose the
 importance weights for the mixture, necessary for using
-Definition~\ref{diversity}? We 
-are tempted to use the frequencies of each of the words in our
-corpus. However, that would not  
-necessarily have the desired effect. Suppose that in our
-corpus, word $w_i$ is very common, but it is not well captured by any of
-the topics (e.g. word {\em the} which plays a syntactic role), and
-so its topic distribution is very close to the overall 
-topic distribution $P_0$, making it uninformative. With
+Definition~\ref{diversity}? 
+We 
+are tempted to look at the frequencies of each of the words in our
+corpus. On the one hand, one may say that an infrequent word is more
+discriminative then a common one, because it probably appears in more
+specific settings. On the other hand, a word that only appears a few
+times in a dataset likely does not have enough occurrences to establish an
+accurate representation - in fact Laplace smoothing will force such a
+representation to be very close to the prior topic distribution
+$P_0$, making it uninformative. Moreover, there is many relatively frequent words
+that can be clearly identified with a specific topic (e.g. word
+{\em iPhone} corresponding to a relatively narrow product category of smartphones,
+appears frequently in the eBay product titles dataset). With
 that in mind, we will once again turn to KL-divergence to
-estimate how informative a word is with respect to a reference distribution.
+estimate how informative a word is with respect to the prior $P_0$
+used as a reference distribution.
 
 \bed\label{mixture}
 We define the {\bf importance} of a word representation $\widehat{P}_{w_i}$ with
-respect to a reference distribution $P$ as 
-\[D_{w_i}=D_{KL}(\widehat{P}_{w_i}\,\|\,P).\]
+respect to a reference distribution $P_0$ as 
+\[D_{w_i}=D_{KL}(\widehat{P}_{w_i}\,\|\,P_0).\]
 Given a set of distributions and their importances $\cP =
 \{(\widehat{P}_{w_1},D_{w_1}),...,(\widehat{P}_{w_k},D_{w_k})\}$, the
 {\bf Informative Mixture} of $\cP$ is a topic distribution defined as 
