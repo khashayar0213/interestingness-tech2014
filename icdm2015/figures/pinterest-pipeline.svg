@@ -8,7 +8,6 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="744.09448"
@@ -28,8 +27,8 @@
      borderopacity="0.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="0"
-     inkscape:zoom="0.24748737"
-     inkscape:cx="-780.78293"
+     inkscape:zoom="0.175"
+     inkscape:cx="-1205.8592"
      inkscape:cy="744.43852"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -41,6 +40,14 @@
      inkscape:window-maximized="1" />
   <defs
      id="defs5658">
+    <linearGradient
+       id="linearGradient5673"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop5675" />
+    </linearGradient>
     <marker
        inkscape:isstock="true"
        style="overflow:visible;"
@@ -72,7 +79,7 @@
     </marker>
     <linearGradient
        id="linearGradient6216"
-       inkscape:collect="always">
+       osb:paint="gradient">
       <stop
          id="stop6218"
          offset="0"
@@ -90,26 +97,6 @@
          offset="0"
          style="stop-color:#2b2b2b;stop-opacity:1;" />
     </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient6216"
-       id="linearGradient7564"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.0894765,0,0,1.3982203,1973.4362,-201.22541)"
-       x1="-1524.1381"
-       y1="449.50507"
-       x2="-1130.1475"
-       y2="449.50507" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient6216"
-       id="linearGradient7576"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.0894765,0,0,1.3982203,-555.98577,-168.90053)"
-       x1="-1524.1381"
-       y1="449.50507"
-       x2="-1130.1475"
-       y2="449.50507" />
   </defs>
   <metadata
      id="metadata5661">
@@ -119,7 +106,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -128,18 +115,6 @@
      inkscape:groupmode="layer"
      inkscape:label="Layer 1">
     <flowRoot
-       transform="matrix(1.1432168,0,0,1.8054734,-1036.837,-863.0201)"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="flowRoot6314"
-       xml:space="preserve"><flowRegion
-         id="flowRegion6316"><rect
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
-           y="689.50507"
-           x="-988.57141"
-           height="88.571472"
-           width="331.42865"
-           id="rect6318" /></flowRegion><flowPara
-         id="flowPara6320">Pinterest</flowPara></flowRoot>    <flowRoot
        style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"
        id="flowRoot6322"
        xml:space="preserve"><flowRegion
@@ -161,7 +136,7 @@
            id="rect6334" /></flowRegion><flowPara
          id="flowPara6336" /></flowRoot>    <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:7.53080511;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m -1785.0699,452.38259 c 142.7517,-2.89796 142.7517,-2.89796 142.7517,-2.89796"
+       d="m -1789.0699,452.38259 c 142.7517,-2.89796 142.7517,-2.89796 142.7517,-2.89796"
        id="path6686"
        inkscape:connector-curvature="0" />
     <path
@@ -178,18 +153,6 @@
        y="309.74945" />
     <flowRoot
        xml:space="preserve"
-       id="flowRoot7430"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="matrix(1.1432168,0,0,1.8054734,-401.40844,-917.30581)"><flowRegion
-         id="flowRegion7432"><rect
-           id="rect7434"
-           width="583.84924"
-           height="121.80376"
-           x="-988.57141"
-           y="689.50507"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'" /></flowRegion><flowPara
-         id="flowPara7438">Pinterest</flowPara></flowRoot>    <flowRoot
-       xml:space="preserve"
        id="flowRoot7442"
        style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
          id="flowRegion7444"><rect
@@ -198,7 +161,7 @@
            height="137.14285"
            x="-1477.1428"
            y="900.93359" /></flowRegion><flowPara
-         id="flowPara7448"></flowPara></flowRoot>    <flowRoot
+         id="flowPara7448" /></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot7458"
        style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
@@ -208,19 +171,7 @@
            height="402.85715"
            x="-700"
            y="323.79074" /></flowRegion><flowPara
-         id="flowPara7464"></flowPara></flowRoot>    <flowRoot
-       xml:space="preserve"
-       id="flowRoot7466"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="matrix(1.1432168,0,0,1.8054734,-378.5513,-823.02009)"><flowRegion
-         id="flowRegion7468"><rect
-           id="rect7470"
-           width="583.84924"
-           height="121.80376"
-           x="-988.57141"
-           y="689.50507"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'" /></flowRegion><flowPara
-         id="flowPara7472">Crawler</flowPara></flowRoot>    <path
+         id="flowPara7464" /></flowRoot>    <path
        inkscape:connector-curvature="0"
        id="path7474"
        d="m -1153.6413,440.95402 c 142.7517,-2.89796 142.7517,-2.89796 142.7517,-2.89796"
@@ -231,112 +182,162 @@
        d="m -1056.5512,438.07647 c 99.99998,0 102.85718,0 102.85718,0 l 0,0 0,0"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4.53543329;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Lend)" />
     <rect
-       y="298.32089"
-       x="-950.59259"
-       height="273.79691"
-       width="428.08261"
+       y="298.43393"
+       x="-950.47955"
+       height="273.57086"
+       width="467.85657"
        id="rect7478"
-       style="opacity:0.61000001;fill:#2b2b2b;fill-opacity:0.30555558;fill-rule:nonzero;stroke:#000000;stroke-width:5.02425814;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-    <flowRoot
-       transform="matrix(1.1432168,0,0,1.8054734,201.4487,-880.16295)"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="flowRoot7480"
-       xml:space="preserve"><flowRegion
-         id="flowRegion7482"><rect
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
-           y="689.50507"
-           x="-988.57141"
-           height="121.80376"
-           width="583.84924"
-           id="rect7484" /></flowRegion><flowPara
-         id="flowPara7486">Pin Ranker</flowPara></flowRoot>    <path
+       style="opacity:0.61000001;fill:#2b2b2b;fill-opacity:0.30555558;fill-rule:nonzero;stroke:#000000;stroke-width:5.25031233;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <path
        inkscape:connector-curvature="0"
        id="path7496"
-       d="m -522.21276,437.23973 c 142.7517,-2.89796 142.7517,-2.89796 142.7517,-2.89796"
+       d="m -480.21276,437.23973 c 142.7517,-2.89796 142.7517,-2.89796 142.7517,-2.89796"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:7.53080511;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        inkscape:connector-curvature="0"
        id="path7498"
-       d="m -425.12266,434.36218 c 100,0 102.8572,0 102.8572,0 l 0,0 0,0"
+       d="m -383.12266,434.36218 c 100,0 102.8572,0 102.8572,0 l 0,0 0,0"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4.53543329;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker7518)" />
     <rect
        y="294.6066"
-       x="-319.16409"
+       x="-277.16409"
        height="273.79691"
        width="428.08261"
        id="rect7500"
        style="opacity:0.61000001;fill:#2b2b2b;fill-opacity:0.30555558;fill-rule:nonzero;stroke:#000000;stroke-width:5.02425814;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-    <flowRoot
-       transform="matrix(1.1432168,0,0,1.8054734,861.4487,-932.44867)"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="flowRoot7502"
-       xml:space="preserve"><flowRegion
-         id="flowRegion7504"><rect
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
-           y="689.50507"
-           x="-988.57141"
-           height="121.80376"
-           width="583.84924"
-           id="rect7506" /></flowRegion><flowPara
-         id="flowPara7508">Keyword</flowPara></flowRoot>    <flowRoot
-       transform="matrix(1.1432168,0,0,1.8054734,861.4487,-838.16295)"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="flowRoot7510"
-       xml:space="preserve"><flowRegion
-         id="flowRegion7512"><rect
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
-           y="689.50507"
-           x="-988.57141"
-           height="121.80376"
-           width="583.84924"
-           id="rect7514" /></flowRegion><flowPara
-         id="flowPara7516">Extractor</flowPara></flowRoot>    <path
+    <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:7.53080511;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 112.07295,434.38259 c 142.7517,-2.89796 142.7517,-2.89796 142.7517,-2.89796"
+       d="m 154.07295,434.38259 c 142.7517,-2.89796 142.7517,-2.89796 142.7517,-2.89796"
        id="path7538"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4.53543329;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker7518)"
-       d="m 209.16305,431.50504 c 100,0 102.8572,0 102.8572,0 l 0,0 0,0"
+       d="m 251.16305,431.50504 c 100,0 102.8572,0 102.8572,0 l 0,0 0,0"
        id="path7540"
        inkscape:connector-curvature="0" />
     <ellipse
-       style="opacity:0.61000001;fill:url(#linearGradient7564);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.04499531;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:0.61000001;fill:#000000;fill-opacity:0.22222224;fill-rule:nonzero;stroke:#000000;stroke-width:7.04499531;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="ellipse7554"
-       cx="527.5451"
+       cx="569.5451"
        cy="427.28168"
        rx="213.25557"
        ry="231.7429" />
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot7556"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="matrix(1.1432168,0,0,1.8054734,1556.9912,-972.11657)"><flowRegion
-         id="flowRegion7558"><rect
-           id="rect7560"
-           width="331.42865"
-           height="88.571472"
-           x="-988.57141"
-           y="689.50507"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'" /></flowRegion><flowPara
-         id="flowPara7562">eBay</flowPara></flowRoot>    <flowRoot
-       transform="matrix(1.1432168,0,0,1.8054734,1488.2106,-847.26375)"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="flowRoot7566"
-       xml:space="preserve"><flowRegion
-         id="flowRegion7568"><rect
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
-           y="689.50507"
-           x="-988.57141"
-           height="121.80376"
-           width="583.84924"
-           id="rect7570" /></flowRegion><flowPara
-         id="flowPara7572">Inventory</flowPara></flowRoot>    <ellipse
+    <ellipse
        ry="231.7429"
        rx="213.25557"
        cy="459.60657"
        cx="-2001.8768"
        id="ellipse7574"
-       style="opacity:0.61000001;fill:url(#linearGradient7576);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:7.04499531;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-  </g>
+       style="opacity:0.61000001;fill:#000000;fill-opacity:0.22222222;fill-rule:nonzero;stroke:#000000;stroke-width:7.04499531;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5687"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:'.Helvetica LT MM';font-style:normal;font-weight:normal;font-size:80px;line-height:125%;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:'.Helvetica LT MM';font-stretch:normal;font-variant:normal;"><flowRegion
+         id="flowRegion5689"><rect
+           id="rect5691"
+           width="565.71429"
+           height="228.57143"
+           x="-3451.4287"
+           y="538.07648"
+           style="-inkscape-font-specification:'.Helvetica LT MM';font-family:'.Helvetica LT MM';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;" /></flowRegion><flowPara
+         id="flowPara5693" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5703"
+       style="font-style:normal;font-weight:normal;font-size:80px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(1017.1429,714.28572)"><flowRegion
+         id="flowRegion5705"><rect
+           id="rect5707"
+           width="525.71429"
+           height="360"
+           x="-3200"
+           y="-313.35211" /></flowRegion><flowPara
+         id="flowPara5709">Pinterest</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5711"
+       style="font-style:normal;font-weight:normal;font-size:80px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(1802.2857,471.14286)"><flowRegion
+         id="flowRegion5713"><rect
+           id="rect5715"
+           width="457.14285"
+           height="200"
+           x="-3337.1428"
+           y="-39.066402" /></flowRegion><flowPara
+         id="flowPara5717">crawler</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5719"
+       style="font-style:normal;font-weight:normal;font-size:80px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(2347.1429,74.285715)"><flowRegion
+         id="flowRegion5721"><rect
+           id="rect5723"
+           width="662.85718"
+           height="302.85715"
+           x="-3268.5715"
+           y="303.79074" /></flowRegion><flowPara
+         id="flowPara5725">Pin</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5727"
+       style="font-style:normal;font-weight:normal;font-size:80px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(1777.1429,908.57144)"><flowRegion
+         id="flowRegion5729"><rect
+           id="rect5731"
+           width="640"
+           height="331.42859"
+           x="-2554.2856"
+           y="-530.495" /></flowRegion><flowPara
+         id="flowPara5733">ranker</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5735"
+       style="font-style:normal;font-weight:normal;font-size:80px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(1075.1429,1078.5714)"><flowRegion
+         id="flowRegion5737"><rect
+           id="rect5739"
+           width="622.85718"
+           height="348.57144"
+           x="-1325.7144"
+           y="-764.7807" /></flowRegion><flowPara
+         id="flowPara5741">Keyword</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5743"
+       style="font-style:normal;font-weight:normal;font-size:80px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(949.42858,862.85715)"><flowRegion
+         id="flowRegion5745"><rect
+           id="rect5747"
+           width="600"
+           height="382.85715"
+           x="-1205.7144"
+           y="-439.06641" /></flowRegion><flowPara
+         id="flowPara5749">extractor</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5751"
+       style="font-style:normal;font-weight:normal;font-size:80px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(726.57144,960.85716)"><flowRegion
+         id="flowRegion5753"><rect
+           id="rect5755"
+           width="468.57144"
+           height="474.28571"
+           x="-274.28571"
+           y="-684.7807" /></flowRegion><flowPara
+         id="flowPara5757">eBay</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5759"
+       style="font-style:normal;font-weight:normal;font-size:80px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(863.7143,821.42858)"><flowRegion
+         id="flowRegion5761"><rect
+           id="rect5763"
+           width="445.71429"
+           height="205.71429"
+           x="-485.71429"
+           y="-421.92355" /></flowRegion><flowPara
+         id="flowPara5765">Inventory</flowPara></flowRoot>    <flowRoot
+       transform="translate(1651.4286,646)"
+       style="font-style:normal;font-weight:normal;font-size:80px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot5767"
+       xml:space="preserve"><flowRegion
+         id="flowRegion5769"><rect
+           y="-313.35211"
+           x="-3200"
+           height="360"
+           width="525.71429"
+           id="rect5771" /></flowRegion><flowPara
+         id="flowPara5773">Pinterest</flowPara></flowRoot>  </g>
 </svg>
