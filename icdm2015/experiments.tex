@@ -143,7 +143,7 @@ Foundations& theory, understanding, fundamental, framework, general
 % 1160566	07/01/2012	Division of Mathematical Sciences	PROBABILITY; Combinatorics; 	Ramsey Theory: Central sets and related combinatorially rich sets	Ramsey Theory is that part of combinatorics that deals with the question of what sort of homogeneous structures one can expect to find in some one cell of a finite partition of a specified set (or sometimes in any suitably "large" subset). For example, the simplest nontrivial instance of the infinite version of Ramsey's Theorem says that whenever the two-element subsets of the set N of positive integers are finitely colored, there must be some infinite subset of N all of whose two element subsets are the same color. Many years ago, the principal investigator proved that whenever N is finitely colored, there must exist in one color an infinite sequence together with all of its finite sums of distinct terms without repetition. The original proof was elementary, but very complicated. Subsequently, other proofs were found that were less complicated. But in 1975, F. Galvin and S. Glazer showed that this "Finite Sums Theorem" is a completely trivial consequence of the fact that the Stone-Cech compactification of N can be given an algebraic structure extending ordinary addition which makes it a compact right topological semigroup, and therefore has idempotents. Sets with the property that they contain all the finite sums from a sequence are called IP sets. By virtue of the connection discovered above, a set is an IP set if and only if it has an idempotent in its closure in the Stone-Cech compactification of N. Those that have special idempotents which are called "minimal" in their closure are "central" sets. These sets have much stronger properties, many of which are consequences of the Central Sets Theorem. But central sets have a very complicated elementary description. Sets which satisfy the conclusion of the Central Sets Theorem are called "C-sets", and are much easier to describe in an elementary fashion. The proposed investigation of these various algebraically characterized large subsets of N should continue to yield new Ramsey-theoretic results.  A significant portion of the funds in this grant will provide support for graduate students at Howard University, an historically black university. In particular, the grant will provide stipends for three Ph.D. students, two of whom are black Americans, both female. This project will therefore be instrumental in training mathematicians who come from a population that is severely underrepresented within the population of US mathematicians.
 
 
-\subsection{Unsupervised Learning}
+\subsection{Unsupervised Setting}
 \label{sec:unsupervised-learning}
 
 We evaluated our text diversity model in an unsupervised learning task
@@ -276,16 +276,29 @@ SVD Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
 \end{tabular}
 \end{table*}
 
-\subsection{Text Embeddings}
+\subsection{Supervised Setting}
 \label{sec:text-embeddings}
 
-In the second set of results, we used an unnormalized version of the Informative Mixture
-distribution (described in Definition~\ref{mixture}) computed over
-{\em eBay} product titles in a supervised classification
-setting for both datasets described in Section~\ref{sec:datasets}. We also used two 
-different baselines for comparison. For the first baseline we used {\em Latent Semantic Indexing (LSI)} features by forming a
+In the second set of results, we aim to show that topic-distributional
+representations of words can be combined into useful feature vectors
+for describing a block of text. Following the notation from
+Definition~\ref{text-diversity}, let text $W$ be represented by 
+$\cP_c=\{(\widehat{P}^{M_{\cP^i}}_{w_i},D_{w_i})\}_{i=1}^k$. We
+describe $W$ with a feature vector defined as
+\[F_{\cP_c}=\sum_{i=1}^k D_{w_i}\widehat{P}^{M_{\cP^i}}_{w_i}.\] Note, that this is identical to
+the mixture distribution used in computing our text diversity measure, except
+without the normalization factor, since it is not necessary in this setting.
+We used those feature vectors in a supervised classification
+task for the eBay dataset described in
+Section~\ref{sec:datasets}. Specifically, in this setting, part of the labeled data
+is used to train a classifier, which is given a feature vector
+representation of a product title, and outputs an interestingness
+label. We used two 
+different feature-extraction techniques as baselines for
+comparison. For the first baseline we used {\em Latent Semantic
+  Indexing (LSI)} features by forming a 
 document-term matrix and performing SVD. For the second baseline we used the {\em recursive auto-encoders (RAE)}~\cite{Socher:2011:SRA:2145432.2145450}. RAEs 
-have been shown sucessful for sentence-level prediction of sentiment label
+have been shown successful for sentence-level prediction of sentiment label
 distributions. There is a nice connection between RAEs and text diversity: starting from the word level, an RAE greedily forms substructures that yield the least reconstruction error  structured in a  binary tree. As a result at the higher levels of the tree we observe the more diverse  substructures. This is further illustrated in Figure~\ref{fig:rae-example} where it shows the learned RAE structure for the example product shown in Table~\ref{tab:ebay-interesting-products}(a). When RAE is applied to the product title "Eyeshadow Palettes for iPhone 6 case" , we can observe that the words \{for, iPhone, 6, case\} are combined into one substructure, while the words \{Eyeshadow, Palettes\} form a different substructure. In other words RAEs inherently respect diversity at higher levels of the RAE tree structure.
 
 Table~\ref{tab:classification-results} shows
