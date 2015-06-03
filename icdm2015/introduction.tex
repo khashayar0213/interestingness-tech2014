@@ -9,24 +9,24 @@ offer the largest diversity in each case. In other words what makes these produc
 The rest of this paper is organized as follows. In Section~\ref{sec:related-work} we briefly overview the related work. In Section~\ref{sec:information-diversity} we introduce {\em Jensen-Shannon Diversity} and discuss an approach for building a text model suitable for this metric. In Sections~\ref{sec:the-readers-model} and \ref{sec:topic-similarities} we present a set of enhacements to the base model. In Section~\ref{sec:experiments} we present our experiments followed by concluding remarks in Section~\ref{sec:conclusions}.
 
 \begin{table*}[t]
+\caption{Examples of eBay off-the-shelf products.}
+\label{tab:ebay-standard-products}
 \begin{center}
 \begin{tabular}{LLL}
 \includegraphics[height=4.0cm]{figures/standard-iphone-case.jpg}&\includegraphics[height=4.0cm]{figures/standard-iphone-speaker.jpg}&\includegraphics[height=3.5cm]{figures/standard-clock.jpg}\\
 (a) Black Qi Standard Wireless Charging Charger Receiver Case For iPhone 5 5G & (b) Bluetooth Wireless Speaker Mini Portable Super Bass For iPhone & (c) Modern DIY Your Wall Clock Sticker Decoration Home Roman Numerals Silver SCY07\\
 \end{tabular}
 \end{center}
-\caption{Examples of eBay off-the-shelf products.}
-\label{tab:ebay-standard-products}
 \end{table*}
 
 
 \begin{table*}[t]
+\caption{Examples of eBay interesting products.}
+\label{tab:ebay-interesting-products}
 \begin{center}
 \begin{tabular}{LLL}
 \includegraphics[height=3.5cm]{figures/eyeshadow-iphone-case.jpg}&\includegraphics[height=4.5cm]{figures/horn-iphone-speaker.jpg}&\includegraphics[height=4.0cm]{figures/geeky-clock.jpg}\\
 (a) \textcolor{red}{{\bf Eyeshadow}} Palettes for \textcolor{red}{{\bf iPhone}} 6 case & (b) White Silicone \textcolor{red}{{\bf Horn}} Stand Speaker for Apple \textcolor{red}{{\bf iPhone}} 4/ 4S& (c) \textcolor{red}{{\bf Equation}} Wall \textcolor{red}{{\bf Clock}} Gifts for Math Gurus\\
 \end{tabular}
 \end{center}
-\caption{Examples of eBay interesting products.}
-\label{tab:ebay-interesting-products}
 \end{table*}
