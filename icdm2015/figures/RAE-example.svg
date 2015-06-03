@@ -8,7 +8,6 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="744.09448"
@@ -18,7 +17,7 @@
    inkscape:version="0.91 r13725"
    viewBox="0 0 744.09448 1052.3622"
    sodipodi:docname="RAE-example.svg"
-   inkscape:export-filename="/Users/khasha/publication/interestingness-tech2014/icdm2015/figures/pinterest-pipeline.png"
+   inkscape:export-filename="/Users/khasha/publication/interestingness-tech2014/icdm2015/figures/RAE-example.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <sodipodi:namedview
@@ -29,7 +28,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="0"
      inkscape:zoom="0.24748737"
-     inkscape:cx="-865.63574"
+     inkscape:cx="-566.63059"
      inkscape:cy="744.43852"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -56,8 +55,8 @@
          transform="scale(0.8) rotate(180) translate(12.5,0)" />
     </marker>
     <linearGradient
-       inkscape:collect="always"
-       id="linearGradient6216">
+       id="linearGradient6216"
+       osb:paint="gradient">
       <stop
          style="stop-color:#2b2b2b;stop-opacity:1;"
          offset="0"
@@ -75,56 +74,6 @@
          offset="0"
          id="stop6210" />
     </linearGradient>
-    <linearGradient
-       y2="449.50507"
-       x2="-1130.1475"
-       y1="449.50507"
-       x1="-1524.1381"
-       gradientTransform="matrix(0.26712113,0,0,0.32949858,172.926,357.9623)"
-       gradientUnits="userSpaceOnUse"
-       id="linearGradient7576"
-       xlink:href="#linearGradient6216"
-       inkscape:collect="always" />
-    <linearGradient
-       y2="449.50507"
-       x2="-1130.1475"
-       y1="449.50507"
-       x1="-1524.1381"
-       gradientTransform="matrix(0.26712113,0,0,0.32949858,358.79406,87.241414)"
-       gradientUnits="userSpaceOnUse"
-       id="linearGradient7953"
-       xlink:href="#linearGradient6216"
-       inkscape:collect="always" />
-    <linearGradient
-       y2="449.50507"
-       x2="-1130.1475"
-       y1="449.50507"
-       x1="-1524.1381"
-       gradientTransform="matrix(0.26712113,0,0,0.32949858,144.64172,-215.80436)"
-       gradientUnits="userSpaceOnUse"
-       id="linearGradient7969"
-       xlink:href="#linearGradient6216"
-       inkscape:collect="always" />
-    <linearGradient
-       y2="449.50507"
-       x2="-1130.1475"
-       y1="449.50507"
-       x1="-1524.1381"
-       gradientTransform="matrix(0.26712113,0,0,0.32949858,-1265.5313,-243.9668)"
-       gradientUnits="userSpaceOnUse"
-       id="linearGradient7977"
-       xlink:href="#linearGradient6216"
-       inkscape:collect="always" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient6216"
-       id="linearGradient9355"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.26712113,0,0,0.32949858,-548.34329,-724.79942)"
-       x1="-1524.1381"
-       y1="449.50507"
-       x2="-1130.1475"
-       y2="449.50507" />
   </defs>
   <metadata
      id="metadata5661">
@@ -134,7 +83,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -146,7 +95,7 @@
        xml:space="preserve"
        id="flowRoot6314"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="matrix(1.1432168,0,0,1.8054734,-947.94357,-469.10482)"><flowRegion
+       transform="matrix(1.1432168,0,0,1.8054734,-809.94357,-469.10482)"><flowRegion
          id="flowRegion6316"><rect
            id="rect6318"
            width="603.5791"
@@ -194,14 +143,7 @@
            height="402.85715"
            width="160"
            id="rect7462" /></flowRegion><flowPara
-         id="flowPara7464" /></flowRoot>    <ellipse
-       style="opacity:0.61000001;fill:url(#linearGradient7576);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.69342077;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="ellipse7574"
-       cx="-181.582"
-       cy="506.07358"
-       rx="52.286644"
-       ry="54.611538" />
-    <flowRoot
+         id="flowPara7464" /></flowRoot>    <flowRoot
        transform="matrix(1.1432168,0,0,1.8054734,-838.84709,-1121.6192)"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        id="flowRoot7901"
@@ -226,7 +168,7 @@
            y="689.50507"
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'" /></flowRegion><flowPara
          id="flowPara7915">iPhone</flowPara></flowRoot>    <flowRoot
-       transform="matrix(1.1432168,0,0,1.8054734,-353.97386,-463.07975)"
+       transform="matrix(1.1432168,0,0,1.8054734,-215.97386,-463.07975)"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        id="flowRoot7917"
        xml:space="preserve"><flowRegion
@@ -274,14 +216,7 @@
            y="689.50507"
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:55px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'" /></flowRegion><flowPara
          id="flowPara7947">case</flowPara><flowPara
-         id="flowPara7949" /></flowRoot>    <ellipse
-       ry="54.611538"
-       rx="52.286644"
-       cy="235.35269"
-       cx="4.286067"
-       id="ellipse7951"
-       style="opacity:0.61000001;fill:url(#linearGradient7953);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.69342077;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-    <path
+         id="flowPara7949" /></flowRoot>    <path
        inkscape:connector-curvature="0"
        id="path7957"
        d="M -24.243661,276.56502 C -145.46197,470.51431 -145.46197,470.51431 -145.46197,470.51431"
@@ -301,13 +236,6 @@
        id="path7965"
        d="M 40.422598,276.57884 C 436.3694,769.50565 436.3694,769.50565 436.3694,769.50565"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
-    <ellipse
-       style="opacity:0.61000001;fill:url(#linearGradient7969);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.69342077;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="ellipse7967"
-       cx="-209.8663"
-       cy="-67.693077"
-       rx="52.286644"
-       ry="54.611538" />
     <path
        inkscape:connector-curvature="0"
        id="path7971"
@@ -322,35 +250,56 @@
        ry="54.611538"
        rx="52.286644"
        cy="-95.855515"
-       cx="-1620.0393"
+       cx="-1482.0393"
        id="ellipse7975"
-       style="opacity:0.61000001;fill:url(#linearGradient7977);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.69342077;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+       style="opacity:0.57999998;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.69342077;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m -1915.2493,737.19458 c 286.8834,-787.918991 286.8834,-783.878381 286.8834,-783.878381"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4.90705538;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -1777.3018,737.23704 c 274.8729,-792.057925 274.8729,-787.99609 274.8729,-787.99609"
        id="path9349"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="M -1377.8481,741.23519 C -1600.0817,-46.683801 -1600.0817,-42.643191 -1600.0817,-42.643191"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5.09578085;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -1239.8935,741.22389 C -1466.0753,-62.885569 -1466.0753,-58.761931 -1466.0753,-58.761931"
        id="path9351"
        inkscape:connector-curvature="0" />
-    <ellipse
-       style="opacity:0.61000001;fill:url(#linearGradient9355);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.69342077;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="ellipse9353"
-       cx="-902.85126"
-       cy="-576.68811"
-       rx="52.286644"
-       ry="54.611538" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m -1587.9532,-139.62773 c 634.36258,-424.24429 634.36258,-424.24429 634.36258,-424.24429"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.73935103;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -1442.9129,-131.0716 c 562.47495,-267.61031 562.47495,-267.61031 562.47495,-267.61031"
        id="path9357"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="M -242.44446,-115.38154 C -856.60161,-572.10198 -856.60161,-567.91189 -856.60161,-567.91189"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.76062775;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M -242.01971,-110.87211 C -780.39656,-405.60203 -780.39656,-402.8981 -780.39656,-402.8981"
        id="path9359"
        inkscape:connector-curvature="0" />
+    <ellipse
+       style="opacity:0.57999998;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.69342077;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="ellipse5661"
+       cx="-828.1203"
+       cy="-415.06372"
+       rx="52.286644"
+       ry="54.611538" />
+    <ellipse
+       style="opacity:0.57999998;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.69342077;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="ellipse5663"
+       cx="-209.98816"
+       cy="-65.652466"
+       rx="52.286644"
+       ry="54.611538" />
+    <ellipse
+       ry="54.611538"
+       rx="52.286644"
+       cy="233.35269"
+       cx="4.1641831"
+       id="ellipse5665"
+       style="opacity:0.57999998;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.69342077;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <ellipse
+       style="opacity:0.57999998;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.69342077;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="ellipse5667"
+       cx="-173.62267"
+       cy="508.1142"
+       rx="52.286644"
+       ry="54.611538" />
   </g>
 </svg>
