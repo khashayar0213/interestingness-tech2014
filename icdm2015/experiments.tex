@@ -249,7 +249,7 @@ JSD Features         &$\mathbf{0.714}\pm 0.015$&$0.597\pm 0.016$&$0.650\pm
 0.014$& $\mathbf{0.8828}\pm 0.0045$\\
 RAE Features         &$0.676\pm 0.005$&$\mathbf{0.666}\pm 0.030$&$\mathbf{0.671}\pm
 0.013$&$0.8809\pm 0.0020$ \\
-SVD Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
+LSI Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
 0.010$&$0.8778\pm 0.0027$\\
 %\hline
 \end{tabular}
@@ -295,7 +295,7 @@ representation of a product title, and outputs an interestingness
 label. We used two 
 different feature-extraction techniques as baselines for
 comparison. For the first baseline we used {\em Latent Semantic
-  Indexing (LSI)} features by forming a 
+  Indexing (LSI)} features~\cite{Deerwester90indexingby}, by forming a 
 document-term matrix and performing SVD. For the second baseline we used the {\em recursive auto-encoders (RAE)}~\cite{Socher:2011:SRA:2145432.2145450}. RAEs 
 have been shown successful for sentence-level prediction of sentiment label
 distributions. There is a nice connection between RAEs and text diversity: starting from the word level, an RAE greedily forms substructures that yield the least reconstruction error  structured in a  binary tree. As a result at the higher levels of the tree we observe the more diverse  substructures. This is further illustrated in Figure~\ref{fig:rae-example} where it shows the learned RAE structure for the example product shown in Table~\ref{tab:ebay-interesting-products}(a). When RAE is applied to the product title "Eyeshadow Palettes for iPhone 6 case" , we can observe that the words \{for, iPhone, 6, case\} are combined into one substructure, while the words \{Eyeshadow, Palettes\} form a different substructure. In other words RAEs inherently respect diversity at higher levels of the RAE tree structure.
