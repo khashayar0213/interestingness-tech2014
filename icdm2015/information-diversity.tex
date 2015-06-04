@@ -56,7 +56,7 @@ topic distributions as distributional representations of words.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Jensen-Shannon Diversity}
+\subsection{Jensen-Shannon Divergence}
 \label{sec:jensen-shannon-divergence}
 % Why diversity?
 
@@ -115,7 +115,10 @@ which is a generalization of Jensen-Shannon Divergence.
 
 \bed\label{diversity}
 Let $\cP_{W}=\{P_{w_1},...,P_{w_k}\}$ be a set of
-distributions (for example, a set of word topic distribution for the words in a sentence). Moreover, assume $\{d_{w_i}\}$  are a set of importance weights assigned to $\{P_{w_i}\}$, such that $\sum_{i=1}^kd_{w_i}=1$.
+distributions (for example, a set of word-to-topic distributions for
+the words in a sentence). Moreover, assume $\{d_{w_i}\}$  is a set of
+importance weights assigned to $\{P_{w_i}\}$, such that
+$\sum_{i=1}^kd_{w_i}=1$. 
 {\em Generalized Jensen-Shannon Divergence} of the mixture
 $\Sigma d_{w_i}P_{w_i}$ is defined as
 $$D_{JS}(\Sigma d_{w_i}P_{w_i})=\sum_{i=1}^k
@@ -138,11 +141,15 @@ it is clear that $M$ represents a mixture of distributions.
 Here, $D_{KL}$ corresponds to Kullback-Leibler Divergence.
 Note, that to compute the above quantity we need not only the
 distributional representations, but also a set of weights assigned to
-each of them. Intuitively, the weight $d_{w_i}$ should describe how
-important the word $w_i$ is in describing the content of the text (for example, one may assign a higher importance  to the named entities in the text when measuring diversity, e.g., product related keywords in a product title). In
+each of them. Intuitively, the weight $d_{w_i}$ should describe the
+saliency of word $w_i$, i.e., how
+important it is in describing the content of the text (for example,
+one may assign a higher importance  to the named entities in the text
+when measuring diversity, e.g., product related keywords in a product
+title). In 
 Section~\ref{sec:the-readers-model}, we will return to the issue of selecting the
 right weights, since it is tied to the choice of distributions
-themselves. The rest of this section is dedicated to the examination of the
+themselves. The rest of this section is dedicated to the examination of
 basic properties of Generalized Jensen-Shannon Divergence (JSD) in the
 context of measuring diversity. 
 
@@ -186,7 +193,8 @@ Divergence of $M$ satisfies the following properties:
  \end{enumerate}
 \eep
 The second property tells us that maximizing this measure means
-pushing all distributions $P_w$ to the corners of the simplex and
+pushing all distributions $P_w$ to the corners of the simplex
+(i.e. the set of all distributional vectors) and
 therefore minimizing their uncertainty. From this, it follows that
 Jensen-Shannon Divergence as a measure of diversity can be seen as a
 direct generalization of Shannon entropy, when replacing fixed topic
