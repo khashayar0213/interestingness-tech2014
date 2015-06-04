@@ -8,7 +8,7 @@ In this paper we present an information theoretic approach for quantifying certa
 The rest of this paper is organized as follows. In Section~\ref{sec:related-work} we briefly overview the related work. In Section~\ref{sec:information-diversity} we discuss {\em Jensen-Shannon Divergence} in the context of measuring diversity and present an approach for building a text model suitable for this metric. In Sections~\ref{sec:the-readers-model} and \ref{sec:topic-similarities} we present a set of enhancements to the base model. In Section~\ref{sec:experiments} we present our results in two different sets of experiments. We first evaluate our approach in an unsupervised setting and present our main results in terms of a set of ROC curves. We also present results in a supervised setting where we show how a model learned using text diversity features compares to several other text classification models. We finalize the paper by presenting some concluding remarks in Section~\ref{sec:conclusions}.
 
 \begin{table*}[t]
-\caption{Examples of eBay off-the-shelf products. Note that in every case, the word occurrences in the titles match our expectation.}
+\caption{Examples of eBay off-the-shelf products. Note that in every case, the word co-occurrences in the titles match our expectation.}
 \label{tab:ebay-standard-products}
 \begin{center}
 \begin{tabular}{LLL}
