@@ -25,9 +25,8 @@ certain problems that need to be addressed.
 {\bf Sample size bias problem.}  Note that 
 if we normalize the rows of the matrix $\cM$, the normalization factor   
 for a word $w$ is simply the number of occurrences of $w$ in the
-corpus. Thus for a word which occurs very rarely, the topic
-distribution will be artificially skewed and is inaccurate simply
-because we do not have 
+corpus. For a word which occurs very rarely, the topic
+distribution will be inaccurate simply because we do not have 
 enough data points to estimate its true topic distribution. 
 % Now, if for this corpus it happens that the prior topic distribution
 % is close to uniform, it will give a very high importance to the word 
@@ -74,8 +73,8 @@ $i^{th}$ and $j^{th}$ topic (e.g. the similarity would be high between {\em
 {\em Clothes}). Using
 $\cS$ we transform the word-topic-count matrix $\cM$, obtaining
 $\cM_\cS = \cM\cS^T$, which effectively diffuses the topic
-distributions to ones where all topics similar to some topic $t$ are
-well represented. A more detailed explanation of this step is provided
+distributions to ones where for every topic assignment, all similar topics are
+also well represented. A more detailed explanation of this step is provided
 in Section~\ref{sec:topic-similarities}.
 
 {\bf Context-dependent representations.} We propose a final
@@ -92,7 +91,7 @@ distributional representation of $w_i$ that takes this into account
 (as opposed to the global representation $\widehat{P}_{w_i}$ we have so far).
 We will represent the context information through a topic
 distribution $P_c$, which describes the
-topics relevant to the words in $W$ (excluding the word in question - $w_i$), defined later as a mixture of
+topics relevant to the words in $W$ (excluding the word in question, i.e., $w_i$), defined later as a mixture of
 their distributional representations. If a topic $t$ has high weight in
 both distributions $\widehat{P}_{w_i}$ and $P_c$, then it is relevant to $w_i$ in this
 context. More generally, if distributions $P_c$ and $\widehat{P}_{w_i}$ have
@@ -129,7 +128,7 @@ distribution were equal to the prior, we would expect it to have no effect in
 this transformation, as is the case here. Note, that we apply additional
 Laplace smoothing with parameter $\beta$, to account for the case where
 the word and the context have minimal topic overlap, which is very
-important because that is what generates diversity. In this occurs,
+important because that is what generates diversity. If this occurs,
 the transformation effectively reverts to the global representation. Naturally, we still
 have to provide a method for obtaining the context distributions, and
 also connect the entire procedure to the diversity measure discussed in
@@ -196,8 +195,7 @@ those two questions.
 % representations, denoted $\tilde{P}_w$. 
 
 
-We will now once again
-focus on the task of measuring diversity of a given set of words
+Let us return to the the task of measuring diversity of a given set of words
 $W=\{w_1,...,w_k\}$. Naturally, we aim to use Jensen-Shannon
 Divergence, applying it to some mixture of the distributional word
 representations. First, let us look at the global representations
@@ -208,12 +206,13 @@ We
 are tempted to look at the frequencies of each of the words in our
 corpus. On the one hand, one may say that an infrequent word is more
 discriminative then a common one, because it probably appears in more
-specific settings. On the other hand, a word that only appears a few
+specific settings. On the other hand, as we mentioned earlier, a word
+that only appears a few 
 times in a dataset likely does not have enough occurrences to establish an
 accurate representation - in fact Laplace smoothing will force such a
 representation to be very close to the prior topic distribution
 $P_0$, making it uninformative. Moreover, there is many relatively frequent words
-that can be clearly identified with a specific topic (e.g. word
+that can be clearly identified with a specific topic (e.g., word
 {\em iPhone} corresponding to a relatively narrow product category of smartphones,
 appears frequently in the eBay product titles dataset). With
 that in mind, we will once again turn to KL-divergence to
@@ -241,8 +240,8 @@ where
 % $t_2$, even though in each specific occurrence, $w_i$ represents only one
 % or the other. A context distribution $P_c$ could help disambiguate
 % the meaning of $w$.
-Note, that the natural choice for the reference distribution $P$ is
-the previously defined prior distribution $P_0$.
+% Note, that the natural choice for the reference distribution $P$ is
+% the previously defined prior distribution $P_0$.
 The above definition provides a natural way of defining the context
 distribution needed for Definition~\ref{context}. 
 In our case, the context of $w_i$ will be composed of
