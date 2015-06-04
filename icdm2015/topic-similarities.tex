@@ -1,15 +1,13 @@
 \begin{figure*}
-%\begin{center}
 \centering
 \includegraphics[height=2.2cm]{figures/pinterest-pipeline.png}
 \caption{Pipeline for generating interesting eBay products based on Pinterest. Pinterest is first crawled, next the pins will be ranked and filtered based on whether or not they contain useful product information, next a product keyword extractor is applied to a set of highly ranked pins, and finally the extracted keywords are used to find a relevant eBay product.}
-%\end{center}
 \label{fig:pinterest-pipeline}
 \end{figure*}
 
-In this section, we will discuss the issue of capturing topic
-correlations when using distributional representations. It is easy to
-observe manually, that even for the best topic model one can find a
+In this section, we will discuss the problem of topic
+correlations when using distributional representations. It can be easily observed 
+that even for the best topic model one can find a
 pair of topics that are closely related and a pair that is much more
 distant. Those interrelations between topics are 
 properties that represent useful information about the model that is
