@@ -210,7 +210,7 @@ length of documents in the test set.
  The DPP-based measure does have some correlation
 with the labels for both datasets, although not particularly
 high. Interestingly, for the eBay dataset, unit vector lengths
-performed better, while for NSF, importances gave an improvemet (in
+performed better, while for NSF, importances gave an improvement (in
 each case, only the better result was
 plotted). Another interesting observation is that 
 Shannon entropy on the NSF dataset performs much better when applied
@@ -221,10 +221,9 @@ transformation proposed in Section~\ref{sec:topic-similarities} is an
 effective way of incorporating topic similarity information when
 measuring diversity.
 \begin{figure}
-\begin{center}
+\centering
 \includegraphics[width=8.5cm]{figures/RAE-example.png}
 \caption{RAE tree learned for the product: {it Black Qi Standard Wireless Charging Charger Receiver Case For iPhone 5 5G}. Note how RAE learns to merge different concepts separately and merges them until very last step into the root node.}
-\end{center}
 \label{fig:rae-example}
 \end{figure}
 
@@ -248,12 +247,12 @@ LSI Features             &$0.676\pm 0.008$&$0.633\pm 0.017$&$0.654\pm
 
 Figures~\ref{fig:roc-curves} (b) and (d)  
 show the gains we obtain by applying topic
-similarity and context conditioning techniques to our measure, as
+similarity and context-dependence techniques to our measure, as
 discussed in Sections~\ref{sec:the-readers-model} and
 \ref{sec:topic-similarities}. Both methods appear to be beneficial,
 significantly improving the AUC. Interestingly, using
 topic similarities appears to skew the ROC curve towards the upper
-right, while context conditioning gives more improvement in the lower
+right, while context-dependence gives more improvement in the lower
 left corner of the plot, which suggests that the two enhancements work
 particularly well in conjunction. 
 We also measured the difference between using 
@@ -270,7 +269,7 @@ diluting the topic distribution.
 \label{sec:text-embeddings}
 
 In the second set of results, we aim to show that topic-distributional
-representations of words can be combined into useful feature vectors
+representations of words can be combined into a useful feature vector
 for describing a block of text. Following the notation from
 Definition~\ref{text-diversity}, let text $W$ be represented by 
 $\cP_c=\{(\widehat{P}^{M_{\cP^i}}_{w_i},D_{w_i})\}_{i=1}^k$. We
@@ -289,7 +288,7 @@ comparison. For the first baseline we used {\em Latent Semantic
   Indexing (LSI)} features~\cite{Deerwester90indexingby}, by forming a 
 document-term matrix and performing SVD. For the second baseline we used the {\em recursive auto-encoders (RAE)}~\cite{Socher:2011:SRA:2145432.2145450}. RAEs 
 have been shown successful for sentence-level prediction of sentiment label
-distributions. There is a nice connection between RAEs and text diversity: starting from the word level, an RAE greedily forms substructures that yield the least reconstruction error  structured in a  binary tree. As a result at the higher levels of the tree we observe the more diverse  substructures. This is further illustrated in Figure~\ref{fig:rae-example} where it shows the learned RAE structure for the example product shown in Table~\ref{tab:ebay-interesting-products}(a). When RAE is applied to the product title "Eyeshadow Palettes for iPhone 6 case" , we can observe that the words \{for, iPhone, 6, case\} are combined into one substructure, while the words \{Eyeshadow, Palettes\} form a different substructure. In other words RAEs inherently respect diversity at higher levels of the RAE tree structure.
+distributions. There is a nice connection between RAEs and text diversity: starting from the word level, an RAE greedily forms substructures that yield the least reconstruction error  structured in a  binary tree. As a result at the higher levels of the tree we observe the more diverse  substructures. This is further illustrated in Figure~\ref{fig:rae-example} where it shows the learned RAE structure for the example product shown in Table~\ref{tab:ebay-interesting-products}(a). When RAE is applied to the product title "Eyeshadow Palettes for iPhone 6 case", we can observe that the words \{for, iPhone, 6, case\} are combined into one substructure, while the words \{Eyeshadow, Palettes\} form a different substructure. In other words RAEs inherently respect diversity at higher levels of the RAE tree structure.
 
 Table~\ref{tab:classification-results} shows
 the performance of the SVM classifier using our proposed mixture topic
