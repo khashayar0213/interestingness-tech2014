@@ -1,9 +1,11 @@
+
+
 Through the use of experimental results, we aim to prove several
 claims made in this paper. First, we show that in some domains of
 e-commerce measuring text diversity for product titles is a valid
-approach for discovering interesetingness. To that end, we present the
+approach for discovering interestingness. To that end, we present the
 unsupervised evaluation of diversity scores against human-made
-interestingness labels for products in an eBay data-set of iPhone
+interestingness labels for products in an eBay dataset of iPhone
 cases. Second, we evaluate our proposed text diversity measure against
 several baselines on the dataset based on NSF grant proposal
 abstracts, to show that our model does in fact measure
@@ -17,26 +19,16 @@ dataset again, comparing against other text embedding techniques.
 \subsection{Datasets}
 \label{sec:datasets}
 
-
-\begin{figure*}
-%\begin{center}
-\centering
-\includegraphics[height=2.2cm]{figures/pinterest-pipeline.png}
-\caption{Pipeline for generating interesting eBay products based on Pinterest. Pinterest is first crawled, next the pins will be ranked and filtered based on whether or not they contain useful product information, next a product keyword extractor is applied to a set of highly ranked pins, and finally the extracted keywords are used to find a relevant eBay product.}
-%\end{center}
-\label{fig:pinterest-pipeline}
-\end{figure*}
-
 We used the following two datasets in our experiments: 
 
 {\bf Interesting iPhone cases}.
-In this dataset, we generated a collection of interesting (positive) and uninteresting (negative) iPhone cases as follows. For generating positive examples, one natural choice was exploiting the data hosted by Pinterest. By definition, it is fair to assume that anyone who pins a product on Pinterest has found it interesting to some degree. The more a pin is engaged by the users, the more interesting is the product to those users. Although Pinterest data is biased by the demographic of its users, it is a publicly available dataset and is a more natural choice compared to collecting interesting products using crowd sourcing such as  {\em Amazon Mechanical Turk (AMT)} where it would be more subject to demographic biases. We built a pipeline for generating interesting eBay products illustrated in Figure~\ref{fig:pinterest-pipeline}.  In the first stage, we periodically crawl pins from Pinterest. In the next stage we filter the pins which do not have rich textual content and then rank the remaining pins using a score computed from the number of {\em repins}, {\em likes}, and {\em comments}. In the next stage, we trained a linear-chain {\em Conditional Random Field (CRF)}~\cite{Lafferty:2001:CRF:645530.655813} for extracting product related keywords from a set of highly ranked pins produced in the previous step. The final set of product related keywords  is then used to find a match in the eBay inventory. 
+In this dataset, we collected a number of interesting (positive) and uninteresting (negative) iPhone case product titles as follows. For generating positive examples, one natural choice was exploiting the data hosted by Pinterest. By definition, it is fair to assume that anyone who pins a product on Pinterest has found it interesting to some degree. The more a pin is engaged by the users, the more interesting is the product to those users. Although Pinterest data is biased by the demographic of its users, it is a publicly available dataset and is a more natural choice compared to collecting interesting products using crowd sourcing such as  {\em Amazon Mechanical Turk (AMT)} where it would be more subject to demographic biases. We built a pipeline for generating interesting eBay products illustrated in Figure~\ref{fig:pinterest-pipeline}.  In the first stage, we periodically crawl pins from Pinterest. In the next stage we filter the pins which do not have rich textual content and then rank the remaining pins using a score computed from the number of {\em repins}, {\em likes}, and {\em comments}. In the next stage, we trained a linear-chain {\em Conditional Random Field (CRF)}~\cite{Lafferty:2001:CRF:645530.655813} for extracting product related keywords from a set of highly ranked pins produced in the previous step. The final set of product related keywords  is then used to find a match in the eBay inventory. 
 
 For generating the uninteresting iPhone case dataset (negative examples), we
 hired workers from {\em AMT} to label a collection
 of nearly 20,000 iPhone cases on {\em eBay}.  We then pulled our final dataset from the annotated by selecting only those instances where the annotators all labeled it as uninteresting. 
 
-The final data-set consists of $2179$ positive and $9770$ negative instances
+The final dataset consists of $2179$ positive and $9770$ negative instances
 for a total of $11,949$ instances. For each instance, the product title of
 the corresponding {\em eBay} listing was used as the input. In this case we are
 dealing with very short text snippets, usually 10 to 12 words each. To
@@ -99,7 +91,7 @@ Foundations) they are closely related to each other, hence the lower score.
 Decision-Making}} & \multicolumn{2}{c}{{\bf Title}\hfill\quad {\em Ramsey Theory: Central sets and related
 combinatorially rich sets}}\\
 \hline
-Main Topics & Top 5 words for topic & Main Topics & Top 5 words for topic\\
+Main Topics & Top 5 words for topic, from LDA & Main Topics & Top 5 words for topic, from LDA\\
 \hline
 Linguistics & language, linguistic, english, speakers, words &
 Algebraic Geometry& theory, algebraic, geometry, representation,
@@ -161,8 +153,7 @@ information to provide better accuracy. We suspected that
 poor performance of entropy might be due to a suboptimal choice of
 topic distribution, which led to our topic similarity
 method. This technique can be used on any topic distribution
-by simply multiplying it by the topic similarity matrix, and then
-renormalizing. We present the performance of entropy with - and
+by simply multiplying it by the topic similarity matrix $\cS$. We present the performance of entropy with - and 
 without - the topic
 similarity transformation to verify that this approach improves the results not
 only for Jensen-Shannon Divergence, but for other measures as well.
